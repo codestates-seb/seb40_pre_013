@@ -1,4 +1,4 @@
-package com.sebbe013.Stack.Overflow.Clone;
+package sebbe013.stackoverflowclone;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.sebbe013.Stack.Overflow.Clone.test;
+package sebbe013.stackoverflowclone.test;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

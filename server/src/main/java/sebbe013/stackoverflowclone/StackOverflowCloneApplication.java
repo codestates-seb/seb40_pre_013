@@ -1,4 +1,4 @@
-package com.sebbe013.Stack.Overflow.Clone;
+package sebbe013.stackoverflowclone;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
