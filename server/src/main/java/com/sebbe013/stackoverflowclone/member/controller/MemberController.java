@@ -30,7 +30,4 @@ public class MemberController {
         memberService.createMember(member);
         return member;
     }
-
-
-
 }
