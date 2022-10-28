@@ -5,7 +5,6 @@ import lombok.Getter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 @Getter
 public class MemberSignUpDto {
@@ -19,7 +18,7 @@ public class MemberSignUpDto {
 
     @NotBlank(message = "패스워드를 입력해 주세요.")
     // 8자 이상, 하나 이상의 문자, 하나의 이상의 숫자 및 하나의 이상의 특수 문자 정규식
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")
+   // @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")
     private String password;
 
     @Builder

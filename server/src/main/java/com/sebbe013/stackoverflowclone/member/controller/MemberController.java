@@ -6,7 +6,6 @@ import com.sebbe013.stackoverflowclone.member.mapper.MemberMapper;
 import com.sebbe013.stackoverflowclone.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +22,6 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberMapper memberMapper;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping
     public Member signUpMember( @Valid @RequestBody MemberSignUpDto memberSignUpDto){
