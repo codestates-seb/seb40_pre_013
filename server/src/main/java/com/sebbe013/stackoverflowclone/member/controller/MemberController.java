@@ -28,15 +28,11 @@ public class MemberController {
     @PostMapping
     public Member signUpMember( @Valid @RequestBody MemberSignUpDto memberSignUpDto){
         Member member = memberMapper.memberSignUpDtoToMember(memberSignUpDto);
-        encodingPassword(member); //패스워드 암호화
+        memberService.encodePassword(member);
         memberService.createMember(member);
         return member;
     }
 
-    private Member encodingPassword( Member member ){
-        String encodingPassword = bCryptPasswordEncoder.encode(member.getPassword());
-        member.setPassword(encodingPassword);
-        return member;
-    }
+
 
 }
