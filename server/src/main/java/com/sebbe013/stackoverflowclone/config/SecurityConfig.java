@@ -1,4 +1,4 @@
-package com.sebbe013.config;
+package com.sebbe013.stackoverflowclone.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
