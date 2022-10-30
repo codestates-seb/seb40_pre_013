@@ -1,9 +1,9 @@
-package com.sebbe013.stackoverflowclone.member.controller;
+package com.sebbe013.member.controller;
 
+import com.sebbe013.member.entity.Member;
+import com.sebbe013.member.mapper.MemberMapper;
+import com.sebbe013.member.service.MemberService;
 import com.sebbe013.stackoverflowclone.member.dto.MemberSignUpDto;
-import com.sebbe013.stackoverflowclone.member.entity.Member;
-import com.sebbe013.stackoverflowclone.member.mapper.MemberMapper;
-import com.sebbe013.stackoverflowclone.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

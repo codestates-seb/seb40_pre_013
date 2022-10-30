@@ -1,7 +1,7 @@
-package com.sebbe013.stackoverflowclone.member.service;
+package com.sebbe013.member.service;
 
-import com.sebbe013.stackoverflowclone.member.entity.Member;
-import com.sebbe013.stackoverflowclone.member.repository.MemberRepository;
+import com.sebbe013.member.entity.Member;
+import com.sebbe013.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

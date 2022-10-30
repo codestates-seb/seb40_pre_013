@@ -1,7 +1,7 @@
-package com.sebbe013.stackoverflowclone.member.mapper;
+package com.sebbe013.member.mapper;
 
+import com.sebbe013.member.entity.Member;
 import com.sebbe013.stackoverflowclone.member.dto.MemberSignUpDto;
-import com.sebbe013.stackoverflowclone.member.entity.Member;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
