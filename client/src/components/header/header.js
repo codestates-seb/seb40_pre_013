@@ -33,7 +33,7 @@ const Header = () => {
                         <Link to='/login' className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Log in</Link>
                     </li>
                     <li>
-                        <a href="…" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Sign up</a>
+                        <Link to='/signup' className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Sign up</Link>
                     </li>
                 </ol>
             </header>

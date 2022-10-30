@@ -4,6 +4,7 @@ import { ReactComponent as LoginStackLogo } from '../components/Icons/로그인�
 import { ReactComponent as GoogleLogo } from '../components/Icons/구글로고.svg';
 import { ReactComponent as GithubLogo } from '../components/Icons/깃허브로고.svg';
 import { ReactComponent as FaceLogo } from '../components/Icons/페북로고.svg';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     // 배경색을 어떻게 바꿔야 할지 몰라서 구현을 아직 못함 
@@ -35,7 +36,7 @@ const Login = () => {
                         </form>
                     </div>
                     <div className='loginQustion'>
-                        Don’t have an account? <a href='#'>Sign up</a>
+                        Don’t have an account? <Link to='/signup'>Sign up</Link>
                         <div className='employ'>
                             Are you an employer?<a href='#'> Sign up on Talent</a>
                         </div>
