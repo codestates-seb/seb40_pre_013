@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Editor from "./Editor";
 
-
 function AskQuestion() {
+
     return (
       <Container>
         <Content>
@@ -19,7 +19,7 @@ function AskQuestion() {
                   <h2>Body</h2>
                   <p>Include all the information someone would need to answer you question</p>
                   <Editor />
-                  <Button>Review your question</Button>
+                  <Button >Review your question</Button>
                 </PostBody>
             </Post>
         </Content>
