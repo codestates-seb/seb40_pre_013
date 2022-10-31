@@ -5,12 +5,15 @@ package com.sebbe013.question.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.internal.constraintvalidators.bv.time.futureorpresent.AbstractFutureOrPresentInstantBasedValidator;
 
 import javax.persistence.*;
+import javax.swing.border.Border;
 import java.util.ArrayList;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 // TODO: Auditable 상속하기
 // 질문 클래스
@@ -32,4 +35,14 @@ public class Question {
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();       // 답변 리스트
 
+    // 질문에 작성자 추가
+    public void addMember(Member member) {
+        this.member = member;
+    }
+
+    // 질문에 답변 추가
+    public void addAnswer(Answer answer) {
+        answers.add(answer);
+
+    }
 }
