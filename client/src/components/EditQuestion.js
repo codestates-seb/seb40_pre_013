@@ -5,9 +5,9 @@ import SideBar from "./SideBar"
 function EditQuestion() {
     return (
       <Container>
-        <side>
+        <Side>
           <SideBar/>
-        </side>
+        </Side>
         <Content>
             <ContentHeader>
                 <h1>Edit question</h1>
@@ -31,10 +31,18 @@ function EditQuestion() {
   
   export default EditQuestion
 
+const Side = styled.div`
+  border: 1px solid #d6d9dc;
+  border-left-width: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  border-right-width: 1px;
+`;
+
 const Container = styled.div`
   display: flex;
   width: 100%;
-  max-width: 1264px;
+  max-width: 1100px;
 `;
 
 const Content = styled.div`
