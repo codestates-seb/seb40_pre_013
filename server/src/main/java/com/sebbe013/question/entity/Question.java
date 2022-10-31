@@ -2,7 +2,7 @@ package com.sebbe013.question.entity;
 
 import com.sebbe013.answer.entity.Answer;
 import com.sebbe013.audit.Auditable;
-import com.sebbe013.entity.Member;
+import com.sebbe013.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
