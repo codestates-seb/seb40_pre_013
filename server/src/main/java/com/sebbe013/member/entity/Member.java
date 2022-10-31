@@ -1,4 +1,4 @@
-package com.sebbe013.entity;
+package com.sebbe013.member.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
