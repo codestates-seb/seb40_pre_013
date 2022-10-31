@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class) // Auditing기능을 수행하는 리스너를 등록
 public abstract class Auditable {
     @CreatedDate
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "CREATED_AT", updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
