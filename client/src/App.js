@@ -1,6 +1,6 @@
 import React from "react";
+import Main from "./pages/Main"
 import AskQuestion from "./components/AskQuestion";
-import Main from "./pages/Main";
 import EditQuestion from "./components/EditQuestion";
 import EditAnswer from "./components/EditAnswer";
 
@@ -8,7 +8,7 @@ import EditAnswer from "./components/EditAnswer";
 function App() {
   return (
     <>
-    <Main />
+    <Main/>
     <AskQuestion/>
     <EditQuestion/>
     <EditAnswer/>
