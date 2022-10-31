@@ -15,7 +15,7 @@ function EditQuestion() {
             <Post>
                 <PostTitle>
                     <h2>Title</h2>
-                    <input type = "text"></input>
+                    <input type = "text" placeholder="e.g is there an R function someone would need to answer your question"></input>
                 </PostTitle>
                 <PostBody>
                   <h2>Body</h2>
@@ -66,7 +66,6 @@ h1 {
 const Post = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: hsl(0, 0%, 100%);
   box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.06), 0 2px 6px hsla(0, 0%, 0%, 0.06),
     0 3px 8px hsla(0, 0%, 0%, 0.09);
   border-radius: 3px;
@@ -124,7 +123,7 @@ const Button = styled.button`
   color: #0a95ff;
   border-radius: 3px;
   outline: none;
-  border: 1px solid transparent;
+  border: 1px solid #d6d9dc;
   padding: 10px;
   margin-left: 10px;
   cursor: pointer;
