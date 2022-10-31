@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Editor from "./Editor";
 import SideBar from "./SideBar"
 
-function EditQuestion() {
+function EditAnswer() {
     return (
       <Container>
         <Side>
@@ -10,13 +10,9 @@ function EditQuestion() {
         </Side>
         <Content>
             <ContentHeader>
-                <h1>Edit question</h1>
+                <h1>Edit Answer</h1>
             </ContentHeader>
             <Post>
-                <PostTitle>
-                    <h2>Title</h2>
-                    <input type = "text" placeholder="e.g is there an R function someone would need to answer your question"></input>
-                </PostTitle>
                 <PostBody>
                   <h2>Body</h2>
                   <Editor />
@@ -29,7 +25,7 @@ function EditQuestion() {
     );
   }
   
-  export default EditQuestion
+  export default EditAnswer
 
 const Side = styled.div`
   border: 1px solid #d6d9dc;
@@ -40,10 +36,10 @@ const Side = styled.div`
 `;
 
 const Container = styled.div`
-  margin: 0 auto;
   display: flex;
   width: 100%;
   max-width: 1264px;
+  margin: 0 auto;
 `;
 
 const Content = styled.div`
@@ -58,7 +54,7 @@ const ContentHeader = styled.div`
   display: flex;
   padding: 24px 0px;
   width: 100%;
-  
+
 h1 {
   font-size: 31px;
   color: #232629;
@@ -74,24 +70,6 @@ const Post = styled.div`
   width: 100%;
 `;
 
-const PostTitle = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-
-  h2{
-    color: #0c0d0e;
-    font-size: 15px;
-    margin: 2px 0;
-    padding: 0 2px;
-  }
-
-  input{
-    width: 97.5%;
-    margin: 0;
-    padding: 7px 9px;
-  }
-`;
 
 const PostBody = styled.div`
   padding: 24px;

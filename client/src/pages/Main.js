@@ -23,6 +23,7 @@ function Main() {
 export default Main
 
 const Container = styled.div`
+  margin: 0 auto;
   display: flex;
   max-width: 1288px;
 `
