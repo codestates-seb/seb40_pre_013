@@ -25,10 +25,10 @@ public class Question {
     @Column(length = 255, nullable = false)
     private String questionContent;     // 질문 내용
 
+    @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;              // 질문 작성자
 
-    // TODO: 무엇으로 mappedBy 해야할지 확인 필요 (answer에서)
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();       // 답변 리스트
 
