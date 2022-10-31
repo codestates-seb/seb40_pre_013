@@ -19,6 +19,7 @@ function AskQuestion() {
                   <h2>Body</h2>
                   <p>Include all the information someone would need to answer you question</p>
                   <Editor />
+                  <Button>Review your question</Button>
                 </PostBody>
             </Post>
         </Content>
@@ -104,4 +105,17 @@ const PostBody = styled.div`
     margin: 2px 0;
     padding: 0 2px;
   }
+`;
+
+const Button = styled.button`
+  width: 154px;
+  height: 38px;
+  min-height: 38px;
+  background-color: #0a95ff;
+  color: #ffffff;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid transparent;
+  margin: 32px -2px 0px;
+  cursor: pointer;
 `;
