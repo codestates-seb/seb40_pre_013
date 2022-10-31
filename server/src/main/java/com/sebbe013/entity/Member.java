@@ -48,10 +48,10 @@ public class Member implements Principal {
         return this.email;
     }
 
-//    @OneToMany(mappedBy = "member")
-//    private List<Question> questions = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<Answer> answers = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Answer> answers = new ArrayList<>();
 
 }
