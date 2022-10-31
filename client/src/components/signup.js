@@ -51,22 +51,46 @@ const SignUp = () => {
                     </div>
                     <div className='mx-auto mb24 p24 wmx3 bg-white bar-lg bs-xl mb24 with-captcha'>
                         <form class="d-flex gs4 gsy fd-column">
-                            <label class="flex--item s-label" for="question-title">Display name</label>
-                            <div class="d-flex ps-relative">
-                                <input class="flex--item s-input" type="text" id="question-title" />
+                            <div className='signupInput'>
+                                <label class="flex--item s-label" for="question-title">Display name</label>
+                                <div class="d-flex ps-relative">
+                                    <input class="flex--item s-input" type="text" id="question-title" />
+                                </div>
                             </div>
-                            <label class="flex--item s-label" for="question-title">Email</label>
-                            <div class="d-flex ps-relative">
-                                <input class="flex--item s-input" type="text" id="question-title" />
+                            <div className='signupInput'>
+                                <label class="flex--item s-label" for="question-title">Email</label>
+                                <div class="d-flex ps-relative">
+                                    <input class="flex--item s-input" type="text" id="question-title" />
+                                </div>
                             </div>
-                            <label class="flex--item s-label" for="question-title">Password</label>
-                            <div class="d-flex ps-relative">
-                                <input class="flex--item s-input" type="text" id="question-title" />
+                            <div className='signupInput'>
+                                <label class="flex--item s-label" for="question-title">Password</label>
+                                <div class="d-flex ps-relative">
+                                    <input class="flex--item s-input" type="text" id="question-title" />
+                                </div>
+                                <p className='pwCondition'>
+                                    Passwords must contain at least eight characters, including at least 1 letter and 1 number.
+                                </p>
                             </div>
-                            <p>
-                            Passwords must contain at least eight characters, including at least 1 letter and 1 number.
-                        </p>
+                            <fieldset>
+                                <div class="d-flex gs8">
+                                    <div class="flex--item">
+                                        <input class="s-checkbox" type="checkbox" name="example-name" id="example-item" />
+                                    </div>
+                                    <label class="flex--item s-label fw-normal" for="example-item">Opt-in to receive occasional product updates, user research invitations, company announcements, and digests.</label>
+                                </div>
+                            </fieldset>
+                            <a href="#" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Sign up</a>
                         </form>
+                        <div className='js-terms fs-caption fc-light ta-left mt32'>
+                            By clicking “Sign up”, you agree to our <a href='#'>terms of service, privacy policy</a> and <a href='#'>cookie policy</a> 
+                        </div>
+                    </div>
+                    <div className='mx-auto ta-center fs-body1 p16 pb0 mb24 w100 wmx3 js-redirects'>
+                        Already have an account?<a href='#'>Log in</a>
+                        <div className='ruEmployer'>
+                            Are you an employer?<a href='#'>Sign up on Talent </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,6 +104,26 @@ const SignUp = () => {
 }
 
 const SignUpStyle = styled.div`
+    .signupInput {
+        margin-top : 6px;
+        margin-bottom : 6px;
+    }
+    .pwCondition {
+        margin-top : 4px;
+        margin-bottom : 4px;
+        color : gray;
+    }
+    .gs8 {
+        margin-top : 6px;
+        margin-bottom : 6px;
+    }
+    .s-btn__primary {
+        margin-top : 6px;
+        margin-bottom : 6px;
+    }
+    .ruEmployer {
+        margin-top : 12px;
+    }
     `
 
 export default SignUp
