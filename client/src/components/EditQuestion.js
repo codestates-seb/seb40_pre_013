@@ -1,25 +1,27 @@
 import styled from "styled-components";
 import Editor from "./Editor";
+import SideBar from "./SideBar"
 
-
-function AskQuestion() {
+function EditQuestion() {
     return (
       <Container>
+        <side>
+          <SideBar/>
+        </side>
         <Content>
             <ContentHeader>
-                <h1>Ask a public question</h1>
+                <h1>Edit question</h1>
             </ContentHeader>
             <Post>
                 <PostTitle>
                     <h2>Title</h2>
-                    <p>Be specific and imagine you’re asking a question to another person.</p>
-                    <input type = "text" placeholder="e.g is there an R function someone would need to answer your question"></input>
+                    <input type = "text"></input>
                 </PostTitle>
                 <PostBody>
                   <h2>Body</h2>
-                  <p>Include all the information someone would need to answer you question</p>
                   <Editor />
-                  <Button>Review your question</Button>
+                  <BlueButton>Save Edits</BlueButton>
+                  <Button>Cancel</Button>
                 </PostBody>
             </Post>
         </Content>
@@ -27,10 +29,10 @@ function AskQuestion() {
     );
   }
   
-  export default AskQuestion
+  export default EditQuestion
 
 const Container = styled.div`
-  min-height: calc(100vh - 50px);
+  display: flex;
   width: 100%;
   max-width: 1264px;
 `;
@@ -71,15 +73,10 @@ const PostTitle = styled.div`
   h2{
     color: #0c0d0e;
     font-size: 15px;
-    margin: 0;
-  }
-
-  p {
-    color: #0c0d0e;
-    font-size: 12px;
     margin: 2px 0;
     padding: 0 2px;
   }
+
   input{
     width: 97.5%;
     margin: 0;
@@ -88,26 +85,18 @@ const PostTitle = styled.div`
 `;
 
 const PostBody = styled.div`
-    display: flex;
-  flex-direction: column;
   padding: 24px;
 
   h2{
     color: #0c0d0e;
     font-size: 15px;
-    margin: 0;
-  }
-
-  p {
-    color: #0c0d0e;
-    font-size: 12px;
     margin: 2px 0;
     padding: 0 2px;
   }
 `;
 
-const Button = styled.button`
-  width: 154px;
+const BlueButton = styled.button`
+  width: 100px;
   height: 38px;
   min-height: 38px;
   background-color: #0a95ff;
@@ -116,5 +105,19 @@ const Button = styled.button`
   outline: none;
   border: 1px solid transparent;
   margin: 32px -2px 0px;
+  cursor: pointer;
+`;
+
+const Button = styled.button`
+  width: 100px;
+  height: 38px;
+  min-height: 38px;
+  background-color: #ffffff;
+  color: #0a95ff;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid transparent;
+  padding: 10px;
+  margin-left: 10px;
   cursor: pointer;
 `;
