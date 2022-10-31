@@ -1,23 +1,22 @@
 package com.sebbe013.question.entity;
 
-// TODO: import 문 추가 필요 (Member, Answer. Auditable)
-
+import com.sebbe013.answer.entity.Answer;
+import com.sebbe013.audit.Auditable;
+import com.sebbe013.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.internal.constraintvalidators.bv.time.futureorpresent.AbstractFutureOrPresentInstantBasedValidator;
 
 import javax.persistence.*;
-import javax.swing.border.Border;
 import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-// TODO: Auditable 상속하기
 // 질문 클래스
-public class Question {
+public class Question extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;            // 질문 id
