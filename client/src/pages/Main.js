@@ -3,7 +3,6 @@ import SideBar from "../components/SideBar"
 import QuestinsTitle from "../components/QuestionsTitle"
 import QuestinsList from "../components/QuestionsList"
 
-
 function Main() {
     return (
       <>
