@@ -1,12 +1,18 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function QuestionsMain() {
+
+  const navigate = useNavigate();
+   const handleAskBtnClick = () => {
+   navigate("/ask");
+   }
     return (
         <Content>
           <Title>
               <Row1>
                   <H1>All Questions</H1>
-                  <Button>Ask Question</Button>
+                  <Button onClick={handleAskBtnClick}>Ask Question</Button>
               </Row1>
               <Row2>
                   <Em>22,960,505 questions</Em>
