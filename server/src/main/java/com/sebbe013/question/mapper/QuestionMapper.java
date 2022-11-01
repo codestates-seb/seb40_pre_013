@@ -26,15 +26,16 @@ public interface QuestionMapper {
         return question;
     }
     default Question questionPatchDtoToQuestion(QuestionDto.Patch questionPatchDto){
+        // 질문 생성
         Question question = new Question();
-        question.setQuestionTitle(questionPatchDto.getQuestionTitle());
-        question.setQuestionContent(questionPatchDto.getQuestionContent());
+        question.setQuestionId(questionPatchDto.getQuestionId());           // 질문 ID 설정
+        question.setQuestionTitle(questionPatchDto.getQuestionTitle());     // 질문 제목 설정
+        question.setQuestionContent(questionPatchDto.getQuestionContent()); // 질문 내용 설정
 
-        Member member = new Member();
-        member.setMemberId(questionPatchDto.getMemberId());
+        Member member = new Member();                           // 질문작성자(멤버) 생성
+        member.setMemberId(questionPatchDto.getMemberId());     // 질문작성자 ID 설정
 
-        // 질문에 작성자 추가
-        question.addMember(member);
+        question.addMember(member);          // 질문에 작성자 추가
 
         return question;
     }
@@ -56,8 +57,6 @@ public interface QuestionMapper {
         // 질문 작성,수정날짜를 question에서 가져와서 ResponseDto에 저장
         questionResponseDto.setCreatedAt(question.getCreatedAt());
         questionResponseDto.setModifiedAt(question.getModifiedAt());
-
-        // TODO: 답변리스트 DTO add하기
 
         return questionResponseDto;
     }
