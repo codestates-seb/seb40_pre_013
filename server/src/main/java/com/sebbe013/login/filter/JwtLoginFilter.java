@@ -32,7 +32,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     private final Expiration expir;
 
     @Override
-    @SneakyThrows//예외처리해줌
+    @SneakyThrows //예외처리해줌
     public Authentication attemptAuthentication( HttpServletRequest request, HttpServletResponse response ) throws AuthenticationException{
         ObjectMapper objectMapper = new ObjectMapper();
         LoginDto loginDto = objectMapper.readValue(request.getInputStream(), LoginDto.class);
