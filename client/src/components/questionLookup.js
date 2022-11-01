@@ -2,6 +2,7 @@ import styled from "styled-components"
 import SideBar from "./SideBar";
 import QuestionResponse from "./questionResponse";
 import { Link } from "react-router-dom";
+import { Editor } from "@toast-ui/react-editor";
 
 const QuestionLookup = () => {
     return (
@@ -36,12 +37,17 @@ const QuestionLookup = () => {
                         </div>
                         <QuestionResponse/>
                     </div>
-                    <div>
+                    <div className="response">
                         <h2>2Answers</h2>
                        <QuestionResponse/>
                     </div>
                 </div>
             </Container>
+            <div>
+                <h2 className="space">Your Answer</h2>
+                <Editor />
+                <Button >Post your Answer</Button>
+            </div>
         </QuestionLookupStyle>
     )
 }
@@ -77,6 +83,9 @@ const QuestionLookupStyle = styled.div`
     .fs-headline1 {
         padding-right:150px;
     }
+    .response {
+        margin-top:30px;
+    }
     `
 const Side = styled.div`
     border: 1px solid #d6d9dc;
@@ -91,5 +100,17 @@ const Container = styled.div`
   max-width: 1264px;
   width: 100%;
 `
+const Button = styled.button`
+  width: 154px;
+  height: 38px;
+  min-height: 38px;
+  background-color: #0a95ff;
+  color: #ffffff;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid transparent;
+  margin: 32px -2px 0px;
+  cursor: pointer;
+`;
 
 export default QuestionLookup
