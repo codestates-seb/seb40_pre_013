@@ -1,9 +1,12 @@
 package com.sebbe013.member.entity;
 
+import com.sebbe013.answer.entity.Answer;
+import com.sebbe013.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.security.Principal;

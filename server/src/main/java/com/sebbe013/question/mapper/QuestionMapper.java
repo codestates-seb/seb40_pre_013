@@ -16,6 +16,7 @@ public interface QuestionMapper {
         question.setQuestionTitle(questionPostDto.getQuestionTitle());
         question.setQuestionContent(questionPostDto.getQuestionContent());
 
+        // 질문 작성자
         Member member = new Member();
         member.setMemberId(questionPostDto.getMemberId());
 
@@ -46,7 +47,7 @@ public interface QuestionMapper {
         //질문 제목을 question에서 가져와서 RespnoseDto에 저장
         questionResponseDto.setQuestionTitle(question.getQuestionTitle());
         // 질문 내용을 question에서 가져와서 RespnoseDto에 저장
-        questionResponseDto.setQuestionTitle(question.getQuestionContent());
+        questionResponseDto.setQuestionContent(question.getQuestionContent());
 
         // 질문 작성자 id, display name를 question의 member에서 가져와서 ResponseDto에 저장
         questionResponseDto.setMemberId(question.getMember().getMemberId());
