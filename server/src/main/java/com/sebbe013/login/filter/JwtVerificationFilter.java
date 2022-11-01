@@ -65,7 +65,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         setAuthtoContext(claims);
         filterChain.doFilter(request, response);
     }
-    public Jws<Claims> getClaims( String jws, Key key){
+    private Jws<Claims> getClaims( String jws, Key key){
 
         Jws<Claims> claimsJws = Jwts.parserBuilder()
                 .setSigningKey(key)

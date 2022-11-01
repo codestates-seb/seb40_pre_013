@@ -2,6 +2,8 @@ package com.sebbe013.question.entity;
 
 // TODO: import 문 추가 필요 (Member, Answer. Auditable)
 
+import com.sebbe013.answer.entity.Answer;
+import com.sebbe013.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +12,7 @@ import org.hibernate.validator.internal.constraintvalidators.bv.time.futureorpre
 import javax.persistence.*;
 import javax.swing.border.Border;
 import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
