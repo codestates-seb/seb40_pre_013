@@ -2,7 +2,7 @@ import styled from "styled-components";
 import SideBar from "../components/SideBar"
 import QuestinsTitle from "../components/QuestionsTitle"
 import QuestinsList from "../components/QuestionsList"
-
+import Pagination from '../components/Pagination';
 
 function Main() {
     return (
@@ -14,6 +14,7 @@ function Main() {
         <Content>
           <QuestinsTitle/>
           <QuestinsList/>
+          <Pagination/>
         </Content>
       </Container>
       </>
