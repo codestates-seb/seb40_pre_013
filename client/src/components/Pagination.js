@@ -53,14 +53,15 @@ const PaginationBox = styled.div`
   ul.pagination li a {
     color: hsl(210,8%,25%);
   }
-
+  ul.pagination li:hover {
+   background-color: hsl(210,8%,95%);
+  }
   ul.pagination li.active a { 
     color: white; 
   }
   ul.pagination li.active { 
-    background-color: hsl(27,90%,55%); 
-  }
-  ul.pagination li:hover {
-   background-color: hsl(210,8%,95%);
+    background-color: hsl(27,90%,55%);
+    border-color: transparent !important;
+    cursor: default;
   }
 `
