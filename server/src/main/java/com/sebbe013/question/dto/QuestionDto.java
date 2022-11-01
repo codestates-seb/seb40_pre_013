@@ -52,7 +52,5 @@ public class QuestionDto {
         private String questionWriter;          // 질문 작성자
         private LocalDateTime createdAt;        // 작성 날짜
         private LocalDateTime modifiedAt;       // 수정 날짜
-
-        // TODO: 답변 리스트 DTO 구현 예정
     }
 }
