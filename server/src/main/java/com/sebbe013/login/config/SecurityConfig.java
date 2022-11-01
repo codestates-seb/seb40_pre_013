@@ -52,6 +52,8 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.GET, "/members").hasRole("USER")     // (3) 추가
                         .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER")  // (4) 추가
                         .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")  // (5) 추가
+                        .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
                         .anyRequest().permitAll()
                 );
         return http.build();
