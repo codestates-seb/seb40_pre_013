@@ -20,7 +20,6 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-//@RequestMapping("/api")
 @Validated
 public class MemberController {
 

@@ -47,11 +47,11 @@ public class SecurityConfig {
                 .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration))
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/*/members").permitAll()         // (1) 추가
-                        .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")  // (2) 추가
+                        .antMatchers(HttpMethod.POST, "/members").permitAll()         // (1) 추가
+                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")  // (2) 추가
                         .antMatchers(HttpMethod.GET, "/members").hasRole("USER")     // (3) 추가
-                        .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER")  // (4) 추가
-                        .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")  // (5) 추가
+                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")  // (4) 추가
+                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")  // (5) 추가
                         .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
                         .anyRequest().permitAll()
