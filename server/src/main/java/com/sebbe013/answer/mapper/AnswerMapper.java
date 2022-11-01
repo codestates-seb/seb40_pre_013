@@ -3,7 +3,10 @@ package com.sebbe013.answer.mapper;
 import com.sebbe013.answer.dto.AnswerDto;
 import com.sebbe013.answer.entity.Answer;
 import com.sebbe013.member.entity.Member;
+import com.sebbe013.member.service.MemberService;
 import org.mapstruct.Mapper;
+
+import java.util.List;
 
 
 @Mapper(componentModel = "spring")
@@ -28,12 +31,13 @@ public interface AnswerMapper {
         return answer;
     }
 
-    default AnswerDto.Response answerToAnswerResponse(Answer answer) {
+    default AnswerDto.Response answerToAnswerResponse(Answer answer, MemberService memberService) {
         AnswerDto.Response answerResponse = new AnswerDto.Response();
 
+        Member member = memberService.findVerifiedMember(answer.getMember().getMemberId());
 
         answerResponse.setAnswerId(answer.getAnswerId());
-//        answerResponse.setWriter(answer.getMember().getDisplayName());
+        answerResponse.setWriter(member.getDisplayName());
         answerResponse.setAnswerContent(answer.getAnswerContent());
         answerResponse.setCreateAt(answer.getCreatedAt());
         answerResponse.setModifiedAt(answer.getModifiedAt());
@@ -41,5 +45,5 @@ public interface AnswerMapper {
         return answerResponse;
     }
 
-//    List<AnswerDto.Response> answersToAnswerResponses(List<Answer> answers); // 질문 조회 화면에서 사용??
+    List<AnswerDto.Response> answersToAnswerResponses(List<Answer> answers); // 질문 조회 화면에서 사용??
 }

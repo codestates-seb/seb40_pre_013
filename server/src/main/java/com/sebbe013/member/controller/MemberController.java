@@ -20,7 +20,6 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-//@RequestMapping("/api")
 @Validated
 public class MemberController {
 
@@ -42,10 +41,6 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/answers")
-    public String ancs(){
-        return "답변";
-    }
 
     @GetMapping("/members")
     public String sd(){
