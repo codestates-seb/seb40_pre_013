@@ -1,7 +1,7 @@
 package com.sebbe013.member.service;
 
-import com.sebbe013.exception.ExistDisplayNameExeption;
-import com.sebbe013.exception.ExistEamil;
+import com.sebbe013.exception.bussiness.ExistDisplayNameExeption;
+import com.sebbe013.exception.bussiness.ExistEamilException;
 import com.sebbe013.login.auth.AuthUtils;
 import com.sebbe013.login.filter.JwtVerificationFilter;
 import com.sebbe013.member.entity.Member;
@@ -77,7 +77,7 @@ public class MemberService {
         log.info("이메일 중복 확인");
 
         Optional<Member> member = memberRepository.findByEmail(email);
-        if(member.isPresent()) throw new ExistEamil();
+        if(member.isPresent()) throw new ExistEamilException();
     }
     //diaplay name 중복 확인
     private void checkExistDisplayName( String displayName ){
