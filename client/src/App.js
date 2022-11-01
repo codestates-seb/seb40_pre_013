@@ -14,12 +14,12 @@ function App() {
       <div>
         <Header/>
         <Routes>
-          {/* <Route path="/" element={<Main/>}></Route> */}
+          <Route path="/" element={<Main/>}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<SignUp/>}></Route>
           <Route path="/ask" element={<AskQuestion/>}></Route>
+          <Route path="/qlookup" element={<QuestionLookup/>}></Route>
         </Routes>
-        <QuestionLookup/>
       </div>
     </BrowserRouter>
 

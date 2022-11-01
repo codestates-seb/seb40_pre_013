@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import SideBar from "./SideBar";
 import QuestionResponse from "./questionResponse";
+import { Link } from "react-router-dom";
 
 const QuestionLookup = () => {
     return (
@@ -14,9 +15,9 @@ const QuestionLookup = () => {
                         <div id="question-header" class="d-flex sm:fd-column">
                             <h1 className="fs-headline1 ow-break-word mb8 flex--item fl1"><a href="#" class="question-hyperlink">Angular innerhtml element failed in capturing click event</a></h1>
                             <div className="ml12 aside-cta flex--item print:d-none sm:ml0 sm:mb12 sm:order-first sm:as-end">
-                                <a href="#" className="ws-nowrap s-btn s-btn__primary">
+                                <Link to='/ask' className="ws-nowrap s-btn s-btn__primary">
                                     Ask Question
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <div className="d-flex fw-wrap pb8 mb16 bb bc-black-075">
