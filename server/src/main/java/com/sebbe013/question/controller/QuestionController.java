@@ -1,5 +1,6 @@
 package com.sebbe013.question.controller;
 
+import com.sebbe013.dto.MultiResponseDto;
 import com.sebbe013.question.dto.QuestionDto;
 import com.sebbe013.question.entity.Question;
 import com.sebbe013.question.mapper.QuestionMapper;
@@ -33,10 +34,8 @@ public class QuestionController {
                 questionService.createQuestion(mapper.questionPostDtoToQuestion(questionPostDto));
 
         // RespseonEntity로 리턴
-        return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question),
+        return new ResponseEntity<>(
+                mapper.questionToQuestionResponseDto(question),
                 HttpStatus.CREATED);
     }
-
-
-
 }
