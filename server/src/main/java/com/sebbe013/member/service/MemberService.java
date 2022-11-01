@@ -1,5 +1,7 @@
 package com.sebbe013.member.service;
 
+import com.sebbe013.exception.BusinessLogicException;
+import com.sebbe013.exception.ExceptionCode;
 import com.sebbe013.login.auth.AuthUtils;
 import com.sebbe013.member.entity.Member;
 import com.sebbe013.member.repository.MemberRepository;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -41,5 +44,14 @@ public class MemberService {
         member.giveRoles(checkedRoles);
         log.info("권한 부여 완료");
         return member;
+    }
+
+    public Member findVerifiedMember(long memberId) {
+        Optional<Member> optionalMember =
+                memberRepository.findById(memberId);
+        Member findMember =
+                optionalMember.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMember;
     }
 }
