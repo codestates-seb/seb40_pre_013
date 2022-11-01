@@ -15,7 +15,7 @@ const Header = () => {
     return (
         <HeaderStyle>
             <header className="s-topbar">
-                <a href="…" className="s-topbar--logo"><StackLogo /></a>
+                <a href="/" className="s-topbar--logo"><StackLogo /></a>
                 <form id="search" className="s-topbar--searchbar" autocomplete="off">
                     <div className="s-topbar--searchbar--input-group">
                         <input
