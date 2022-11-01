@@ -5,9 +5,6 @@ import Header from './components/header/header';
 import SignUp from './components/signup';
 import Main from "./pages/Main";
 import AskQuestion from "./components/AskQuestion";
-// import AskQuestion from "./components/AskQuestion";
-// import EditQuestion from "./components/EditQuestion";
-// import EditAnswer from "./components/EditAnswer";
 
 
 function App() {
@@ -21,9 +18,6 @@ function App() {
           <Route path="/signup" element={<SignUp/>}></Route>
           <Route path="/ask" element={<AskQuestion/>}></Route>
         </Routes>
-        {/* <AskQuestion />
-        <EditQuestion />
-        <EditAnswer /> */}
       </div>
     </BrowserRouter>
 
