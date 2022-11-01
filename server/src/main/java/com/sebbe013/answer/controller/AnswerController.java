@@ -17,10 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/answers") // /user~로 시작해서 인증하는건지?
+@RequestMapping("/answers")
 @Validated
 @Slf4j
 public class AnswerController {
@@ -39,7 +38,7 @@ public class AnswerController {
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody) {
         Answer answer = mapper.answerPostToAnswer(requestBody);
         Answer createdAnswer = answerService.createAnswer(answer);
-        AnswerDto.Response response = mapper.answerToAnswerResponse(createdAnswer);
+        AnswerDto.Response response = mapper.answerToAnswerResponse(createdAnswer, memberService);
 
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -59,8 +58,7 @@ public class AnswerController {
         checkAuthMember(findMember.getEmail());
 
 
-
-        AnswerDto.Response response = mapper.answerToAnswerResponse(answer);
+        AnswerDto.Response response = mapper.answerToAnswerResponse(answer, memberService);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
