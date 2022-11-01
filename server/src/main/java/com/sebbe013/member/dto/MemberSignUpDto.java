@@ -24,10 +24,4 @@ public class MemberSignUpDto {
     // massage = "비밀번호는 특수 문자 1개 이상, 숫자 1개 이상을 포함한 영문자 8자 이상이어야 합니다. )
     private String password;
 
-    @Builder
-    public MemberSignUpDto( String email, String displayName, String password ){
-        this.email = email;
-        this.displayName = displayName;
-        this.password = password;
-    }
 }

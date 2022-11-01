@@ -23,8 +23,10 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @Slf4j
+
 //수정일은 나중에 결
 public class Member extends Auditable implements  Principal, UserDetails{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
@@ -46,7 +48,7 @@ public class Member extends Auditable implements  Principal, UserDetails{
         log.info("비밀번호 암호화");
     }
 
-    public void giveRoles( List<String> checkedRoles ){
+    public void givenRoles( List<String> checkedRoles ){
         this.roles = checkedRoles;
         log.info("권한 부여");
     }
@@ -62,12 +64,13 @@ public class Member extends Auditable implements  Principal, UserDetails{
     @OneToMany(mappedBy = "member")
     private List<Answer> answers = new ArrayList<>();
 
-    /////////
+    ///////// 여기 아래부터 권한 메서드
 
+    //권한 부여 후 리턴하는 메서드
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
         List<GrantedAuthority> auth = getRoles().stream().
-                map(r -> new SimpleGrantedAuthority("ROLE_" + r))
+                        map(r -> new SimpleGrantedAuthority("ROLE_" + r))
                 .collect(Collectors.toList());
         log.info("auth = {}",auth);
         return auth;
@@ -76,25 +79,25 @@ public class Member extends Auditable implements  Principal, UserDetails{
     @Override
     public String getUsername(){
         return this.email;
-    }
+    } // username = email
 
     @Override
     public boolean isAccountNonExpired(){
         return true;
-    }
+    } // 없어진 계정 확인 true면 만료 안됨
 
     @Override
     public boolean isAccountNonLocked(){
         return true;
-    }
+    } // 잠긴 계정인지 확인
 
     @Override
     public boolean isCredentialsNonExpired(){
         return true;
-    }
+    }//암호가 만료된 계정인지
 
     @Override
     public boolean isEnabled(){
         return true;
-    }
+    }//현재 이용 가능한 계정인지
 }

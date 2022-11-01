@@ -5,12 +5,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-//권한 부여 클래스
+/*
+역할 부여 클래스
+ */
 
 @Component
 public class AuthUtils {
-    private final List<String> USER_ROLE_STRING = List.of(MemberRoles.USER.name());
-    public List<String> createRole( String email ){
-      return USER_ROLE_STRING;
+    private final List<String> USER_ROLE = List.of(MemberRoles.USER.name());
+    public List<String> createRole( String email ){ //회원가입시 디폴트 값으로 user 역할 부여
+      return USER_ROLE;
     }
 }

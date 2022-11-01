@@ -18,25 +18,26 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-//@RequestMapping("/api")
+//@RequestMapping("/api") 테스트용
 @Validated
 public class MemberController {
 
     private final MemberService memberService;
     private final MemberMapper memberMapper;
 
+    // 회원가입 서비스 메서드
     @PostMapping("/members")
     public ResponseEntity<HttpStatus> signUpMember( @Valid @RequestBody MemberSignUpDto memberSignUpDto ){
         log.info("회원가입 시작");
-        Member member = memberMapper.memberSignUpDtoToMember(memberSignUpDto);
+        Member member = memberMapper.memberSignUpDtoToMember(memberSignUpDto); //멤버 dto 멤버 객체로 변환
         log.info("role = {}", member.getRoles());
-        memberService.joinMember(member);
+        memberService.joinMember(member); //회원가입 실행 메서드
         log.info("회원가입 완료");
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-// id확인 완료
+// id확인 완료 테스트용
 //    @GetMapping("/members")
 //    public Long assd( HttpServletRequest request){
 //        Long memberId = memberService.findMemberId(request);

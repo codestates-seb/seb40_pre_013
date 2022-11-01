@@ -2,6 +2,9 @@ package com.sebbe013.exception.bussiness;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
+/*
+예외 상태 코드와 메시지 관리 enum
+ */
 
 public enum ExceptionCode {
     EXIST_EMAIL(HttpStatus.CONFLICT.value(), "이미 존재하는 e-mail입니다."),

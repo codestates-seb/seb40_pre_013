@@ -14,17 +14,19 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-//로그인 진행 클래스
+/*
+로그인 진행 클래스
+ */
 public class MemberDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
     @Override
     public UserDetails loadUserByUsername( String username ) throws UsernameNotFoundException{
         log.info("로그인 진행 함수");
-        Optional<Member> entity = memberRepository.findByEmail(username);
+        Optional<Member> entity = memberRepository.findByEmail(username);//username(이메일)을 이용해 회원이 있는지 확인
 
         log.info("entity = {}",entity);
         log.info("멤버 확인");
-        Member findMember = entity.orElseThrow(() -> new UsernameNotFoundException(""));
-        return findMember;
+        Member findMember = entity.orElseThrow(() -> new UsernameNotFoundException("")); //없으면 예외 처리
+        return findMember; //있으면 Userdetails 형 객체 리턴
     }
 }

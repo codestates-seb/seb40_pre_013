@@ -12,7 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/*
+로그인 실패시 마지막에 오는 클래스
+ */
 @Component
 @Slf4j
 public class MemberAuthFailureHandler implements AuthenticationFailureHandler {
@@ -24,11 +26,11 @@ public class MemberAuthFailureHandler implements AuthenticationFailureHandler {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-      ErrorResponse exceptions = ErrorResponse.builder()
+      ErrorResponse exceptions = ErrorResponse.builder() //errorresponse객체에 상태코드와 메시지 주입
               .code(HttpStatus.UNAUTHORIZED.value())
               .message("아이디와 비밀번호를 확인해 주세요.")
               .build();
-        String errorResponse = objectMapper.writeValueAsString(exceptions);
-        response.getWriter().write(errorResponse);
+        String errorResponse = objectMapper.writeValueAsString(exceptions); //json형태로 변경
+        response.getWriter().write(errorResponse); //바디에 출력
     }
 }
