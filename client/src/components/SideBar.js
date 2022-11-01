@@ -78,7 +78,7 @@ const Ol = styled.ol`
     justify-content: left;
     align-items: center;
     padding-left: 16px;
-    width: 148px;
+    width: 164px;
     height: 33px;
     color: #0C0D0E;
 
