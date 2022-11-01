@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Slf4j
+@Component
 public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private final SecretKey secretKey;
@@ -46,9 +48,10 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorties);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        log.info("sch= {}",SecurityContextHolder.getContext().getAuthentication().getDetails());
     }
 
-    private Map<String, Object> verifyJws( HttpServletRequest request ){
+    public Map<String, Object> verifyJws( HttpServletRequest request ){
         String jws = request.getHeader("Authorization").replace("Bearer ", "");//토큰부분만 남아있게 한다.
         String encodedSecretKey = secretKey.encodeSecretKey(secretKey.getBaseKey());
         Key key = secretKey.getKeyFromEncodedKey(encodedSecretKey);

@@ -25,7 +25,9 @@ public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterC
         AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class); // authenticationManager 객체를 얻을 수 있다.
 
         JwtLoginFilter jwtLoginFilter = new JwtLoginFilter(authenticationManager, jwtToken,  secretKey, expiration);
-        jwtLoginFilter.setFilterProcessesUrl("/login"); //로그인 디폴트 url변경
+        jwtLoginFilter.setFilterProcessesUrl("/login"); //로그인 디폴트 url
+
+
         jwtLoginFilter.setAuthenticationFailureHandler(new MemberAuthFailureHandler());//로그인실패
         jwtLoginFilter.setAuthenticationSuccessHandler(new MemberAuthSuccessHandler());//로그인 성공
 
