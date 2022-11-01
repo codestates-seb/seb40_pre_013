@@ -6,6 +6,7 @@ import { ReactComponent as QuestionLogo } from '../components/Icons/questionMark
 import { ReactComponent as PointLogo } from '../components/Icons/화살표.svg';
 import { ReactComponent as BookMarkLogo } from '../components/Icons/bookmark.svg';
 import { ReactComponent as TrophyLogo } from '../components/Icons/트로피.svg';
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
     return (
@@ -88,7 +89,7 @@ const SignUp = () => {
                             </div>
                         </div>
                         <div className='mx-auto ta-center fs-body1 p16 pb0 mb24 w100 wmx3 js-redirects'>
-                            Already have an account?<a href='#'>Log in</a>
+                            Already have an account?<Link to='/login'>Log in</Link>
                             <div className='ruEmployer'>
                                 Are you an employer?<a href='#'>Sign up on Talent </a>
                             </div>
@@ -128,7 +129,7 @@ const SignUpStyle = styled.div`
         margin-top : 12px;
     }
     .d-flex {
-        text-align:center;
+        padding : 12px;
     }
     `
 

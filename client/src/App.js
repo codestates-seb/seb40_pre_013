@@ -18,10 +18,10 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<SignUp/>}></Route>
         </Routes>
-        <Main />
+        {/* <Main />
         <AskQuestion />
         <EditQuestion />
-        <EditAnswer />
+        <EditAnswer /> */}
       </div>
     </BrowserRouter>
 
