@@ -35,6 +35,11 @@ public class MemberController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    //test용
+//    @GetMapping("/members")
+//    public String a(){
+//        return "권한확인";
+//    }
 
 
 }

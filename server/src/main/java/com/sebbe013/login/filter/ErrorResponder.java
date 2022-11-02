@@ -7,7 +7,9 @@ import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/*
+jwt토큰 인증 예외처리가 나면
+ */
 public class ErrorResponder {
 
     public static void sendErrorResponse( HttpServletResponse response, HttpStatus status ) throws IOException{

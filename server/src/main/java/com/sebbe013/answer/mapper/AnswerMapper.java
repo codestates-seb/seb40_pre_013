@@ -34,7 +34,7 @@ public interface AnswerMapper {
     default AnswerDto.Response answerToAnswerResponse(Answer answer, MemberService memberService) {
         AnswerDto.Response answerResponse = new AnswerDto.Response();
 
-        Member member = memberService.findVerifiedMember(answer.getMember().getMemberId());
+        Member member = memberService.findVerifiedMember(answer.getMember().getMemberId());//
 
         answerResponse.setAnswerId(answer.getAnswerId());
         answerResponse.setWriter(member.getDisplayName());

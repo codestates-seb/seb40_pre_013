@@ -1,6 +1,8 @@
 package com.sebbe013.login.config;
 
 import com.sebbe013.login.filter.Expiration;
+import com.sebbe013.login.filter.MemberAccessDeniedHandler;
+import com.sebbe013.login.filter.MemberAuthenticationEntryPoint;
 import com.sebbe013.login.jwt.JwtToken;
 import com.sebbe013.login.jwt.SecretKey;
 import lombok.RequiredArgsConstructor;
@@ -47,14 +49,18 @@ public class SecurityConfig {
                 .and()
                 .formLogin().disable() //폼 로그인 형식 사용 안함.
                 .httpBasic().disable()//기본 http방식 헤더에 id, 비밀번호 담는 방식?? 사용안함
+                .exceptionHandling()
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .and()
                 .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration))//커스텀 필터 적용
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/members").permitAll()         // 해당 url추가
                         .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")  
-                        .antMatchers(HttpMethod.GET, "/members").hasRole("USER")     
+                        .antMatchers(HttpMethod.GET, "/members").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
-                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")  
+                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
                         .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
                         .antMatchers(HttpMethod.POST, "/").hasRole("USER")

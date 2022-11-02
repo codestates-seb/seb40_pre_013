@@ -14,7 +14,7 @@ import java.io.IOException;
 @Slf4j
 @Component
 /*
-인증 과정에서 예외가 발생했을 때 도착하는
+인증 과정에서 예외가 발생했을 때 예외메시지 던져줌
  */
 public class MemberAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
