@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './components/login';
-import Header from './components/header/header';
+import Header from './components/header/Header';
 import SignUp from './components/signup';
 import Main from "./pages/Main";
 import AskQuestion from "./components/AskQuestion";
@@ -13,8 +13,7 @@ import EditAnswer from "./components/EditAnswer";
 function App() {
   return (
     <BrowserRouter>
-      <div>
-        <Header/>
+      <Header/>
         <Routes>
           <Route path="/" element={<Main/>}></Route>
           <Route path="/login" element={<Login />}></Route>
@@ -25,7 +24,6 @@ function App() {
           <Route path="/editA" element={<EditAnswer/>}></Route>
         </Routes>
         <Footer />
-      </div>
     </BrowserRouter>
 
 
