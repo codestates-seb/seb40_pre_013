@@ -115,7 +115,6 @@ const SignUp = () => {
 const SignUpStyle = styled.div`
       background-color: #f1f2f3;
       width: 100%;
-      height: calc(100vh - 50px);
       display: flex;
       flex-direction: column;
       justify-content: center;
