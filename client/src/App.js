@@ -6,7 +6,7 @@ import SignUp from './components/signup';
 import Main from "./pages/Main";
 import AskQuestion from "./components/AskQuestion";
 import QuestionLookup from "./components/questionLookup";
-import Footer from './components/footer'
+import Footer from './components/Footer'
 import EditQuestion from "./components/EditQuestion";
 import EditAnswer from "./components/EditAnswer";
 

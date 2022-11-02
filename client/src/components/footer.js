@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Footer = () => {
   return (
-    <FooterBox>
+    <footer>
       <FooterStyle>
         <div>
           <svg aria-hidden="true" width="32" height="37" viewBox="0 0 32 37">
@@ -65,19 +65,15 @@ const Footer = () => {
             </div>
         </div>
       </FooterStyle>
-    </FooterBox>
+    </footer>
   );
 };
-const FooterBox = styled.div`
-background: rgba(36, 38, 41);
-`
+
 const FooterStyle = styled.div`
-  margin: 0 auto;
-  max-width: 1264px;
-  width: 100%;
-  padding: 32px 12px 12px;
+  padding: 32px 35px 12px 35px;
   display: flex;
   flex-direction: row;
+  background: rgba(36, 38, 41);
   color: rgba(187, 191, 196);
   overflow: hidden;
   width: 100%;
@@ -110,7 +106,7 @@ const FooterStyle = styled.div`
   .footer-right {
     display: flex;
     flex-direction: column;
-    justify-content: left;
+    justify-content: space-between;
   }
 `;
 
