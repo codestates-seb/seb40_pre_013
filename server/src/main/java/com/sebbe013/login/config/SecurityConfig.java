@@ -36,28 +36,32 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain( HttpSecurity http ) throws Exception{
         http
-                .headers().frameOptions().sameOrigin()
+                .headers().frameOptions().sameOrigin()//CSRF(Cross-Site Request Forgery) 공격에 대한 Spring Security에 대한 설정을 비활성화
                 .and()
-                .csrf().disable()
-                .cors(withDefaults())
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .csrf().disable()/*
+                                     x-frame옵션 헤더는 <frame>이나<iframe> 렌더링할 수 있는지 나타내는데 대부분 사이트들은 clickjacking을 막기 위해 사용되고
+                                     스프링 시큐리티는 기본적으로 deny세팅이라 이것을 풀어줘야 h2가 렌더링 된다.
+                                  */
+                .cors(withDefaults())//cors필터 설정
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //세션 사용안함
                 .and()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration))
+                .formLogin().disable() //폼 로그인 형식 사용 안함.
+                .httpBasic().disable()//기본 http방식 헤더에 id, 비밀번호 담는 방식?? 사용안함
+                .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration))//커스텀 필터 적용
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/members").permitAll()         // (1) 추가
-                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")  // (2) 추가
-                        .antMatchers(HttpMethod.GET, "/members").hasRole("USER")     // (3) 추가
-                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")  // (4) 추가
-                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")  // (5) 추가
+                        .antMatchers(HttpMethod.POST, "/members").permitAll()         // 해당 url추가
+                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")  
+                        .antMatchers(HttpMethod.GET, "/members").hasRole("USER")     
+                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")  
                         .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
                         .antMatchers(HttpMethod.POST, "/").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/**").hasRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/**").hasRole("USER")
                         .anyRequest().permitAll()
+
                 );
         return http.build();
     }

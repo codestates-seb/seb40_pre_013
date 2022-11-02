@@ -23,16 +23,19 @@ public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterC
     @Override
     public void configure( HttpSecurity builder ) throws Exception{
         AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class); // authenticationManager 객체를 얻을 수 있다.
+                                                                                                            // 로그인 할때 사용
 
-        JwtLoginFilter jwtLoginFilter = new JwtLoginFilter(authenticationManager, jwtToken,  secretKey, expiration);
-        jwtLoginFilter.setFilterProcessesUrl("/login"); //로그인 디폴트 url변경
-        jwtLoginFilter.setAuthenticationFailureHandler(new MemberAuthFailureHandler());//로그인실패
-        jwtLoginFilter.setAuthenticationSuccessHandler(new MemberAuthSuccessHandler());//로그인 성공
+        JwtLoginFilter jwtLoginFilter = new JwtLoginFilter(authenticationManager, jwtToken,  secretKey, expiration);//필터 실행
+        jwtLoginFilter.setFilterProcessesUrl("/login"); //로그인 디폴트 url
 
-        JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(secretKey);
 
-        builder.addFilter(jwtLoginFilter)
-                .addFilterAfter(jwtVerificationFilter, JwtLoginFilter.class);
+        jwtLoginFilter.setAuthenticationFailureHandler(new MemberAuthFailureHandler());//로그인 실패시 핸들러 설정
+        jwtLoginFilter.setAuthenticationSuccessHandler(new MemberAuthSuccessHandler());//로그인 성공시 핸들러 설정
+
+        JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(secretKey); //jwt인증 필터 설정
+
+        builder.addFilter(jwtLoginFilter) //로그인 필터 추가
+                .addFilterAfter(jwtVerificationFilter, JwtLoginFilter.class);//로그인 필터가 실행된 바로 다음 jwt인증 필터 실행
 
     }
 }

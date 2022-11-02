@@ -8,11 +8,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
-// jwt토큰 생성 클래스
+/*
+ jwt토큰 생성 클래스
+
+ */
 @Component
 public class JwtToken {
 
-    //acess토큰 생성
+    //acess토큰 생성 메서드
     public String createAcessToken( Map<String, Object> claims, String subject, Date expiration, Key key ){
 
         return Jwts.builder()
