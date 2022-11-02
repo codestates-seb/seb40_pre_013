@@ -13,8 +13,7 @@ import EditAnswer from "./components/EditAnswer";
 function App() {
   return (
     <BrowserRouter>
-      <div>
-        <Header/>
+      <Header/>
         <Routes>
           <Route path="/" element={<Main/>}></Route>
           <Route path="/login" element={<Login />}></Route>
@@ -25,7 +24,6 @@ function App() {
           <Route path="/editA" element={<EditAnswer/>}></Route>
         </Routes>
         <Footer />
-      </div>
     </BrowserRouter>
 
 

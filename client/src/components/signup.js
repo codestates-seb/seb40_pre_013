@@ -113,13 +113,13 @@ const SignUp = () => {
 }
 
 const SignUpStyle = styled.div`
-    background-color: #f1f2f3;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 24px 0;
+      background-color: #f1f2f3;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 24px 0;
       
     .signupInput {
         margin-top : 6px;
