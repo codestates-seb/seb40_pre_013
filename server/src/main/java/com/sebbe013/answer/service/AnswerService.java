@@ -4,25 +4,31 @@ import com.sebbe013.answer.entity.Answer;
 import com.sebbe013.answer.repository.AnswerRepository;
 import com.sebbe013.exception.BusinessLogicException;
 import com.sebbe013.exception.ExceptionCode;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.sebbe013.member.entity.Member;
+import com.sebbe013.member.service.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
-@Transactional  // 학습
+@Transactional
 @Service
 public class AnswerService {
     private final AnswerRepository answerRepository;
 
-    public AnswerService(AnswerRepository answerRepository) {
+    private final MemberService memberService;
+
+    public AnswerService(AnswerRepository answerRepository, MemberService memberService) {
         this.answerRepository = answerRepository;
+        this.memberService = memberService;
     }
 
     public Answer createAnswer(Answer answer) {
+        // 회원 확인
+        Member findMember = memberService.findVerifiedMember(answer.getMember().getMemberId());
 
-        // 검증 코드 추가 구현 필요성? 회원, 질문 확인?
         Answer savedAnswer = answerRepository.save(answer);
 
         return savedAnswer;
@@ -36,9 +42,16 @@ public class AnswerService {
         Optional.ofNullable(answer.getAnswerContent())
                 .ifPresent(answerContent -> findAnswer.setAnswerContent(answerContent));
 
-//        answer.setAnswerContent(answer.getAnswerContent());  // setter 사용 리팩토링 가능성
-
         return answerRepository.save(answer);
+    }
+
+    public Answer findAnswer(long answerId) {
+        return findVerifiedAnswer(answerId);
+    }
+
+    // questionId에 해당하는 답변목록 조회
+    public List<Answer> findAnswers(long questionId) {
+        return answerRepository.findByQuestion(questionId);
     }
 
     public void deleteAnswer(long answerId) {
@@ -47,21 +60,12 @@ public class AnswerService {
     }
 
     @Transactional(readOnly = true)
-    private Answer findVerifiedAnswer(long answerId) {
+    public Answer findVerifiedAnswer(long answerId) {
 
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         Answer findAnswer =
                 optionalAnswer.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
         return findAnswer;
-    }
-
-    private void verifyAnswerWriter(long answerId) {
-
-    }
-
-    public void checkAuthMember(String email) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!email.equals(username)) throw new BusinessLogicException(ExceptionCode.MEMBER_INCONSISTENCY);
     }
 }
