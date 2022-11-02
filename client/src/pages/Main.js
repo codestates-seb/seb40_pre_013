@@ -26,6 +26,7 @@ export default Main
 const Container = styled.div`
   margin: 0 auto;
   display: flex;
+  justify-content: space-between;
   max-width: 1264px;
   width: 100%;
 `

@@ -55,6 +55,7 @@ const QuestionLookup = () => {
 }
 
 const QuestionLookupStyle = styled.div`
+   display: flex;
     .sidebar {
         list-style:none;
     }    
@@ -87,10 +88,12 @@ const QuestionLookupStyle = styled.div`
     }
     .response {
         margin-top:30px;
+        margin-bottom: 150px;
     }
     .editor {
-        position: absolute;
-        bottom: -100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     `
 const Side = styled.div`

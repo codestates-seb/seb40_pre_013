@@ -6,7 +6,7 @@ import SignUp from './components/signup';
 import Main from "./pages/Main";
 import AskQuestion from "./components/AskQuestion";
 import QuestionLookup from "./components/questionLookup";
-
+import Footer from './components/footer'
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
           <Route path="/ask" element={<AskQuestion/>}></Route>
           <Route path="/qlookup" element={<QuestionLookup/>}></Route>
         </Routes>
+        <Footer />
       </div>
     </BrowserRouter>
 

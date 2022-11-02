@@ -31,20 +31,23 @@ function AskQuestion() {
 
 const Container = styled.div`
   margin: 0 auto;
+  background-color: hsl(210, 8%, 95%);
   min-height: calc(100vh - 50px);
   width: 100%;
   max-width: 1264px;
 `;
 
 const Content = styled.div`
+  min-height: 550px;
   display: flex;
   flex-direction: column;
-  margin: 16px;
+  padding: 16px;
   justify-content: center;
 `;
 
 const ContentHeader = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 24px 0px;
   width: 100%;
 
