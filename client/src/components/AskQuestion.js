@@ -30,14 +30,14 @@ function AskQuestion() {
   export default AskQuestion
 
 const Container = styled.div`
-  margin: 0 auto;
   background-color: hsl(210, 8%, 95%);
   min-height: calc(100vh - 50px);
   width: 100%;
-  max-width: 1264px;
 `;
 
 const Content = styled.div`
+  margin: 0 auto;
+  max-width: 1264px;
   min-height: 550px;
   display: flex;
   flex-direction: column;
