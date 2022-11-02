@@ -76,5 +76,18 @@ public class QuestionController {
         return new ResponseEntity<>(response, HttpStatus.OK);
    }
 
+   // 질문 하나 삭제하기
+    @DeleteMapping("/{question-id}")
+    public ResponseEntity deleteQuestion(
+            @PathVariable("question-id") long questionId) {
+        // TODO: 요청자의 ID와 질문작성자의 ID가 일치하는지 확인 필요
+
+        // questionService에서 해당 질문 삭제하기
+        questionService.deleteQuestion(questionId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
+
 
 }
