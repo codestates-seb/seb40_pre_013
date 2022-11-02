@@ -1,21 +1,16 @@
 package com.sebbe013.question.controller;
 
-import com.sebbe013.dto.MultiResponseDto;
 import com.sebbe013.question.dto.QuestionDto;
 import com.sebbe013.question.entity.Question;
 import com.sebbe013.question.mapper.QuestionMapper;
 import com.sebbe013.question.service.QuestionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
 public class QuestionController {
-    // TODO: Answer Service, Question Service, Member Service DI하기
     private final QuestionService questionService;
     private final QuestionMapper mapper;
 
@@ -38,4 +33,29 @@ public class QuestionController {
                 mapper.questionToQuestionResponseDto(question),
                 HttpStatus.CREATED);
     }
+
+    /*
+    질문 수정하기
+    @param questionId : 질문 id
+    @param questionPatchDto: 질문 patch DTO
+     */
+    // 질문 수정하기
+    @PatchMapping("/{question-id}")
+    public ResponseEntity patchMember(
+            @PathVariable("question-id") long questionId,
+            @RequestBody QuestionDto.Patch questionPatchDto) {
+
+        // questionPatchDto에 질문ID 설정
+        questionPatchDto.setQuestionId(questionId);
+
+        // questionService에서 질문 업데이트
+        Question question =
+                questionService.updateQuestion(mapper.questionPatchDtoToQuestion(questionPatchDto));
+
+        // TODO: 답변 DTO와 함께리턴 필요함
+        return new ResponseEntity<> (
+                mapper.questionToQuestionResponseDto(question),
+                HttpStatus.OK);
+    }
+
 }

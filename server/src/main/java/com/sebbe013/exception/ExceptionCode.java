@@ -6,7 +6,9 @@ public enum ExceptionCode {
     ANSWER_NOT_FOUND(404, "Answer not found"),
     MEMBER_NOT_FOUND(404, "Member not found"), // 에러 추가
 
-    MEMBER_INCONSISTENCY(404, "Member Inconsistency");
+    MEMBER_INCONSISTENCY(404, "Member Inconsistency"),
+
+    QUESTION_NOT_FOUND(404, "Question not found");  // 질문이 존재하지 않을 때
     @Getter
     private int code;
 
