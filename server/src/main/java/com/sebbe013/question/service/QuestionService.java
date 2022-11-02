@@ -70,6 +70,10 @@ public class QuestionService {
 
         return findQuestion;
     }
+    // 하나의 질문 조회
+    public Question findQuestion(long questionId) {
+        return findVerifiedQuestion(questionId);
+    }
 
     // 전체 질문 목록 조회
     public List<Question> findQuestions() {
