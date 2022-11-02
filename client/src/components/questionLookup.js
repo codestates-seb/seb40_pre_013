@@ -1,10 +1,18 @@
 import styled from "styled-components"
 import SideBar from "./SideBar";
 import QuestionResponse from "./questionResponse";
-import { Link } from "react-router-dom";
+import AnswersResponse from "./AnswersResponse";
+import { useNavigate } from "react-router-dom";
 import { Editor } from "@toast-ui/react-editor";
 
 const QuestionLookup = () => {
+    const navigate = useNavigate();
+    const handleAskBtnClick = () => {
+        navigate("/ask");
+        }
+        const handleEditQbtnClick = () => {
+            navigate("/editQ");
+            }
     return (
         <QuestionLookupStyle>
             <Container>
@@ -16,9 +24,9 @@ const QuestionLookup = () => {
                         <div id="question-header" class="d-flex sm:fd-column">
                             <h1 className="fs-headline1 ow-break-word mb8 flex--item fl1"><a href="#" class="question-hyperlink">Angular innerhtml element failed in capturing click event</a></h1>
                             <div className="ml12 aside-cta flex--item print:d-none sm:ml0 sm:mb12 sm:order-first sm:as-end">
-                                <Link to='/ask' className="ws-nowrap s-btn s-btn__primary">
+                                <button className="ws-nowrap s-btn s-btn__primary" onClick={handleAskBtnClick}>
                                     Ask Question
-                                </Link>
+                                </button>
                             </div>
                         </div>
                         <div className="d-flex fw-wrap pb8 mb16 bb bc-black-075">
@@ -39,7 +47,7 @@ const QuestionLookup = () => {
                     </div>
                     <div className="response">
                         <h2>2Answers</h2>
-                        <QuestionResponse />
+                        <AnswersResponse />
                     </div>
                     <div className="editor">
                         <h2 className="space">Your Answer</h2>
