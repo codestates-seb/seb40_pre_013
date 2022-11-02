@@ -1,5 +1,6 @@
 package com.sebbe013.member.controller;
 
+import com.sebbe013.member.dto.MemberResposeDto;
 import com.sebbe013.member.dto.MemberSignUpDto;
 import com.sebbe013.member.entity.Member;
 import com.sebbe013.member.mapper.MemberMapper;
@@ -24,19 +25,21 @@ import javax.validation.Valid;
 @Validated
 public class MemberController {
     private final MemberService memberService;
-    private final MemberMapper memberMapper;
+    private final MemberMapper mapper;
     private final Logout logout;
 
     // 회원가입
     @PostMapping("/members")
     public ResponseEntity signUpMember( @Valid @RequestBody MemberSignUpDto memberSignUpDto ){
         log.info("회원가입 시작");
-        Member member = memberMapper.memberSignUpDtoToMember(memberSignUpDto); //멤버 dto 멤버 객체로 변환
+        Member member = mapper.memberSignUpDtotoMember(memberSignUpDto); //멤버 dto 멤버 객체로 변환
         log.info("role = {}", member.getRoles());
         memberService.joinMember(member); //회원가입 실행 메서드
+        MemberResposeDto memberResposeDto = mapper.memberToResponse(member);
+
         log.info("회원가입 완료");
 
-        return new ResponseEntity<>(member,HttpStatus.CREATED);
+        return new ResponseEntity<>(memberResposeDto,HttpStatus.CREATED);
     }
 
     //로그아웃
