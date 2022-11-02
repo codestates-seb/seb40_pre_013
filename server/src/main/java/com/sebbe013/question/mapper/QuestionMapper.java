@@ -32,10 +32,10 @@ public interface QuestionMapper {
         question.setQuestionTitle(questionPatchDto.getQuestionTitle());     // 질문 제목 설정
         question.setQuestionContent(questionPatchDto.getQuestionContent()); // 질문 내용 설정
 
-        Member member = new Member();                           // 질문작성자(멤버) 생성
-        member.setMemberId(questionPatchDto.getMemberId());     // 질문작성자 ID 설정
+        Member member = new Member();                           // 질문 수정자(멤버) 생성
+        member.setMemberId(questionPatchDto.getMemberId());     // 질문 수정자 ID 설정
 
-        question.addMember(member);          // 질문에 작성자 추가
+        question.addMember(member);          // 질문에 수정자 추가
 
         return question;
     }

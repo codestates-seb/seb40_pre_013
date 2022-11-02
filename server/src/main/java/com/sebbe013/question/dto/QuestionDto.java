@@ -19,6 +19,12 @@ public class QuestionDto {
 
         private long memberId;                  // 질문 작성자 id
 
+        /**
+         * 질문 작성자 ID 설정
+         * @param memberId: 질문 작성자 id
+         */
+        public void setMemberId(long memberId) {this.memberId = memberId; }
+
     }
 
     @Getter
@@ -31,8 +37,6 @@ public class QuestionDto {
         @NotBlank(message = "질문 내용은 공백이 아니어야 합니다")
         private String questionContent;     // 질문 내용
 
-        private long memberId;              // 질문 작성자 id
-
         /*
         질문ID 설정
         @param questionId: 질문ID
@@ -40,6 +44,14 @@ public class QuestionDto {
         public void setQuestionId(long questionId) {
             this.questionId = questionId;
         }
+
+        private long memberId;                  // 질문 수정자 id
+
+        /**
+         * 질문 수정자 ID 설정
+         * @param memberId: 질문 수정자 id
+         */
+        public void setMemberId(long memberId) {this.memberId = memberId; }
     }
 
     @Getter

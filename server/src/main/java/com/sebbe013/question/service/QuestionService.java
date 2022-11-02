@@ -30,6 +30,7 @@ public class QuestionService {
     public Question createQuestion(Question question) {
         // MemberService에서 작성자가 멤버로 존재하는지 확인
         Member member = memberService.findVerifiedMember(question.getMember().getMemberId());
+
         // 해당 멤버를 질문의 작성자로 설정
         question.addMember(member);
 
@@ -42,8 +43,20 @@ public class QuestionService {
     @param question  - 수정할 질문
      */
     public Question updateQuestion(Question question) {
-        // 존재하는 질문인지 확인
+        // MemberService에서 작성자가 멤버로 존재하는지 확인
+        Member member = memberService.findVerifiedMember(question.getMember().getMemberId());
+
+        // Question Repository에서 Question Id로 검색해 존재하는 질문인지 확인
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
+
+        // question id로 검색한 Question Repository에 저장된 질문의  작성자 id
+        long findMemberId = findQuestion.getMember().getMemberId();
+
+        // 클라이언트가 요청한 질문의 클라이언트 ID
+        long requestMemberId = question.getMember().getMemberId();
+
+        // 저장된 질문의 작성자와 삭제 요청한 클라이언트가 같은지 확인
+        verifyQuestionWriter(findMemberId, requestMemberId);
 
         // 질문 제목 변경
         Optional.ofNullable(question.getQuestionTitle())
@@ -82,12 +95,29 @@ public class QuestionService {
     }
 
     // 질문 하나 삭제
-    public void deleteQuestion(long questionId) {
-        // question Repository에서 존재하는 유효한 질문인지 가져오기 
-        Question question = findVerifiedQuestion(questionId);
-        
-        // TODO: question Repository에서 가져온 질문 작성자와 같은지 확인하기
+    public void deleteQuestion(long questionId, long memberId) {
+        // MemberService에서 작성자가 멤버로 존재하는지 확인
+        Member member = memberService.findVerifiedMember(memberId);
 
-        questionRepository.delete(question);
+        // question Repository에서 존재하는 유효한 질문인지 가져오기 
+        Question findQuestion = findVerifiedQuestion(questionId);
+
+        // question id로 검색한 Question Repository에 저장된 질문의  작성자 id
+        long findMemberId = findQuestion.getMember().getMemberId();
+
+        // 저장된 질문의 작성자와 삭제 요청한 클라이언트가 같은지 확인
+        verifyQuestionWriter(findMemberId, memberId);
+
+        questionRepository.delete(findQuestion);
+    }
+
+    /**
+     * 저장된 질문의 작성자 id와 클라이언트가 요청한 질문의 작성자id가 같은지 확인
+     * @param findMemberId - repository에 저장된 질문의 작성자 id
+     * @param requestMemberId - 클라이언트가 요청한 질문의 작성자 id
+     */
+    public void verifyQuestionWriter(long findMemberId, long requestMemberId) {
+        if (findMemberId != requestMemberId)   // 저장된 질문의 작성자의 id와 요청보낸 클라이언트의 id가 다르면
+            throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_ALLOWED);       // 권한 없음
     }
 }

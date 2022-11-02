@@ -76,8 +76,6 @@ public class MemberService {
         return member;
     }
 
-
-
     //이메일 중복 확인
     private void checkExistEmail( String email ){
         log.info("이메일 중복 확인");
@@ -103,6 +101,4 @@ public class MemberService {
                         new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
-
-
   }
