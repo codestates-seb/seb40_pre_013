@@ -31,7 +31,7 @@ public class Question extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;              // 질문 작성자
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)         // 질문 삭제시 답변도 삭제
     private List<Answer> answers = new ArrayList<>();       // 답변 리스트
 
     // 질문에 작성자 추가

@@ -31,10 +31,10 @@ public class QuestionDto {
     public static class Patch {
         private long questionId;            // 질문 id
 
-        @NotBlank(message = "질문 제목은 공백이 아니어야 합니다")
+        // TODO: 제목만 수정할 경우, 내용만 수정할 경우 예외처리 필요
         private String questionTitle;       // 질문 제목
 
-        @NotBlank(message = "질문 내용은 공백이 아니어야 합니다")
+        // TODO: 제목만 수정할 경우, 내용만 수정할 경우 예외처리 필요
         private String questionContent;     // 질문 내용
 
         /*
