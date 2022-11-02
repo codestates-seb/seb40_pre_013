@@ -74,6 +74,11 @@ const SignUp = () => {
                                         Passwords must contain at least eight characters, including at least 1 letter and 1 number.
                                     </p>
                                 </div>
+                                <div className='imNotRobot'>
+                                    <input type='checkbox' className='robotcheck'></input>
+                                    <label></label>
+                                    <span className='robotName'>I'm not a robot</span>
+                                </div>
                                 <fieldset>
                                     <div class="d-flex gs8">
                                         <div class="flex--item">
@@ -130,6 +135,24 @@ const SignUpStyle = styled.div`
     }
     .d-flex {
         padding : 12px;
+    }
+    .imNotRobot {
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        border: 1px solid gray;
+        width:156px;
+        height:136px;
+        margin: auto;
+    }
+    .robotcheck {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+    }
+    .robotName {
+        font-size : 15px;
     }
     `
 

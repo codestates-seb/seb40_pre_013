@@ -35,19 +35,21 @@ const QuestionLookup = () => {
                                 21 times
                             </div>
                         </div>
-                        <QuestionResponse/>
+                        <QuestionResponse />
                     </div>
                     <div className="response">
                         <h2>2Answers</h2>
-                       <QuestionResponse/>
+                        <QuestionResponse />
+                    </div>
+                    <div className="editor">
+                        <h2 className="space">Your Answer</h2>
+                        <Editor />
+                        <Button >Post your Answer</Button>
                     </div>
                 </div>
+                
             </Container>
-            <div>
-                <h2 className="space">Your Answer</h2>
-                <Editor />
-                <Button >Post your Answer</Button>
-            </div>
+
         </QuestionLookupStyle>
     )
 }
@@ -86,6 +88,10 @@ const QuestionLookupStyle = styled.div`
     .response {
         margin-top:30px;
     }
+    .editor {
+        position: absolute;
+        bottom: -100px;
+    }
     `
 const Side = styled.div`
     border: 1px solid #d6d9dc;
@@ -109,7 +115,7 @@ const Button = styled.button`
   border-radius: 3px;
   outline: none;
   border: 1px solid transparent;
-  margin: 32px -2px 0px;
+  margin: 32px -2px 20px;
   cursor: pointer;
 `;
 
