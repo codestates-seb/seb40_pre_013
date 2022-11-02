@@ -13,9 +13,20 @@ public class ErrorResponse {
     private int code;
     private String message;
 
+    private FieldError fieldErrors;
+    @Getter
     @Builder
-    public ErrorResponse( int code, String message ){
+    public static class FieldError{
+        private String field;
+        private Object errorValued;
+        private String reason;
+    }
+
+
+    @Builder
+    public ErrorResponse( int code, String message ,FieldError fieldErrors){
         this.code = code;
         this.message = message;
+        this.fieldErrors = fieldErrors;
     }
 }

@@ -37,7 +37,7 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-// id확인 완료 테스트용
+ //id확인 완료 테스트용
 //    @GetMapping("/members")
 //    public Long assd( HttpServletRequest request){
 //        Long memberId = memberService.findMemberId(request);
