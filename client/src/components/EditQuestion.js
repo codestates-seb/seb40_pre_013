@@ -122,7 +122,8 @@ const Button = styled.button`
   height: 38px;
   min-height: 38px;
   background-color: #ffffff;
-  color: #0a95ff;
+  color: #0078D2;
+  box-shadow: inset 0 1px 0 0 #fff6;
   border-radius: 3px;
   outline: none;
   border: 1px solid #d6d9dc;

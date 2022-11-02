@@ -19,7 +19,7 @@ function AskQuestion() {
                   <h2>Body</h2>
                   <p>Include all the information someone would need to answer you question</p>
                   <Editor />
-                  <Button >Review your question</Button>
+                  <Button >Update your question</Button>
                 </PostBody>
             </Post>
         </Content>
@@ -114,11 +114,12 @@ const Button = styled.button`
   width: 154px;
   height: 38px;
   min-height: 38px;
-  background-color: #0a95ff;
+  background-color: #0078D2;
   color: #ffffff;
   border-radius: 3px;
   outline: none;
   border: 1px solid transparent;
   margin: 32px -2px 0px;
   cursor: pointer;
+  box-shadow: inset 0 1px 0 0 #fff6;
 `;

@@ -56,7 +56,7 @@ const Button = styled.button`
   padding: 10px;
   height: 35px;
   color: #ffffff;
-  border: 1px solid ;
+  border: 1px solid #0000;
   border-radius: 3px;
   background-color: #0078D2;
   outline: none;
@@ -66,6 +66,7 @@ const Button = styled.button`
   text-decoration: none;
   cursor: pointer;
   user-select: none;
+  box-shadow: inset 0 1px 0 0 #fff6;
 `;
 
 const Row2 = styled.div `
