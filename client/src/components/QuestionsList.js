@@ -1,7 +1,12 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function QuestionsList() {
+  const navigate = useNavigate();
+  const handleTitleClick = () => {
+  navigate("/qlookup");
+  }
+
     return (
         <Container>
             <Stats>
@@ -10,8 +15,8 @@ function QuestionsList() {
                 <div>0 views</div>
             </Stats>
             <QuestionContent>
-                <h2><Link to='/qlookup'>제목입니다.</Link></h2>
-                <contents>내용입니다.</contents>
+                <h2 onClick={handleTitleClick}>제목입니다.</h2>
+                <div className="contents">내용입니다.</div>
                 <div className= "User">
                     <div className="userID">yumi</div>
                     <div className="timeAgo">asked 1 min ago </div>
@@ -63,7 +68,7 @@ const QuestionContent = styled.div`
   margin: 0;
   }
 
-  content {
+  .contents {
   color: #3B4045;
   font-size: 13px;
   overflow: hidden;
