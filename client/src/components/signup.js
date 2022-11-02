@@ -74,6 +74,7 @@ const SignUp = () => {
                                         Passwords must contain at least eight characters, including at least 1 letter and 1 number.
                                     </p>
                                 </div>
+                                
                                 <fieldset>
                                     <div class="d-flex gs8">
                                         <div class="flex--item">
