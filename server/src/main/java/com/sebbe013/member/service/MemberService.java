@@ -1,9 +1,7 @@
 package com.sebbe013.member.service;
 
-import com.sebbe013.exception.BusinessLogicException;
-import com.sebbe013.exception.ExceptionCode;
-import com.sebbe013.exception.bussiness.ExistDisplayNameExeption;
-import com.sebbe013.exception.bussiness.ExistEamilException;
+import com.sebbe013.exception.bussiness.BusinessLogicException;
+import com.sebbe013.exception.bussiness.ExceptionCode;
 import com.sebbe013.member.entity.Member;
 import com.sebbe013.login.auth.AuthUtils;
 import com.sebbe013.login.filter.JwtVerificationFilter;
@@ -35,6 +33,7 @@ public class MemberService {
     private final JwtVerificationFilter jwtVerificationFilter;
 
     //멤버 정보 저장 메서드
+
     public void joinMember( Member member ){
         log.error("회원가입 시작");
         checkExistEmail(member.getEmail()); // 이메일 중복확인
@@ -81,7 +80,7 @@ public class MemberService {
         log.info("이메일 중복 확인");
 
         Optional<Member> member = memberRepository.findByEmail(email);
-        if(member.isPresent()) throw new ExistEamilException();
+        if(member.isPresent()) throw new BusinessLogicException(ExceptionCode.EXIST_EMAIL);
     }
 
     //diaplay name 중복 확인
@@ -89,7 +88,7 @@ public class MemberService {
         log.info("diplay name 중복 확인");
 
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
-        if(member.isPresent()) throw new ExistDisplayNameExeption();
+        if(member.isPresent()) throw new BusinessLogicException(ExceptionCode.EXIST_DISPALY_NAME);
     }
 
 

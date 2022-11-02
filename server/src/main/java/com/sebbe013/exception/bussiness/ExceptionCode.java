@@ -1,22 +1,22 @@
 package com.sebbe013.exception.bussiness;
 
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
-/*
-예외 상태 코드와 메시지 관리 enum
- */
 
 public enum ExceptionCode {
-    EXIST_EMAIL(HttpStatus.CONFLICT.value(), "이미 존재하는 e-mail입니다."),
-    EXIST_DISPLAY_NAME(HttpStatus.CONFLICT.value(), "이미 존재하는 Display name입니다."),
-    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "찾을 수 없는 e-mail입니다.");
+    ANSWER_NOT_FOUND(404, "답변을 찾을 수 없어요"),
+    MEMBER_NOT_FOUND(404, "Member not found"), // 에러 추가, 나중에 생각
+    QUESTION_NOT_FOUND(404, "질문을 찾을 수 없습니다^^"),  // 질문이 존재하지 않을 때
+    QUESTION_NOT_ALLOWED(404, "해당 질문의 작성자가 아닙니다."),     // 질문 수정, 삭제 불가
+    EXIST_EMAIL(409,"이미 가입한 e-mail입니다."),
+    EXIST_DISPALY_NAME(409,"이미 존재하는 닉네임입니다.");
     @Getter
     private int code;
     @Getter
     private String message;
 
-    ExceptionCode( int code, String message ){
+    ExceptionCode(int code, String message) {
         this.code = code;
         this.message = message;
     }
+
 }

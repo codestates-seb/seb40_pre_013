@@ -1,7 +1,7 @@
 package com.sebbe013.login.auth.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sebbe013.exception.dto.ErrorResponse;
+import com.sebbe013.exception.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,7 +29,7 @@ public class MemberAuthFailureHandler implements AuthenticationFailureHandler {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
         ErrorResponse exceptions = ErrorResponse.builder() //errorresponse객체에 상태코드와 메시지 주입
-                .code(HttpStatus.UNAUTHORIZED.value())
+                .status(HttpStatus.UNAUTHORIZED.value())
                 .message("아이디와 비밀번호를 확인해주세요!")
                 .build();
 

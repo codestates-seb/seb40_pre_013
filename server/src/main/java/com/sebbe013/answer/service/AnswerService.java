@@ -2,8 +2,8 @@ package com.sebbe013.answer.service;
 
 import com.sebbe013.answer.entity.Answer;
 import com.sebbe013.answer.repository.AnswerRepository;
-import com.sebbe013.exception.BusinessLogicException;
-import com.sebbe013.exception.ExceptionCode;
+import com.sebbe013.exception.bussiness.BusinessLogicException;
+import com.sebbe013.exception.bussiness.ExceptionCode;
 import com.sebbe013.member.entity.Member;
 import com.sebbe013.member.service.MemberService;
 import org.springframework.stereotype.Service;
