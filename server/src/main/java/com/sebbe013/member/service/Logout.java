@@ -1,8 +1,8 @@
 package com.sebbe013.member.service;
 
-import com.sebbe013.login.filter.JwtVerificationFilter;
-import com.sebbe013.login.jwt.JwtToken;
-import com.sebbe013.login.jwt.SecretKey;
+import com.sebbe013.member.login.filter.JwtVerificationFilter;
+import com.sebbe013.member.login.jwt.JwtToken;
+import com.sebbe013.member.login.jwt.SecretKey;
 import com.sebbe013.redis.RedisConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -23,7 +23,7 @@ public class Logout {
     private final JwtToken jwtToken;
     private final SecretKey secretKey;
     private final JwtVerificationFilter jwtVerificationFilter;
-    private final RedisConfig redisConfig;
+    private final RedisConfig redis;
     private final String REDIS_KEY_PREFIX = "logouttoken";
 
 
@@ -37,7 +37,7 @@ public class Logout {
         Date expiration = claims.getBody().getExpiration();
 
         if(logoutedToken(request)){
-            redisConfig.redisTemplate().opsForValue().set(REDIS_KEY_PREFIX + jws, "tk", expiration.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
+            redis.redisTemplate().opsForValue().set(REDIS_KEY_PREFIX + jws, "tk", expiration.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
             log.info("로그아웃 완료");
         }
     }
@@ -50,7 +50,7 @@ public class Logout {
         Jws<Claims> claims = jwtVerificationFilter.getClaims(jws, key);
         boolean notExpire = claims.getBody().getExpiration().after(new Date());//현재시간보다 만료일이 더 나중이면 true
 
-        if(redisConfig.redisTemplate().opsForValue().get(REDIS_KEY_PREFIX + jws) != null){ //만약 레디스에 토큰이 있으면 로그아웃된 유저
+        if(redis.redisTemplate().opsForValue().get(REDIS_KEY_PREFIX + jws) != null){ //만약 레디스에 토큰이 있으면 로그아웃된 유저
             log.info("로그아웃 됐습니다.");
             return false;
         }

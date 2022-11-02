@@ -1,7 +1,7 @@
-package com.sebbe013.login.filter;
+package com.sebbe013.member.login.filter;
 
-import com.sebbe013.login.jwt.JwtToken;
-import com.sebbe013.login.jwt.SecretKey;
+import com.sebbe013.member.login.jwt.JwtToken;
+import com.sebbe013.member.login.jwt.SecretKey;
 import com.sebbe013.redis.RedisConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -37,7 +37,7 @@ jwt 인증 클래스
 public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private final SecretKey secretKey;
-    private final RedisConfig redisConfig;
+    private final RedisConfig redis;
     private final String REDIS_KEY_PREFIX = "logouttoken";
     private final JwtToken jwtToken;
 
@@ -79,7 +79,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         Key key = secretKey.getSecretKey(secretKey.getBaseKey());
         Jws<Claims> claims = getClaims(jws, key);
 
-        return redisConfig.redisTemplate().opsForValue().get(REDIS_KEY_PREFIX + jws) != null;
+        return redis.redisTemplate().opsForValue().get(REDIS_KEY_PREFIX + jws) != null;
     }
 
     // 권한을 SecurityContextHoler에 저장하는 메서드

@@ -1,11 +1,11 @@
-package com.sebbe013.login.filter;
+package com.sebbe013.member.login.filter;
 
-import com.sebbe013.login.exception.ErrorResponder;
+import com.sebbe013.member.login.exception.ErrorResponder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.stereotype.Component;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

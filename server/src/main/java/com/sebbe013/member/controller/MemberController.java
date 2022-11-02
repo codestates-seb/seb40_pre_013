@@ -27,7 +27,7 @@ public class MemberController {
     private final MemberMapper memberMapper;
     private final Logout logout;
 
-    // 회원가입 서비스 메서드
+    // 회원가입
     @PostMapping("/members")
     public ResponseEntity signUpMember( @Valid @RequestBody MemberSignUpDto memberSignUpDto ){
         log.info("회원가입 시작");
@@ -39,14 +39,15 @@ public class MemberController {
         return new ResponseEntity<>(member,HttpStatus.CREATED);
     }
 
+    //로그아웃
     @GetMapping("members/logout")
-    public ResponseEntity logout( HttpServletRequest request ){
-        logout.logout(request);
-        return new ResponseEntity(HttpStatus.OK);
+    public String logout( HttpServletRequest request ){
+        logout.logout(request);//로그아웃 서비스 메서드
+        return "로그아웃 되었습니다.";
     }
 
-    @GetMapping("/members")
-    public String a(){
-        return "asdf";
-    }
+//    @GetMapping("/members")
+//    public String a(){
+//        return "asdf";
+//    }
 }

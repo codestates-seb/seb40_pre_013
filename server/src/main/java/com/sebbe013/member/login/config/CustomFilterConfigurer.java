@@ -1,12 +1,12 @@
-package com.sebbe013.login.config;
+package com.sebbe013.member.login.config;
 
-import com.sebbe013.login.auth.handler.MemberAuthFailureHandler;
-import com.sebbe013.login.auth.handler.MemberAuthSuccessHandler;
-import com.sebbe013.login.jwt.Expiration;
-import com.sebbe013.login.filter.JwtLoginFilter;
-import com.sebbe013.login.filter.JwtVerificationFilter;
-import com.sebbe013.login.jwt.JwtToken;
-import com.sebbe013.login.jwt.SecretKey;
+import com.sebbe013.member.login.auth.handler.MemberAuthFailureHandler;
+import com.sebbe013.member.login.auth.handler.MemberAuthSuccessHandler;
+import com.sebbe013.member.login.jwt.Expiration;
+import com.sebbe013.member.login.filter.JwtLoginFilter;
+import com.sebbe013.member.login.filter.JwtVerificationFilter;
+import com.sebbe013.member.login.jwt.JwtToken;
+import com.sebbe013.member.login.jwt.SecretKey;
 import com.sebbe013.redis.RedisConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

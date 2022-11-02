@@ -1,4 +1,4 @@
-package com.sebbe013.login.config;
+package com.sebbe013.member.login.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.sebbe013.login.auth.handler;
+package com.sebbe013.member.login.auth.handler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,15 +20,8 @@ public class MemberAuthSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess( HttpServletRequest request, HttpServletResponse response, Authentication authentication ) throws IOException, ServletException{
         log.info("로그인 성공");
-//         바디에 멤버 아이디 넣어줌 테스트용
-//        Member member = (Member) authentication.getPrincipal();
-//
-//        LoginResponseDto id = LoginResponseDto.builder().id(member.getMemberId()).build();
-//        ObjectMapper objectMapper = new ObjectMapper();
-//
-//        String ids = objectMapper.writeValueAsString(id);
-//
-//        response.getWriter().write(ids);
+
+        response.getWriter().write("로그인 성공");
     }
 
 }

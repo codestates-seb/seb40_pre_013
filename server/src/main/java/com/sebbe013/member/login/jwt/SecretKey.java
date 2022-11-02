@@ -1,4 +1,4 @@
-package com.sebbe013.login.jwt;
+package com.sebbe013.member.login.jwt;
 
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
