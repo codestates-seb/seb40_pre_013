@@ -15,6 +15,7 @@ const Header = () => {
     return (
         <HeaderStyle>
             <header className="s-topbar">
+                <div className='s-topbar--container'>
                 <a href="/" className="s-topbar--logo"><StackLogo /></a>
                 <form id="search" className="s-topbar--searchbar" autocomplete="off">
                     <div className="s-topbar--searchbar--input-group">
@@ -36,25 +37,25 @@ const Header = () => {
                         <Link to='/signup' className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Sign up</Link>
                     </li>
                 </ol>
+                </div>
             </header>
         </HeaderStyle>
-
+     
     )
 }
 
 // 헤더 간격 최대한 비슷하게 구현 반응형은 구현하지 않음 
-const HeaderStyle = styled.header` 
+
+
+const HeaderStyle = styled.header`
+
 .s-topbar--logo {
-    padding-left : 200px;
-    padding-bottom : 10px;
+    margin-left: 0;
+    width: 150px;
+    height: 30px;
+    margin-top: -4px;
 }
-.s-btn__primary{
-    margin-right: 200px;
-}
-.s-topbar--searchbar {
-    padding-right: 30px;
-    padding-left: 30px;
-}
+
 `
 
 export default Header
