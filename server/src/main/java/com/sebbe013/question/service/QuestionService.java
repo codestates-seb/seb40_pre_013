@@ -76,4 +76,14 @@ public class QuestionService {
         // QuestionRepository에서 모든 질문 조회하여 작성날짜 내림차순으로 정렬후 반환
         return questionRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
+
+    // 질문 하나 삭제
+    public void deleteQuestion(long questionId) {
+        // question Repository에서 존재하는 유효한 질문인지 가져오기 
+        Question question = findVerifiedQuestion(questionId);
+        
+        // TODO: question Repository에서 가져온 질문 작성자와 같은지 확인하기
+
+        questionRepository.delete(question);
+    }
 }
