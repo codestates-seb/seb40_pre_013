@@ -1,4 +1,4 @@
-package com.sebbe013.login.auth.handler;
+package com.sebbe013.member.login.auth.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sebbe013.exception.dto.ErrorResponse;

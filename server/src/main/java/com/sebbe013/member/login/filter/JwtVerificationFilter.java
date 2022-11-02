@@ -1,6 +1,6 @@
-package com.sebbe013.login.filter;
+package com.sebbe013.member.login.filter;
 
-import com.sebbe013.login.jwt.SecretKey;
+import com.sebbe013.member.login.jwt.SecretKey;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;

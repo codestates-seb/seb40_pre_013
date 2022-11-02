@@ -1,4 +1,4 @@
-package com.sebbe013.login.auth.handler;
+package com.sebbe013.member.login.auth.handler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

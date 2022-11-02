@@ -1,4 +1,4 @@
-package com.sebbe013.login.filter;
+package com.sebbe013.member.login.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
