@@ -119,7 +119,7 @@ const Button = styled.button`
   border-radius: 3px;
   outline: none;
   border: 1px solid transparent;
-  margin: 32px -2px 0px;
+  margin: 32px -2px 20px;
   cursor: pointer;
   box-shadow: inset 0 1px 0 0 #fff6;
   &:hover {

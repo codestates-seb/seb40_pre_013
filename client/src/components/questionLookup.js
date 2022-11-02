@@ -121,13 +121,17 @@ const Button = styled.button`
   width: 154px;
   height: 38px;
   min-height: 38px;
-  background-color: #0a95ff;
+  background-color: #0078D2;
   color: #ffffff;
   border-radius: 3px;
   outline: none;
   border: 1px solid transparent;
   margin: 32px -2px 20px;
   cursor: pointer;
+  box-shadow: inset 0 1px 0 0 #fff6;
+  &:hover {
+    background-color: #0063bf;
+  }
 `;
 
 export default QuestionLookup
