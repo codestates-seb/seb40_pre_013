@@ -1,5 +1,10 @@
 package com.sebbe013.question.controller;
 
+import com.sebbe013.answer.dto.AnswerDto;
+import com.sebbe013.answer.dto.QuestionAnswersResponseDto;
+import com.sebbe013.answer.entity.Answer;
+import com.sebbe013.answer.mapper.AnswerMapper;
+import com.sebbe013.answer.service.AnswerService;
 import com.sebbe013.question.dto.QuestionDto;
 import com.sebbe013.question.entity.Question;
 import com.sebbe013.question.mapper.QuestionMapper;
@@ -8,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,11 +23,16 @@ public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper mapper;
 
+    private final AnswerService answerService;
 
-    public QuestionController (QuestionService questionService,
-                               QuestionMapper mapper) {
+    private final AnswerMapper answerMapper;
+
+
+    public QuestionController(QuestionService questionService, QuestionMapper mapper, AnswerService answerService, AnswerMapper answerMapper) {
         this.questionService = questionService;
         this.mapper = mapper;
+        this.answerService = answerService;
+        this.answerMapper = answerMapper;
     }
 
     // 질문 등록하기
@@ -74,6 +85,16 @@ public class QuestionController {
                         .collect(Collectors.toList());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+   }
+
+   // 질문 하나 조회하기 (그 질문에 해당하는 답변까지 같이 보이도록)
+   @GetMapping("/{question-id}")
+   public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId) {
+       Question question = questionService.findQuestion(questionId);
+       List<Answer> answers = answerService.findAnswers(questionId);
+       List<AnswerDto.Response> answersResponse = answerMapper.answersToAnswerResponses(answers);
+       return new ResponseEntity<>(new QuestionAnswersResponseDto<>(mapper.questionToQuestionResponseDto(question), answersResponse),
+               HttpStatus.OK);
    }
 
    // 질문 하나 삭제하기

@@ -1,11 +1,9 @@
 package com.sebbe013.member.service;
-/*
+
 import com.sebbe013.exception.BusinessLogicException;
 import com.sebbe013.exception.ExceptionCode;
 import com.sebbe013.exception.bussiness.ExistDisplayNameExeption;
 import com.sebbe013.exception.bussiness.ExistEamilException;
-
- */
 import com.sebbe013.member.entity.Member;
 import com.sebbe013.login.auth.AuthUtils;
 import com.sebbe013.login.filter.JwtVerificationFilter;
@@ -78,7 +76,7 @@ public class MemberService {
         return member;
     }
 
-    /*
+
 
     //이메일 중복 확인
     private void checkExistEmail( String email ){
@@ -106,6 +104,5 @@ public class MemberService {
         return findMember;
     }
 
-     */
 
   }
