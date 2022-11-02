@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function QuestionsList() {
@@ -9,7 +10,7 @@ function QuestionsList() {
                 <div>0 views</div>
             </Stats>
             <QuestionContent>
-                <h2>제목입니다.</h2>
+                <h2><Link to='/qlookup'>제목입니다.</Link></h2>
                 <contents>내용입니다.</contents>
                 <div className= "User">
                     <div className="userID">yumi</div>
