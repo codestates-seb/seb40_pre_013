@@ -19,7 +19,7 @@ function AskQuestion() {
                   <h2>Body</h2>
                   <p>Include all the information someone would need to answer you question</p>
                   <Editor />
-                  <Button >Review your question</Button>
+                  <Button >Update your question</Button>
                 </PostBody>
             </Post>
         </Content>
@@ -30,21 +30,24 @@ function AskQuestion() {
   export default AskQuestion
 
 const Container = styled.div`
-  margin: 0 auto;
+  background-color: hsl(210, 8%, 95%);
   min-height: calc(100vh - 50px);
   width: 100%;
-  max-width: 1264px;
 `;
 
 const Content = styled.div`
+  margin: 0 auto;
+  max-width: 1264px;
+  min-height: 550px;
   display: flex;
   flex-direction: column;
-  margin: 16px;
+  padding: 16px;
   justify-content: center;
 `;
 
 const ContentHeader = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 24px 0px;
   width: 100%;
 
@@ -111,11 +114,15 @@ const Button = styled.button`
   width: 154px;
   height: 38px;
   min-height: 38px;
-  background-color: #0a95ff;
+  background-color: #0078D2;
   color: #ffffff;
   border-radius: 3px;
   outline: none;
   border: 1px solid transparent;
-  margin: 32px -2px 0px;
+  margin: 32px -2px 20px;
   cursor: pointer;
+  box-shadow: inset 0 1px 0 0 #fff6;
+  &:hover {
+    background-color: #0063bf;
+  }
 `;

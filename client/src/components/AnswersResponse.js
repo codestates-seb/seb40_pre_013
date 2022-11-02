@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const QuestionResponse = () => {
     const navigate = useNavigate();
-    const handleEditQbtnClick = () => {
-        navigate("/editQ");
+    const handleEditAbtnClick = () => {
+        navigate("/editA");
         }
     
     return (
@@ -34,7 +34,7 @@ const QuestionResponse = () => {
             </div>
             <div className="d-flex gs8 s-anchors s-anchors__muted fw-wrap">
                 <div className="flex--item"><a href="#">Delete</a></div>
-                <div className="flex--item"onClick={handleEditQbtnClick}><a href="#">Edit</a></div>
+                <div className="flex--item"onClick={handleEditAbtnClick}><a href="#">Edit</a></div>
             </div>
         </div>
     )

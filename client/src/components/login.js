@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom';
 const Login = () => {
     // 배경색을 어떻게 바꿔야 할지 몰라서 구현을 아직 못함 
     return (
-        <LoginStyle>
-            <div>
+        <LoginStyleBox>
+            <LoginStyle>
                 <div className='logos'>
                     <div className='loginStack'><LoginStackLogo /></div>
                     <button className="flex--item s-btn s-btn__icon s-btn__google bar-md ba bc-black-100">
@@ -42,22 +42,35 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </LoginStyle>
+            </LoginStyle>
+        </LoginStyleBox>
 
 
     )
 }
 
+const LoginStyleBox = styled.div `
+  background-color: #f1f2f3;
+  width: 100%;
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px 0;
+
+`
 const LoginStyle = styled.div`
    .logos {
     display:flex;
     flex-direction:column;
-    position: absolute;
+    width: 330px; 
+    margin: 0 auto;
+    /* position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 330px;
+    width: 330px; */
    }
    .s-btn__google {
     margin:4px;

@@ -38,8 +38,8 @@ const Side = styled.div`
 const Container = styled.div`
   display: flex;
   width: 100%;
-  max-width: 1264px;
   margin: 0 auto;
+  max-width: 1264px;
 `;
 
 const Content = styled.div`
@@ -86,13 +86,17 @@ const BlueButton = styled.button`
   width: 100px;
   height: 38px;
   min-height: 38px;
-  background-color: #0a95ff;
+  background-color: #0078D2;
+  box-shadow: inset 0 1px 0 0 #fff6;
   color: #ffffff;
   border-radius: 3px;
   outline: none;
   border: 1px solid transparent;
   margin: 32px -2px 0px;
   cursor: pointer;
+  &:hover {
+    background-color: #0063bf;
+  }
 `;
 
 const Button = styled.button`
@@ -100,11 +104,15 @@ const Button = styled.button`
   height: 38px;
   min-height: 38px;
   background-color: #ffffff;
-  color: #0a95ff;
+  color: #0078D2;
+  box-shadow: inset 0 1px 0 0 #fff6;
   border-radius: 3px;
   outline: none;
   border: 1px solid #d6d9dc;
   padding: 10px;
   margin-left: 10px;
   cursor: pointer;
+  &:hover {
+    background-color: hsl(210,8%,90%);
+  }
 `;
