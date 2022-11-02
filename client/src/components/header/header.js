@@ -16,26 +16,27 @@ const Header = () => {
         <HeaderStyle>
             <header className="s-topbar">
                 <div className='s-topbar--container'>
-                  <a href="/" className="s-topbar--logo"><StackLogo /></a>
-                  <div id="search" className="s-topbar--searchbar">
-                      <div className="s-topbar--searchbar--input-group">
-                          <input className="s-input s-input__search"
-                              onChange={changeMsg}
-                              type="text"
-                              placeholder="Search…"
-                              value={wirte}
-                              autocomplete="off" />
-                          <Magnifier />
-                      </div>
-                  </div>
-                  <ol className="s-topbar--content">
-                      <li>
-                          <Link to='/login' className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Log in</Link>
-                      </li>
-                      <li>
-                          <Link to='/signup' className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Sign up</Link>
-                      </li>
-                  </ol>
+                <a href="/" className="s-topbar--logo"><StackLogo /></a>
+                <form id="search" className="s-topbar--searchbar" autoComplete="off">
+                    <div className="s-topbar--searchbar--input-group">
+                        <input
+                            onChange={changeMsg}
+                            type="text"
+                            placeholder="Search…"
+                            value={wirte}
+                            autoComplete="off"
+                            className="s-input s-input__search" />
+                        <Magnifier />
+                    </div>
+                </form>
+                <ol className="s-topbar--content">
+                    <li>
+                        <Link to='/login' className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Log in</Link>
+                    </li>
+                    <li>
+                        <Link to='/signup' className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Sign up</Link>
+                    </li>
+                </ol>
                 </div>
             </header>
         </HeaderStyle>
