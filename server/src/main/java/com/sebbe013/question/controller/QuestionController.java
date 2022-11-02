@@ -83,12 +83,17 @@ public class QuestionController {
         // questionService에서 질문 업데이트
         Question question =
                 questionService.updateQuestion(mapper.questionPatchDtoToQuestion(questionPatchDto));
-
-        // TODO: 답변 DTO와 함께리턴 필요함
-
-        return new ResponseEntity<> (
-                mapper.questionToQuestionResponseDto(question),
-                HttpStatus.OK);
+        
+        // 질문에 대한 답변 리스트 
+        List<Answer> answers = answerService.findAnswers(questionId);
+        // 답변 리스트 ResponseDto 리스트로 변환
+        List<AnswerDto.Response> answersResponse = answerMapper.answersToAnswerResponses(answers);
+        
+        // 질문 ResponseDTo, 답변 responseDto리스트, HttpStatus.ok와 함께 반환
+        return new ResponseEntity<>(
+                new QuestionAnswersResponseDto<>(
+                        mapper.questionToQuestionResponseDto(question), answersResponse),
+                        HttpStatus.OK);
     }
 
     // 전체 질문 목록 조회하기
