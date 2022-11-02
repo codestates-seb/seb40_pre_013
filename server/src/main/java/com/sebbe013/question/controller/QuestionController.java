@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/")
 public class QuestionController {
@@ -57,5 +60,21 @@ public class QuestionController {
                 mapper.questionToQuestionResponseDto(question),
                 HttpStatus.OK);
     }
+
+    // 전체 질문 목록 조회하기
+   @GetMapping("/")
+    public ResponseEntity getQuestions() {
+        // questionService에서 질문들 모두 가져와서 List로 생성
+        List<Question> questions = questionService.findQuestions();
+
+        // Question 리스트의 질문들을 ResponseDto로 변환후 List로 변환
+        List<QuestionDto.Response> response =
+                questions.stream()
+                        .map(question -> mapper.questionToQuestionResponseDto(question))
+                        .collect(Collectors.toList());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+   }
+
 
 }
