@@ -67,6 +67,9 @@ const Button = styled.button`
   cursor: pointer;
   user-select: none;
   box-shadow: inset 0 1px 0 0 #fff6;
+  &:hover {
+    background-color: #0063bf;
+  }
 `;
 
 const Row2 = styled.div `

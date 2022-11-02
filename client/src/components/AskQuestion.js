@@ -122,4 +122,7 @@ const Button = styled.button`
   margin: 32px -2px 0px;
   cursor: pointer;
   box-shadow: inset 0 1px 0 0 #fff6;
+  &:hover {
+    background-color: #0063bf;
+  }
 `;
