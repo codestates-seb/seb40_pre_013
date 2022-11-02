@@ -56,16 +56,13 @@ public class SecurityConfig {
                 .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration))//커스텀 필터 적용
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/members").permitAll()         // 해당 url추가
-                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")  
-                        .antMatchers(HttpMethod.GET, "/members").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
-                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/members").permitAll()         //회원가입
                         .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
-                        .antMatchers(HttpMethod.POST, "/").hasRole("USER")
-                        .antMatchers(HttpMethod.PATCH, "/**").hasRole("USER")
-                        .antMatchers(HttpMethod.DELETE, "/**").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/answers/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/").hasRole("USER") //질문 포스트
+                        .antMatchers(HttpMethod.PATCH, "/**").hasRole("USER")//질문 수정
+                        .antMatchers(HttpMethod.DELETE, "/**").hasRole("USER")//질문 삭제
                         .anyRequest().permitAll()
 
                 );

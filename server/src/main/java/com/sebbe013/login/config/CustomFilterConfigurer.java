@@ -36,6 +36,5 @@ public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterC
 
         builder.addFilter(jwtLoginFilter) //로그인 필터 추가
                 .addFilterAfter(jwtVerificationFilter, JwtLoginFilter.class);//로그인 필터가 실행된 바로 다음 jwt인증 필터 실행
-
     }
 }

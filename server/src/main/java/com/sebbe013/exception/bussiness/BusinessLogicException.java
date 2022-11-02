@@ -1,4 +1,4 @@
-package com.sebbe013.exception;
+package com.sebbe013.exception.bussiness;
 
 import lombok.Getter;
 

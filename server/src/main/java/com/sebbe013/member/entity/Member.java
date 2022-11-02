@@ -30,7 +30,6 @@ public class Member extends Auditable implements  Principal, UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
-
     @Column(nullable = false, updatable = false, unique = true)
     private String email;
 
@@ -42,6 +41,12 @@ public class Member extends Auditable implements  Principal, UserDetails{
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Answer> answers = new ArrayList<>();
 
     public void encryptedPassword( String encodingPassword ){
         this.password = encodingPassword;
@@ -58,11 +63,6 @@ public class Member extends Auditable implements  Principal, UserDetails{
         return this.email;
     }
 
-    @OneToMany(mappedBy = "member")
-    private List<Question> questions = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<Answer> answers = new ArrayList<>();
 
     ///////// 여기 아래부터 권한 메서드
 

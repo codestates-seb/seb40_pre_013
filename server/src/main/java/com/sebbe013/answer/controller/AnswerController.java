@@ -4,14 +4,11 @@ import com.sebbe013.answer.dto.AnswerDto;
 import com.sebbe013.answer.entity.Answer;
 import com.sebbe013.answer.mapper.AnswerMapper;
 import com.sebbe013.answer.service.AnswerService;
-import com.sebbe013.exception.BusinessLogicException;
-import com.sebbe013.exception.ExceptionCode;
 import com.sebbe013.member.entity.Member;
 import com.sebbe013.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
