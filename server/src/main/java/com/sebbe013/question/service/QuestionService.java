@@ -6,8 +6,10 @@ import com.sebbe013.member.entity.Member;
 import com.sebbe013.member.service.MemberService;
 import com.sebbe013.question.entity.Question;
 import com.sebbe013.question.repository.QuestionRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,5 +69,11 @@ public class QuestionService {
                         new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
 
         return findQuestion;
+    }
+
+    // 전체 질문 목록 조회
+    public List<Question> findQuestions() {
+        // QuestionRepository에서 모든 질문 조회하여 작성날짜 내림차순으로 정렬후 반환
+        return questionRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 }
