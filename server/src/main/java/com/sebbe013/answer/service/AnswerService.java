@@ -6,6 +6,7 @@ import com.sebbe013.exception.bussiness.BusinessLogicException;
 import com.sebbe013.exception.bussiness.ExceptionCode;
 import com.sebbe013.member.entity.Member;
 import com.sebbe013.member.service.MemberService;
+import com.sebbe013.question.service.QuestionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,14 +21,18 @@ public class AnswerService {
 
     private final MemberService memberService;
 
-    public AnswerService(AnswerRepository answerRepository, MemberService memberService) {
+    private final QuestionService questionService;
+
+    public AnswerService(AnswerRepository answerRepository, MemberService memberService, QuestionService questionService) {
         this.answerRepository = answerRepository;
         this.memberService = memberService;
+        this.questionService = questionService;
     }
 
     public Answer createAnswer(Answer answer) {
-        // 회원 확인
+        // 회원 확인, 질문확인
         Member findMember = memberService.findVerifiedMember(answer.getMember().getMemberId());
+        questionService.findVerifiedQuestion(answer.getQuestion().getQuestionId());
 
         Answer savedAnswer = answerRepository.save(answer);
 
