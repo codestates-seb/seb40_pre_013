@@ -21,8 +21,8 @@ const QuestionLookup = () => {
                 </Side>
                 <div className="snippet-hidden">
                     <div className="inner-content clearfix">
-                        <div id="question-header" class="d-flex sm:fd-column">
-                            <h1 className="fs-headline1 ow-break-word mb8 flex--item fl1"><a href="#" class="question-hyperlink">Angular innerhtml element failed in capturing click event</a></h1>
+                        <div id="question-header" className="d-flex sm:fd-column">
+                            <h1 className="fs-headline1 ow-break-word mb8 flex--item fl1"><a href="#" className="question-hyperlink">Angular innerhtml element failed in capturing click event</a></h1>
                             <div className="ml12 aside-cta flex--item print:d-none sm:ml0 sm:mb12 sm:order-first sm:as-end">
                                 <button className="ws-nowrap s-btn s-btn__primary" onClick={handleAskBtnClick}>
                                     Ask Question
@@ -32,7 +32,7 @@ const QuestionLookup = () => {
                         <div className="d-flex fw-wrap pb8 mb16 bb bc-black-075">
                             <div className="flex--item ws-nowrap mr16 mb8" title="2022-11-01 03:57:36Z">
                                 <span className="fc-light mr2">Asked</span>
-                                <time itemprop="dateCreated" datetime="2022-11-01T03:57:36">today</time>
+                                <time itemProp="dateCreated" dateTime="2022-11-01T03:57:36">today</time>
                             </div>
                             <div className="flex--item ws-nowrap mr16 mb8">
                                 <span className="fc-light mr2">Modified</span>

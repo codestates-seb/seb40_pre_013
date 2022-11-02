@@ -17,14 +17,14 @@ const Header = () => {
             <header className="s-topbar">
                 <div className='s-topbar--container'>
                 <a href="/" className="s-topbar--logo"><StackLogo /></a>
-                <form id="search" className="s-topbar--searchbar" autocomplete="off">
+                <form id="search" className="s-topbar--searchbar" autoComplete="off">
                     <div className="s-topbar--searchbar--input-group">
                         <input
                             onChange={changeMsg}
                             type="text"
                             placeholder="Search…"
                             value={wirte}
-                            autocomplete="off"
+                            autoComplete="off"
                             className="s-input s-input__search" />
                         <Magnifier />
                     </div>

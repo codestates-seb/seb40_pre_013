@@ -63,7 +63,7 @@ const QuestionContent = styled.div`
   margin: 0;
   }
 
-  content {
+  contents{
   color: #3B4045;
   font-size: 13px;
   overflow: hidden;

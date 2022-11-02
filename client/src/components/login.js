@@ -17,18 +17,18 @@ const Login = () => {
                         <GoogleLogo />Log in with Google</button>
                     <button className='flex--item s-btn s-btn__icon s-btn__github bar-md ba bc-black-100'><GithubLogo />Log in with GitHub</button>
                     <button className='flex--item s-btn s-btn__icon s-btn__facebook bar-md'><FaceLogo />Log in with Facebook</button>
-                    <div class="s-card bs-md">
-                        <form class="d-flex gs4 gsy fd-column">
+                    <div className="s-card bs-md">
+                        <form className="d-flex gs4 gsy fd-column">
                             <div className='emailInput'>
-                                <label class="flex--item s-label" for="question-title">Email</label>
-                                <div class="d-flex ps-relative">
-                                    <input class="flex--item s-input" type="text" id="question-title" />
+                                <label className="flex--item s-label" htmlFor="question-title">Email</label>
+                                <div className="d-flex ps-relative">
+                                    <input className="flex--item s-input" type="text" id="question-title" />
                                 </div>
                             </div>
                             <div className='passwordInput'>
-                                <label class="flex--item s-label" for="question-title">Password</label>
-                                <div class="d-flex ps-relative">
-                                    <input class="flex--item s-input" type="text" id="question-title" />
+                                <label className="flex--item s-label" htmlFor="question-title">Password</label>
+                                <div className="d-flex ps-relative">
+                                    <input className="flex--item s-input" type="text" id="question-title" />
                                 </div>
                             </div>
 

@@ -52,23 +52,23 @@ const SignUp = () => {
                             <button className='flex--item s-btn s-btn__icon s-btn__facebook bar-md'><FaceLogo />Log in with Facebook</button>
                         </div>
                         <div className='mx-auto mb24 p24 wmx3 bg-white bar-lg bs-xl mb24 with-captcha'>
-                            <form class="d-flex gs4 gsy fd-column">
+                            <form className="d-flex gs4 gsy fd-column">
                                 <div className='signupInput'>
-                                    <label class="flex--item s-label" for="question-title">Display name</label>
-                                    <div class="d-flex ps-relative">
-                                        <input class="flex--item s-input" type="text" id="question-title" />
+                                    <label className="flex--item s-label" htmlFor="question-title">Display name</label>
+                                    <div className="d-flex ps-relative">
+                                        <input className="flex--item s-input" type="text" id="question-title" />
                                     </div>
                                 </div>
                                 <div className='signupInput'>
-                                    <label class="flex--item s-label" for="question-title">Email</label>
-                                    <div class="d-flex ps-relative">
-                                        <input class="flex--item s-input" type="text" id="question-title" />
+                                    <label className="flex--item s-label" htmlFor="question-title">Email</label>
+                                    <div className="d-flex ps-relative">
+                                        <input className="flex--item s-input" type="text" id="question-title" />
                                     </div>
                                 </div>
                                 <div className='signupInput'>
-                                    <label class="flex--item s-label" for="question-title">Password</label>
-                                    <div class="d-flex ps-relative">
-                                        <input class="flex--item s-input" type="text" id="question-title" />
+                                    <label className="flex--item s-label" htmlFor="question-title">Password</label>
+                                    <div className="d-flex ps-relative">
+                                        <input className="flex--item s-input" type="text" id="question-title" />
                                     </div>
                                     <p className='pwCondition'>
                                         Passwords must contain at least eight characters, including at least 1 letter and 1 number.
@@ -80,11 +80,11 @@ const SignUp = () => {
                                     <span className='robotName'>I'm not a robot</span>
                                 </div>
                                 <fieldset>
-                                    <div class="d-flex gs8">
-                                        <div class="flex--item">
-                                            <input class="s-checkbox" type="checkbox" name="example-name" id="example-item" />
+                                    <div className="d-flex gs8">
+                                        <div className="flex--item">
+                                            <input className="s-checkbox" type="checkbox" name="example-name" id="example-item" />
                                         </div>
-                                        <label class="flex--item s-label fw-normal" for="example-item">Opt-in to receive occasional product updates, user research invitations, company announcements, and digests.</label>
+                                        <label className="flex--item s-label fw-normal" htmlFor="example-item">Opt-in to receive occasional product updates, user research invitations, company announcements, and digests.</label>
                                     </div>
                                 </fieldset>
                                 <a href="#" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Sign up</a>
@@ -113,14 +113,13 @@ const SignUp = () => {
 }
 
 const SignUpStyle = styled.div`
-      background-color: #f1f2f3;
-      width: 100%;
-      height: calc(100vh - 50px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 24px 0;
+    background-color: #f1f2f3;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px 0;
       
     .signupInput {
         margin-top : 6px;
