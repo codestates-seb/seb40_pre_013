@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
@@ -28,15 +29,18 @@ public class AnswerController {
     private final MemberService memberService;
     private final AnswerMapper mapper;
 
-    public AnswerController(AnswerService answerService, MemberService memberService, AnswerMapper mapper) {
+    private final HttpServletRequest httpServletRequest;
+
+    public AnswerController(AnswerService answerService, MemberService memberService, AnswerMapper mapper, HttpServletRequest httpServletRequest) {
         this.answerService = answerService;
         this.memberService = memberService;
         this.mapper = mapper;
+        this.httpServletRequest = httpServletRequest;
     }
 
     @PostMapping
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody) {
-        Answer answer = mapper.answerPostToAnswer(requestBody);
+        Answer answer = mapper.answerPostToAnswer(requestBody, memberService, httpServletRequest);
         Answer createdAnswer = answerService.createAnswer(answer);
         AnswerDto.Response response = mapper.answerToAnswerResponse(createdAnswer, memberService);
 
@@ -49,14 +53,13 @@ public class AnswerController {
             @PathVariable("answer-id") @Positive long answerId,
             @Valid @RequestBody AnswerDto.Patch requestBody) {
         requestBody.setAnswerId(answerId);
+        Answer findAnswer = answerService.findVerifiedAnswer(answerId);
 
         Answer answer =
-                answerService.updateAnswer((mapper.answerPatchToAnswer(requestBody)));
+                answerService.updateAnswer((mapper.answerPatchToAnswer(requestBody, memberService, httpServletRequest, findAnswer.getQuestion().getQuestionId())));
 
 
         Member findMember = memberService.findVerifiedMember(answer.getMember().getMemberId());
-        checkAuthMember(findMember.getEmail());
-
 
         AnswerDto.Response response = mapper.answerToAnswerResponse(answer, memberService);
 
@@ -70,8 +73,4 @@ public class AnswerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    public void checkAuthMember(String email) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (!email.equals(username)) throw new BusinessLogicException(ExceptionCode.MEMBER_INCONSISTENCY);
-    }
 }
