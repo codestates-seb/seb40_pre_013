@@ -1,4 +1,4 @@
-package com.sebbe013.member.login.filter;
+package com.sebbe013.login.filter;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

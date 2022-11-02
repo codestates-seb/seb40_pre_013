@@ -1,15 +1,12 @@
 package com.sebbe013.member.service;
 
-/*
-import com.sebbe013.exception.bussiness.ExistDisplayNameExeption;
-import com.sebbe013.exception.bussiness.ExistEamilException;
-
 import com.sebbe013.exception.BusinessLogicException;
 import com.sebbe013.exception.ExceptionCode;
-*/
-import com.sebbe013.member.login.auth.AuthUtils;
-import com.sebbe013.member.login.filter.JwtVerificationFilter;
+import com.sebbe013.exception.bussiness.ExistDisplayNameExeption;
+import com.sebbe013.exception.bussiness.ExistEamilException;
 import com.sebbe013.member.entity.Member;
+import com.sebbe013.login.auth.AuthUtils;
+import com.sebbe013.login.filter.JwtVerificationFilter;
 import com.sebbe013.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
 import java.util.Map;
+import java.util.Optional;
 
 
 /**
@@ -93,6 +90,7 @@ public class MemberService {
 
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
         if(member.isPresent()) throw new ExistDisplayNameExeption();
+    }
 
 
     public Member findVerifiedMember(long memberId) {

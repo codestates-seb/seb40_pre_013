@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionController {
 
     @ExceptionHandler
-    public ResponseEntity handleMethodArgumentNotVaildException(
+    public ResponseEntity<ErrorResponse> handleMethodArgumentNotVaildException(
             MethodArgumentNotValidException e){
 
 //       ErrorResponse.builder()
@@ -31,7 +31,11 @@ public class ExceptionController {
                 .reason(fieldError.getDefaultMessage())
                 .build();
 
-        ErrorResponse errorResponse = ErrorResponse.builder().code(404).message("에러").fieldErrors(fieldError1).build();
+        ErrorResponse errorResponse = ErrorResponse.builder().
+                code(404)
+                .message("에러")
+                .fieldErrors(fieldError1)
+                .build();
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 
