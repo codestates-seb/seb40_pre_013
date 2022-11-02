@@ -38,11 +38,11 @@ const Side = styled.div`
 const Container = styled.div`
   display: flex;
   width: 100%;
+  margin: 0 auto;
+  max-width: 1264px;
 `;
 
 const Content = styled.div`
-  max-width: 1264px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   margin: 16px;
