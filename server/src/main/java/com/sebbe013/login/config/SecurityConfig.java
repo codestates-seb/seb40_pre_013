@@ -1,10 +1,11 @@
 package com.sebbe013.login.config;
 
-import com.sebbe013.login.filter.Expiration;
+import com.sebbe013.login.jwt.Expiration;
 import com.sebbe013.login.filter.MemberAccessDeniedHandler;
 import com.sebbe013.login.filter.MemberAuthenticationEntryPoint;
 import com.sebbe013.login.jwt.JwtToken;
 import com.sebbe013.login.jwt.SecretKey;
+import com.sebbe013.redis.RedisConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,7 @@ public class SecurityConfig {
     private final JwtToken jwtToken;
     private final SecretKey secretKey;
     private final Expiration expiration;
+    private final RedisConfig redisConfig;
 
     @Bean//패스워드 암호화할 메서드
     public PasswordEncoder passwordEncoder(){
@@ -53,10 +55,11 @@ public class SecurityConfig {
                 .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
-                .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration))//커스텀 필터 적용
+                .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration, redisConfig))//커스텀 필터 적용
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/members").permitAll()         //회원가입
+                        .antMatchers(HttpMethod.GET, "/members").hasRole("USER")       //회원가입
                         .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/answers/**").hasRole("USER")

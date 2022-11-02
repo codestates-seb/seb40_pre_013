@@ -1,6 +1,7 @@
 package com.sebbe013.login.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sebbe013.login.jwt.Expiration;
 import com.sebbe013.login.jwt.JwtToken;
 import com.sebbe013.login.jwt.SecretKey;
 import com.sebbe013.member.dto.LoginDto;
@@ -62,7 +63,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     //유저정보를 토큰에 담는 메서드
-    private String delegateAccessToken( Member member ){
+    public String delegateAccessToken( Member member ){
         Map<String, Object> claims = new HashMap<>(); //필요한 정보를 담는다.
         claims.put("username", member.getEmail());
         claims.put("memberId",member.getMemberId());
@@ -70,9 +71,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String subject = member.getEmail(); //토큰 이름??
         Date expiration = expir.getExpiration(expir.getAccessTokenExpirationMinutes());//만료시간
-
-        String encodedSecretKey = secretKey.encodeSecretKey(secretKey.getBaseKey());
-        Key key = secretKey.getKeyFromEncodedKey(encodedSecretKey);//시크릿키 생성
+        Key key = secretKey.getSecretKey(secretKey.getBaseKey());  //시크릿키 생성
 
         return jwtToken.createAcessToken(claims, subject, expiration, key); // 담은 정보로 토큰 생성
     }
@@ -81,12 +80,9 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     private String delegateRefreshToken( Member member ){
         String subject = member.getEmail();
         Date expiration = expir.getExpiration(expir.getRefreshTokenExpirationMinutes());
-        String encodedSecretKey = secretKey.encodeSecretKey(secretKey.getBaseKey());
-        Key key = secretKey.getKeyFromEncodedKey(encodedSecretKey);
+        Key key = secretKey.getSecretKey(secretKey.getBaseKey());
 
         return jwtToken.createRefreshToken(subject, expiration, key);
     }
-
-
 
 }

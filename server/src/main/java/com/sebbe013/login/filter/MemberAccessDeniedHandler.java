@@ -1,5 +1,6 @@
 package com.sebbe013.login.filter;
 
+import com.sebbe013.login.exception.ErrorResponder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -20,7 +21,7 @@ public class MemberAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle( HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException ) throws IOException, ServletException{
-        ErrorResponder.sendErrorResponse(response, HttpStatus.FORBIDDEN);
         log.warn("권한 없는 사용자");
+        ErrorResponder.sendErrorResponse(response, HttpStatus.FORBIDDEN);
     }
 }

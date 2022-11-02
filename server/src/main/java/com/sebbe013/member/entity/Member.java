@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 @Setter
 @Entity
 @Slf4j
-
 //수정일은 나중에 결
 public class Member extends Auditable implements  Principal, UserDetails{
 

@@ -1,4 +1,4 @@
-package com.sebbe013.login.filter;
+package com.sebbe013.login.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sebbe013.exception.response.ErrorResponse;

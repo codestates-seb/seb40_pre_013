@@ -1,5 +1,6 @@
 package com.sebbe013.login.filter;
 
+import com.sebbe013.login.exception.ErrorResponder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
