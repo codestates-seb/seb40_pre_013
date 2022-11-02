@@ -18,7 +18,6 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-//@RequestMapping("/api") 테스트용
 @Validated
 public class MemberController {
 
@@ -36,13 +35,6 @@ public class MemberController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
- //id확인 완료 테스트용
-//    @GetMapping("/members")
-//    public Long assd( HttpServletRequest request){
-//        Long memberId = memberService.findMemberId(request);
-//        return memberId;
-//    }
 
 
 }

@@ -49,13 +49,19 @@ public class SecurityConfig {
                 .httpBasic().disable()//기본 http방식 헤더에 id, 비밀번호 담는 방식?? 사용안함
                 .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration))//커스텀 필터 적용
                 .and()
-                .authorizeHttpRequests(authorize -> authorize //url접근 제한 설정, 현제 테스트
-                        .antMatchers(HttpMethod.POST, "/*/members").permitAll() //해당 url 모두 접근 가능
-                        .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")  //유저 역할을 가진 사람만 접근 가능
-                        .antMatchers(HttpMethod.GET, "/members").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER")
-                        .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
-                        .anyRequest().permitAll()//나머지 url모두 접근 가능
+                .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.POST, "/members").permitAll()         // 해당 url추가
+                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")  
+                        .antMatchers(HttpMethod.GET, "/members").hasRole("USER")     
+                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")  
+                        .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/**").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/**").hasRole("USER")
+                        .anyRequest().permitAll()
+
                 );
         return http.build();
     }
