@@ -26,7 +26,7 @@ public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterC
                                                                                                             // 로그인 할때 사용
 
         JwtLoginFilter jwtLoginFilter = new JwtLoginFilter(authenticationManager, jwtToken,  secretKey, expiration);//필터 실행
-        jwtLoginFilter.setFilterProcessesUrl("/login"); //로그인 디폴트 url
+        jwtLoginFilter.setFilterProcessesUrl("/members/login"); //로그인 디폴트 url
 
 
         jwtLoginFilter.setAuthenticationFailureHandler(new MemberAuthFailureHandler());//로그인 실패시 핸들러 설정
