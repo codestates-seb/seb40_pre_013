@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/questions")
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper mapper;
