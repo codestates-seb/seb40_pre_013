@@ -6,9 +6,41 @@ import { ReactComponent as QuestionLogo } from '../components/Icons/questionMark
 import { ReactComponent as PointLogo } from '../components/Icons/화살표.svg';
 import { ReactComponent as BookMarkLogo } from '../components/Icons/bookmark.svg';
 import { ReactComponent as TrophyLogo } from '../components/Icons/트로피.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
 
 const SignUp = () => {
+    const [inputId, setInputId] = useState('');
+    const [inputPw, setInputPw] = useState('');
+    const [inputName, setInputName] = useState('');
+
+    const navigate = useNavigate();
+
+    const handleInputId = (e) => {
+        setInputId(e.target.value)
+    }
+ 
+    const handleInputPw = (e) => {
+        setInputPw(e.target.value)
+    }
+
+    const handleInputName = (e) => {
+        setInputName(e.target.value)
+    }
+
+    const onClickLogin = () => {
+        axios.post('https://84b4-36-38-67-6.jp.ngrok.io/members', {
+            email: inputId,
+            displayName : inputName,
+            password: inputPw
+        })
+        .then(() => {
+            navigate('/login');
+        })
+        .catch()
+    }
+
     return (
         <SignUpStyle>
             <div className='d-flex flex__center snippet-hidden'>
@@ -56,19 +88,19 @@ const SignUp = () => {
                                 <div className='signupInput'>
                                     <label className="flex--item s-label" htmlFor="question-title">Display name</label>
                                     <div className="d-flex ps-relative">
-                                        <input className="flex--item s-input" type="text" id="question-title" />
+                                        <input className="flex--item s-input" type="text" id="question-title" value={inputName} onChange={handleInputName} />
                                     </div>
                                 </div>
                                 <div className='signupInput'>
                                     <label className="flex--item s-label" htmlFor="question-title">Email</label>
                                     <div className="d-flex ps-relative">
-                                        <input className="flex--item s-input" type="text" id="question-title" />
+                                        <input className="flex--item s-input" type="text" id="question-title" value={inputId} onChange={handleInputId} />
                                     </div>
                                 </div>
                                 <div className='signupInput'>
                                     <label className="flex--item s-label" htmlFor="question-title">Password</label>
                                     <div className="d-flex ps-relative">
-                                        <input className="flex--item s-input" type="text" id="question-title" />
+                                        <input className="flex--item s-input" type="password" id="question-title" value={inputPw} onChange={handleInputPw} />
                                     </div>
                                     <p className='pwCondition'>
                                         Passwords must contain at least eight characters, including at least 1 letter and 1 number.
@@ -87,7 +119,7 @@ const SignUp = () => {
                                         <label className="flex--item s-label fw-normal" htmlFor="example-item">Opt-in to receive occasional product updates, user research invitations, company announcements, and digests.</label>
                                     </div>
                                 </fieldset>
-                                <a href="#" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Sign up</a>
+                                <button className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary" onClick={onClickLogin}>Sign up</button>
                             </form>
                             <div className='js-terms fs-caption fc-light ta-left mt32'>
                                 By clicking “Sign up”, you agree to our <a href='#'>terms of service, privacy policy</a> and <a href='#'>cookie policy</a>
