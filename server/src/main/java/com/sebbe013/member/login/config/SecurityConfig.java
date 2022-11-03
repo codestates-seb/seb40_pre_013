@@ -1,8 +1,7 @@
 package com.sebbe013.member.login.config;
 
-import com.sebbe013.member.login.jwt.Expiration;
 import com.sebbe013.member.login.filter.MemberAccessDeniedHandler;
-import com.sebbe013.member.login.filter.MemberAuthenticationEntryPoint;
+import com.sebbe013.member.login.jwt.Expiration;
 import com.sebbe013.member.login.jwt.JwtToken;
 import com.sebbe013.member.login.jwt.SecretKey;
 import com.sebbe013.redis.RedisConfig;
@@ -52,14 +51,12 @@ public class SecurityConfig {
                 .formLogin().disable() //폼 로그인 형식 사용 안함.
                 .httpBasic().disable()//기본 http방식 헤더에 id, 비밀번호 담는 방식?? 사용안함
                 .exceptionHandling()
-                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
                 .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration, redisConfig))//커스텀 필터 적용
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/members").permitAll()         //회원가입
-                        .antMatchers(HttpMethod.GET, "/members").hasRole("USER")       //회원가입
                         .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/answers/**").hasRole("USER")

@@ -49,8 +49,8 @@ public class MemberController {
         return "로그아웃 되었습니다.";
     }
 
-//    @GetMapping("/members")
-//    public String a(){
-//        return "asdf";
-//    }
+    @GetMapping("/members")
+    public String a(){
+        return "asdf";
+    }
 }

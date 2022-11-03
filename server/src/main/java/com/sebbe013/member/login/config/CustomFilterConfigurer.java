@@ -2,9 +2,10 @@ package com.sebbe013.member.login.config;
 
 import com.sebbe013.member.login.auth.handler.MemberAuthFailureHandler;
 import com.sebbe013.member.login.auth.handler.MemberAuthSuccessHandler;
-import com.sebbe013.member.login.jwt.Expiration;
+import com.sebbe013.member.login.filter.JwtExceptionFilter;
 import com.sebbe013.member.login.filter.JwtLoginFilter;
 import com.sebbe013.member.login.filter.JwtVerificationFilter;
+import com.sebbe013.member.login.jwt.Expiration;
 import com.sebbe013.member.login.jwt.JwtToken;
 import com.sebbe013.member.login.jwt.SecretKey;
 import com.sebbe013.redis.RedisConfig;
@@ -33,9 +34,11 @@ public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterC
         jwtLoginFilter.setAuthenticationFailureHandler(new MemberAuthFailureHandler());//로그인 실패시 핸들러 설정
         jwtLoginFilter.setAuthenticationSuccessHandler(new MemberAuthSuccessHandler());//로그인 성공시 핸들러 설정
 
+        JwtExceptionFilter jwtExceptionFilter = new JwtExceptionFilter();
         JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(secretKey, redisConfig, jwtToken); //jwt인증 필터 설정
 
         builder.addFilter(jwtLoginFilter) //로그인 필터 추가
-                .addFilterAfter(jwtVerificationFilter, JwtLoginFilter.class);//로그인 필터가 실행된 바로 다음 jwt인증 필터 실행
+                .addFilterAfter(jwtVerificationFilter, JwtLoginFilter.class)//로그인 필터가 실행된 바로 다음 jwt인증 필터 실행
+                .addFilterBefore(jwtExceptionFilter, JwtVerificationFilter.class);
     }
 }

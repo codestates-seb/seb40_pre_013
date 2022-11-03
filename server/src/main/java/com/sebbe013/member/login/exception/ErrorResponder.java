@@ -1,7 +1,8 @@
 package com.sebbe013.member.login.exception;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.sebbe013.exception.response.ErrorResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
@@ -10,19 +11,14 @@ import java.io.IOException;
 /*
 jwt토큰 인증 예외처리가 나면
  */
+@Slf4j
 public class ErrorResponder {
 
-    public static void sendErrorResponse( HttpServletResponse response, HttpStatus status ) throws IOException{
-
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        ErrorResponse exceptions = ErrorResponse.builder() //errorresponse객체에 상태코드와 메시지 주입
-                .status(status.value())
-                .message(status.name())
-                .build();
-        String errorResponse = objectMapper.writeValueAsString(exceptions); //json형태로 변경
-        response.getWriter().write(errorResponse); //바디에 출력
-    }
+        public static void sendErrorResponse(HttpServletResponse response, HttpStatus status) throws IOException {
+            Gson gson = new Gson();
+            ErrorResponse errorResponse = ErrorResponse.of(status);
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.setStatus(status.value());
+            response.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));
+        }
 }

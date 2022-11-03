@@ -3,13 +3,11 @@ package com.sebbe013.member.login.filter;
 import com.sebbe013.member.login.jwt.JwtToken;
 import com.sebbe013.member.login.jwt.SecretKey;
 import com.sebbe013.redis.RedisConfig;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -49,12 +47,16 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         try{
             Map<String, Object> claims = verifyJws(request); //클레임 추출
             setAuthtoContext(claims);//Authentication에 저장
-        } catch(SignatureException e){ //작동 안됨
+        } catch(InsufficientAuthenticationException e){ //작동 안됨
             request.setAttribute("exception", e);
-        } catch(ExpiredJwtException e1){
+        } catch(MalformedJwtException e1){
             request.setAttribute("exception", e1);
-        } catch(Exception e2){
+        } catch(SignatureException e2){
             request.setAttribute("exception", e2);
+        } catch(ExpiredJwtException e3){
+            request.setAttribute("exception", e3);
+        } catch(Exception e4){
+            request.setAttribute("exception",e4);
         }
         log.info("claims 완료");
         filterChain.doFilter(request, response); // 완료되면 다음 필터로 이동
