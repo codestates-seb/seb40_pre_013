@@ -46,5 +46,9 @@ public class MemberController {
         logout.logout(request);//로그아웃 서비스 메서드
         return "로그아웃 되었습니다.";
     }
+    @GetMapping
+    public String a(){
+        return "sdfdf";
+    }
 
 }

@@ -48,11 +48,11 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             Map<String, Object> claims = verifyJws(request); //클레임 추출
             setAuthtoContext(claims);//Authentication에 저장
         } catch(InsufficientAuthenticationException e){ //작동 안됨
-            request.setAttribute("exception", e);
+            throw new JwtException("");
         } catch(MalformedJwtException | SignatureException | ExpiredJwtException e1){
-            request.setAttribute("exception", e1);
+            throw new JwtException("");
         } catch(Exception e4){
-            request.setAttribute("exception",e4);
+            throw new JwtException("");
         }
         log.info("claims 완료");
         filterChain.doFilter(request, response); // 완료되면 다음 필터로 이동

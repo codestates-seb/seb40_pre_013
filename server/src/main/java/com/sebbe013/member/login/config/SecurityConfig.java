@@ -60,6 +60,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/members").permitAll()         //회원가입
                         .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/members").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/answers/**").hasRole("USER")
                         .antMatchers(HttpMethod.POST, "/questions/").hasRole("USER") //질문 포스트
