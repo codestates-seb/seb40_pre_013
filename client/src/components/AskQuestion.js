@@ -8,10 +8,9 @@ function AskQuestion() {
   const navigate = useNavigate();
   const titleRef = useRef(null);
   const editorRef = useRef(null);
-  const viewRef = useRef(null);
 
   const handleOnChange = () => {
-   editorRef.current.getInstance().getMarkdown();
+     editorRef.current.getInstance().getMarkdown();
   };
 
   const handleOnClick = () => {

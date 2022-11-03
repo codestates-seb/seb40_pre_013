@@ -12,7 +12,6 @@ function Main() {
         </Side>
         <Content>
           <QuestionsTitle/>
-          <Pagination/>
         </Content>
       </Container>
       </>
