@@ -2,6 +2,8 @@ package com.sebbe013.answer.mapper;
 
 import com.sebbe013.answer.dto.AnswerDto;
 import com.sebbe013.answer.entity.Answer;
+import com.sebbe013.exception.bussiness.BusinessLogicException;
+import com.sebbe013.exception.bussiness.ExceptionCode;
 import com.sebbe013.member.entity.Member;
 import com.sebbe013.member.service.MemberService;
 import com.sebbe013.question.entity.Question;
@@ -9,6 +11,7 @@ import org.mapstruct.Mapper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -42,7 +45,6 @@ public interface AnswerMapper {
         Question question = new Question();
         question.setQuestionId(questionId);
         answer.setQuestion(question);
-
         return answer;
     }
 

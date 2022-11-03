@@ -1,11 +1,11 @@
 
 spring:
-  #  h2:
-  #    console:
-  #      enabled: true
-  #    path: /h2
-  #  datasource:
-  #    url: jdbc:h2:mem:test
+#  h2:
+#    console:
+#      enabled:
+#      truepath: /h2
+#  datasource:
+#    url: jdbc:h2:mem:test
   redis:
     lettuce:
       pool:
@@ -39,6 +39,6 @@ server:
     encoding:
       force-response: true  # UTF-8
 jwt:
-  secret-key : ${JWT_SECRET_KEY}
+  secret-key : sdfsdfsdfesdfdf11113456645454534545451
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
