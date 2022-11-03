@@ -77,15 +77,15 @@ export default QuestionsMain
 const Content = styled.div`
   width: 100%;
   max-width: 1100px;
+`;
+
+const Title = styled.div`
+  padding: 24px 24px 0px 24px;
   border: 1px solid #d6d9dc;
   border-left-width: 0;
   border-top-width: 0;
   border-bottom-width: 1px;
   border-right-width: 0;
-`;
-
-const Title = styled.div`
-  padding: 24px 24px 0px 24px;
 `;
 
 const Row1 = styled.div`
