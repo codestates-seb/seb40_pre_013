@@ -64,7 +64,6 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.PATCH, "/**").hasRole("USER")//질문 수정
                         .antMatchers(HttpMethod.DELETE, "/**").hasRole("USER")//질문 삭제
                         .anyRequest().permitAll()
-
                 );
         return http.build();
     }

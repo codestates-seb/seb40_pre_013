@@ -21,6 +21,7 @@ public class CorsConfig {
         config.addAllowedHeader("*");//모든 헤더에 응답을 허용
         config.addAllowedMethod("*");//모든 메서드(post,put) 허용
 
+
         source.registerCorsConfiguration("/**",config);//url에 모든 config적용
         return new CorsFilter(source);
     }
