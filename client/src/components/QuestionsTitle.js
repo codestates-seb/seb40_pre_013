@@ -65,7 +65,7 @@ function QuestionsMain() {
             title={question.questionTitle}
             body={question.questionContent}
             createdAt={question.createdAt}
-            author={question.memberId}
+            author={question.questionWriter}
               />
           ))}
         </Content>
