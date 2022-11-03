@@ -25,8 +25,8 @@ public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterC
 
     @Override
     public void configure( HttpSecurity builder ) throws Exception{
+        // authenticationManager 객체를 얻어 로그인 할 때 사용
         AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class); // authenticationManager 객체를 얻을 수 있다.
-        // 로그인 할때 사용
 
         JwtLoginFilter jwtLoginFilter = new JwtLoginFilter(authenticationManager, jwtToken, secretKey, expiration);//필터 실행
         jwtLoginFilter.setFilterProcessesUrl("/members/login"); //로그인 디폴트 url
