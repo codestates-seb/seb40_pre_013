@@ -18,7 +18,7 @@ const Login = () => {
                     <button className='flex--item s-btn s-btn__icon s-btn__github bar-md ba bc-black-100'><GithubLogo />Log in with GitHub</button>
                     <button className='flex--item s-btn s-btn__icon s-btn__facebook bar-md'><FaceLogo />Log in with Facebook</button>
                     <div className="s-card bs-md">
-                        <form className="d-flex gs4 gsy fd-column">
+                        <htmlForm className="d-flex gs4 gsy fd-column">
                             <div className='emailInput'>
                                 <label className="flex--item s-label" htmlFor="question-title">Email</label>
                                 <div className="d-flex ps-relative">
@@ -33,7 +33,7 @@ const Login = () => {
                             </div>
 
                             <a href="…" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Log in</a>
-                        </form>
+                        </htmlForm>
                     </div>
                     <div className='loginQustion'>
                         Don’t have an account? <Link to='/signup'>Sign up</Link>
