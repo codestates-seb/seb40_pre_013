@@ -6,6 +6,8 @@ import com.sebbe013.exception.bussiness.BusinessLogicException;
 import com.sebbe013.exception.bussiness.ExceptionCode;
 import com.sebbe013.member.entity.Member;
 import com.sebbe013.member.service.MemberService;
+import com.sebbe013.question.service.QuestionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,20 +17,25 @@ import java.util.Optional;
 
 @Transactional
 @Service
+@Slf4j
 public class AnswerService {
     private final AnswerRepository answerRepository;
 
     private final MemberService memberService;
 
-    public AnswerService(AnswerRepository answerRepository, MemberService memberService) {
+    private final QuestionService questionService;
+
+    public AnswerService(AnswerRepository answerRepository, MemberService memberService, QuestionService questionService) {
         this.answerRepository = answerRepository;
         this.memberService = memberService;
+        this.questionService = questionService;
     }
 
     public Answer createAnswer(Answer answer) {
         // 회원 확인
+        log.info("답변 생성");
         Member findMember = memberService.findVerifiedMember(answer.getMember().getMemberId());
-
+        questionService.findVerifiedQuestion(answer.getQuestion().getQuestionId());
         Answer savedAnswer = answerRepository.save(answer);
 
         return savedAnswer;
@@ -41,7 +48,7 @@ public class AnswerService {
 
         Optional.ofNullable(answer.getAnswerContent())
                 .ifPresent(answerContent -> findAnswer.setAnswerContent(answerContent));
-
+        log.info("답변 수정 완료");
         return answerRepository.save(answer);
     }
 
@@ -55,13 +62,14 @@ public class AnswerService {
     }
 
     public void deleteAnswer(long answerId) {
+        log.info("답변 삭제");
         Answer findAnswer = findVerifiedAnswer(answerId);
         answerRepository.delete(findAnswer);
     }
 
     @Transactional(readOnly = true)
     public Answer findVerifiedAnswer(long answerId) {
-
+        log.info("유효한 답변 확인");
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         Answer findAnswer =
                 optionalAnswer.orElseThrow(() ->

@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://pre-project-database.c7tzer7zrsxo.ap-northeast-2.rds.amazonaws.com:3306/pre_project?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: see1237
+    password: AWSsee1237!
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
