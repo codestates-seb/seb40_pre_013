@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://pre-project-database.c7tzer7zrsxo.ap-northeast-2.rds.amazonaws.com:3306/pre_project?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: see1237
+    password: AWSsee1237!
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+jwt:
+  secret-key : ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
