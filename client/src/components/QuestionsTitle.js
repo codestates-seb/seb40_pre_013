@@ -10,7 +10,7 @@ function QuestionsMain() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
-  const [items] = useState(5);
+  const [items, setItems] = useState(5);
 
   const handlePageChange = (page) => {
     setPage(page);
@@ -47,7 +47,9 @@ function QuestionsMain() {
 
     fetchQustion();
   }, []);
-
+  const itemChange = (e) => {
+    setItems(Number(e.target.value));
+  };
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
   if (!questions) return <div>질문이 없습니다.</div>;
@@ -77,6 +79,11 @@ function QuestionsMain() {
           />
         ))}
       <PaginationBox>
+        <PaginationSelect onClick={itemChange}>
+          <option>5</option>
+          <option>10</option>
+          <option>15</option>
+        </PaginationSelect>
         <Pagination
           activePage={page}
           itemsCountPerPage={items}
@@ -149,13 +156,43 @@ const Row2 = styled.div`
 const Em = styled.div`
   font-size: 17px;
 `;
-
+const PaginationSelect = styled.div`
+  display: flex;
+  justify-content: right;
+  margin: 0px 0px;
+  padding: 24px 24px 0 0;
+  cursor: pointer;
+  option {
+    display: inline-block;
+    width: 40px;
+    height: 30px;
+    border: 1px solid #e2e2e2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    border-radius: 3px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  option:hover {
+    background-color: hsl(210, 8%, 95%);
+  }
+  option:active a {
+    color: white;
+  }
+  option:active, option:focus{
+    background-color: hsl(27, 90%, 55%);
+    border-color: transparent !important;
+  }
+  
+`;
 const PaginationBox = styled.div`
   .pagination {
     display: flex;
     justify-content: left;
     margin: 20px 0px;
-    padding: 24px;
+    padding: 0 24px 24px 24px;
   }
   ul {
     list-style: none;
@@ -186,6 +223,5 @@ const PaginationBox = styled.div`
   ul.pagination li.active {
     background-color: hsl(27, 90%, 55%);
     border-color: transparent !important;
-    cursor: default;
   }
 `;
