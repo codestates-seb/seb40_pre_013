@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
 
-
-function QuestionsList() {
-
+function QuestionsList({ author, title, body, createdAt }) {
   const navigate = useNavigate();
   const handleTitleClick = () => {
   navigate("/qlookup");
   }
 
+  
     return (
         <Container>
             <Stats>
@@ -16,14 +16,15 @@ function QuestionsList() {
                 <div>0 answer</div>
                 <div>0 views</div>
             </Stats>
-            <QuestionContent>
-                <h2 onClick={handleTitleClick}>제목입니다.</h2>
-                <div className="contents">내용입니다.</div>
-                <div className= "User">
-                    <div className="userID">yumi</div>
-                    <div className="timeAgo">asked 1 min ago </div>
+            
+                <QuestionContent>
+                   <h2 onClick={handleTitleClick}>{title}</h2>
+                   <div className="contents">{body}</div>
+                   <div className= "User">
+                   <div className="userID">{author}</div>
+                   <div className="timeAgo">{createdAt} </div>
                 </div>
-            </QuestionContent>
+                </QuestionContent>
         </Container>
     )
 }

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import SideBar from "../components/SideBar"
-import QuestinsTitle from "../components/QuestionsTitle"
-import QuestinsList from "../components/QuestionsList"
+import QuestionsTitle from "../components/QuestionsTitle"
 import Pagination from '../components/Pagination';
 
 function Main() {
@@ -12,8 +11,7 @@ function Main() {
           <SideBar/>
         </Side>
         <Content>
-          <QuestinsTitle/>
-          <QuestinsList/>
+          <QuestionsTitle/>
           <Pagination/>
         </Content>
       </Container>
