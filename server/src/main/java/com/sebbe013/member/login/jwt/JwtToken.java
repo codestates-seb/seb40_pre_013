@@ -37,7 +37,7 @@ public class JwtToken {
                 .signWith(key)//서명을 위한 키
                 .compact();
     }
-
+    // jws만 추출
     public String extractJws( HttpServletRequest request){
         String jws = request.getHeader("Authorization").replace("Bearer ", "");//authorization의 밸류 값에서, brear 제거
          return jws;

@@ -25,6 +25,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
+/*
+로그인시 수행되는 필터
+ */
 
 public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;

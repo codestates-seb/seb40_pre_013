@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /*
-jwt 인증 클래스
+jwt 검증 필터
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -36,7 +36,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private final SecretKey secretKey;
     private final RedisConfig redis;
-    private final String REDIS_KEY_PREFIX = "logouttoken";
+    private final String REDIS_KEY_PREFIX = "logouttoken"; //redis 키값 앞에 붙임
     private final JwtToken jwtToken;
 
 
@@ -49,12 +49,8 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             setAuthtoContext(claims);//Authentication에 저장
         } catch(InsufficientAuthenticationException e){ //작동 안됨
             request.setAttribute("exception", e);
-        } catch(MalformedJwtException e1){
+        } catch(MalformedJwtException | SignatureException | ExpiredJwtException e1){
             request.setAttribute("exception", e1);
-        } catch(SignatureException e2){
-            request.setAttribute("exception", e2);
-        } catch(ExpiredJwtException e3){
-            request.setAttribute("exception", e3);
         } catch(Exception e4){
             request.setAttribute("exception",e4);
         }

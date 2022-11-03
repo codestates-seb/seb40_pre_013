@@ -1,6 +1,7 @@
 package com.sebbe013.member.login.config;
 
 import com.sebbe013.member.login.filter.MemberAccessDeniedHandler;
+import com.sebbe013.member.login.filter.MemberAuthenticationEntryPoint;
 import com.sebbe013.member.login.jwt.Expiration;
 import com.sebbe013.member.login.jwt.JwtToken;
 import com.sebbe013.member.login.jwt.SecretKey;
@@ -52,6 +53,7 @@ public class SecurityConfig {
                 .httpBasic().disable()//기본 http방식 헤더에 id, 비밀번호 담는 방식?? 사용안함
                 .exceptionHandling()
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .and()
                 .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration, redisConfig))//커스텀 필터 적용
                 .and()
@@ -60,9 +62,9 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/answers/**").hasRole("USER")
-                        .antMatchers(HttpMethod.POST, "/").hasRole("USER") //질문 포스트
-                        .antMatchers(HttpMethod.PATCH, "/**").hasRole("USER")//질문 수정
-                        .antMatchers(HttpMethod.DELETE, "/**").hasRole("USER")//질문 삭제
+                        .antMatchers(HttpMethod.POST, "/questions/").hasRole("USER") //질문 포스트
+                        .antMatchers(HttpMethod.PATCH, "questions/**").hasRole("USER")//질문 수정
+                        .antMatchers(HttpMethod.DELETE, "questions/**").hasRole("USER")//질문 삭제
                         .anyRequest().permitAll()
                 );
         return http.build();
