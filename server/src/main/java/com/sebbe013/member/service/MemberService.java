@@ -3,8 +3,8 @@ package com.sebbe013.member.service;
 import com.sebbe013.exception.bussiness.BusinessLogicException;
 import com.sebbe013.exception.bussiness.ExceptionCode;
 import com.sebbe013.member.entity.Member;
-import com.sebbe013.login.auth.AuthUtils;
-import com.sebbe013.login.filter.JwtVerificationFilter;
+import com.sebbe013.member.login.auth.AuthUtils;
+import com.sebbe013.member.login.filter.JwtVerificationFilter;
 import com.sebbe013.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,13 +34,14 @@ public class MemberService {
 
     //멤버 정보 저장 메서드
 
-    public void joinMember( Member member ){
+    public Member joinMember( Member member ){
         log.error("회원가입 시작");
         checkExistEmail(member.getEmail()); // 이메일 중복확인
         checkExistDisplayName(member.getDisplayName());// 디스플레이 중복 확인
         encodePassword(member); // 비밀번호 암호화
         createRole(member);//권한 부여
         memberRepository.save(member);//멤버 정보 저장
+        return  member;
     }
 
     //토큰에서 id 추출 메서드

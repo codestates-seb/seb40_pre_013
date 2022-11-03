@@ -1,8 +1,9 @@
-package com.sebbe013.login.jwt;
+package com.sebbe013.member.login.jwt;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,7 +11,6 @@ import java.util.Map;
 
 /*
  jwt토큰 생성 클래스
-
  */
 @Component
 public class JwtToken {
@@ -37,5 +37,11 @@ public class JwtToken {
                 .signWith(key)//서명을 위한 키
                 .compact();
     }
+
+    public String extractJws( HttpServletRequest request){
+        String jws = request.getHeader("Authorization").replace("Bearer ", "");//authorization의 밸류 값에서, brear 제거
+         return jws;
+    }
+
 }
 

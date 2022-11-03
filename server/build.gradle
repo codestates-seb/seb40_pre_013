@@ -41,6 +41,10 @@ dependencies{
 
 	implementation 'mysql:mysql-connector-java'
 
+	// spring-data-redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	//embedded-redis
+
 }
 
 tasks.named('test'){

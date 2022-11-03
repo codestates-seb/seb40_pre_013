@@ -1,10 +1,10 @@
-package com.sebbe013.login.config;
+package com.sebbe013.member.login.config;
 
-import com.sebbe013.login.filter.Expiration;
-import com.sebbe013.login.filter.MemberAccessDeniedHandler;
-import com.sebbe013.login.filter.MemberAuthenticationEntryPoint;
-import com.sebbe013.login.jwt.JwtToken;
-import com.sebbe013.login.jwt.SecretKey;
+import com.sebbe013.member.login.filter.MemberAccessDeniedHandler;
+import com.sebbe013.member.login.jwt.Expiration;
+import com.sebbe013.member.login.jwt.JwtToken;
+import com.sebbe013.member.login.jwt.SecretKey;
+import com.sebbe013.redis.RedisConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +29,7 @@ public class SecurityConfig {
     private final JwtToken jwtToken;
     private final SecretKey secretKey;
     private final Expiration expiration;
+    private final RedisConfig redisConfig;
 
     @Bean//패스워드 암호화할 메서드
     public PasswordEncoder passwordEncoder(){
@@ -50,10 +51,9 @@ public class SecurityConfig {
                 .formLogin().disable() //폼 로그인 형식 사용 안함.
                 .httpBasic().disable()//기본 http방식 헤더에 id, 비밀번호 담는 방식?? 사용안함
                 .exceptionHandling()
-                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
-                .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration))//커스텀 필터 적용
+                .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration, redisConfig))//커스텀 필터 적용
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/members").permitAll()         //회원가입
@@ -64,7 +64,6 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.PATCH, "/**").hasRole("USER")//질문 수정
                         .antMatchers(HttpMethod.DELETE, "/**").hasRole("USER")//질문 삭제
                         .anyRequest().permitAll()
-
                 );
         return http.build();
     }

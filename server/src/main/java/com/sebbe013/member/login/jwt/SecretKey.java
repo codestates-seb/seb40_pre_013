@@ -1,4 +1,4 @@
-package com.sebbe013.login.jwt;
+package com.sebbe013.member.login.jwt;
 
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
@@ -18,6 +18,11 @@ public class SecretKey {
     @Value("${jwt.secret-key}")
     private String baseKey;
 
+    //secretkey 생성메서드
+    public Key getSecretKey(String baseKey){
+        String encodeSecretKey = encodeSecretKey(baseKey);
+        return getKeyFromEncodedKey(encodeSecretKey);
+    }
 
     //기본 키를 base64로 인코딩해준다.
     public String encodeSecretKey( String baseKey ){

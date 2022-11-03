@@ -1,4 +1,4 @@
-package com.sebbe013.login.config;
+package com.sebbe013.member.login.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +20,7 @@ public class CorsConfig {
         config.addAllowedOrigin("*");//모든 ip 응답을 허용
         config.addAllowedHeader("*");//모든 헤더에 응답을 허용
         config.addAllowedMethod("*");//모든 메서드(post,put) 허용
+
 
         source.registerCorsConfiguration("/**",config);//url에 모든 config적용
         return new CorsFilter(source);

@@ -1,4 +1,4 @@
-package com.sebbe013.login.auth;
+package com.sebbe013.member.login.auth;
 
 import com.sebbe013.member.entity.Member;
 import com.sebbe013.member.repository.MemberRepository;
