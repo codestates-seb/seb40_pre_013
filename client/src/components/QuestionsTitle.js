@@ -1,12 +1,51 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import QuestionsList from "./QuestionsList";
+import axios from 'axios'
+import React, { useState, useEffect } from 'react';
 
 function QuestionsMain() {
 
+  const [questions, setQuestions] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
    const handleAskBtnClick = () => {
    navigate("/ask");
    }
+
+   useEffect(() => {
+
+    const fetchQustion = async () => {
+      try {
+        // 요청이 시작 할 때에는 error 와 questions 를 초기화하고
+        setError(null);
+        setQuestions(null);
+        // loading 상태를 true 로 바꿉니다.
+        setLoading(true);
+        const response = await axios.get(
+          'https://f78a-36-38-67-6.jp.ngrok.io/questions/', {
+            headers:{
+              "ngrok-skip-browser-warning": "skip"
+            }
+          }
+        )
+        console.log(response)
+        setQuestions(response.data); // 데이터는 response.body 안에 들어있습니다.
+      } catch (e) {
+        setError(e);
+      }
+      setLoading(false);
+    };
+
+    fetchQustion();
+  }, []);
+
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
+  if (!questions) return <div>질문이 없습니다.</div>;
+
+
     return (
         <Content>
           <Title>
@@ -19,6 +58,16 @@ function QuestionsMain() {
                   <Button>Filter</Button>
               </Row2>
           </Title>
+          {questions.map(question => (
+            <QuestionsList
+            key={question.questionId}
+            id={question.questionId}
+            title={question.questionTitle}
+            body={question.questionContent}
+            createdAt={question.createdAt}
+            author={question.memberId}
+              />
+          ))}
         </Content>
     )
 }
