@@ -75,9 +75,9 @@ const SignUp = () => {
 
     const navigate = useNavigate();
 
-    const onClickLogin = (e) => {
+    const onClickSignUp = (e) => {
         e.preventDefault(); // 새로고침 방지 
-        axios.post('https://f78a-36-38-67-6.jp.ngrok.io/members', {
+        axios.post('https://eb4c-36-38-67-6.jp.ngrok.io/members', {
             email: inputId,
             displayName : inputName,
             password: inputPw
@@ -169,7 +169,7 @@ const SignUp = () => {
                                         <label className="flex--item s-label fw-normal" htmlFor="example-item">Opt-in to receive occasional product updates, user research invitations, company announcements, and digests.</label>
                                     </div>
                                 </fieldset>
-                                <button className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary" onClick={onClickLogin}>Sign up</button>
+                                <button className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary" onClick={onClickSignUp}>Sign up</button>
                             </form>
                             <div className='js-terms fs-caption fc-light ta-left mt32'>
                                 By clicking “Sign up”, you agree to our <a href='#'>terms of service, privacy policy</a> and <a href='#'>cookie policy</a>
