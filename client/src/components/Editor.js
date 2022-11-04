@@ -1,18 +1,21 @@
-import '@toast-ui/editor/dist/toastui-editor.css';
+import "@toast-ui/editor/dist/toastui-editor.css";
 
-import { Editor } from '@toast-ui/react-editor';
+import { Editor as Writer } from "@toast-ui/react-editor";
+import React, { forwardRef } from "react";
 
-
-
-function EditorBox() {
+const Editor = forwardRef(({ height, onChange, type }, ref) => {
+  if (type === "write")
     return (
-        <Editor
-        initialValue="hello react editor world!"
+      <Writer
+        initialValue="내용을 입력하세요."
         previewStyle="tab"
-        height="600px"
+        height={height}
         initialEditType="markdown"
-        useCommandShortcut={true}/>
-    )
-}
+        useCommandShortcut={true}
+        onChange={onChange}
+        ref={ref}
+      />
+    );
+});
 
-export default EditorBox;
+export default Editor;
