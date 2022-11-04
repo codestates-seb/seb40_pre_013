@@ -8,7 +8,13 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
 
-    Member memberSignUpDtotoMember( MemberSignUpDto memberSignUpDto );
+    default Member memberSignUpDtotoMember( MemberSignUpDto memberSignUpDto ){
+        Member member = new Member(memberSignUpDto.getEmail(),
+                                   memberSignUpDto.getDisplayName(),
+                                   memberSignUpDto.getPassword());
+
+        return member;
+    }
     default MemberResponseDto memberToResponse( Member member) {
 
         MemberResponseDto memberResponseDto = MemberResponseDto.builder()

@@ -1,11 +1,13 @@
 package com.sebbe013.member.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Getter
+@Builder
 public class MemberSignUpDto {
 
     @NotBlank(message = "이메일을 입력해 주세요.")
