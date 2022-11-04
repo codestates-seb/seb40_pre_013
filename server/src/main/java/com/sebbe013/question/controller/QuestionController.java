@@ -100,7 +100,7 @@ public class QuestionController {
     }
 
     // 전체 질문 목록 조회하기
-   @GetMapping("/")
+   @GetMapping
     public ResponseEntity getQuestions() {
         // questionService에서 질문들 모두 가져와서 List로 생성
         List<Question> questions = questionService.findQuestions();
