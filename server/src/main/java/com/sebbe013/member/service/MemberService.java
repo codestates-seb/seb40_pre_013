@@ -89,7 +89,7 @@ public class MemberService {
         log.info("diplay name 중복 확인");
 
         Optional<Member> member = memberRepository.findByDisplayName(displayName);
-        if(member.isPresent()) throw new BusinessLogicException(ExceptionCode.EXIST_DISPALY_NAME);
+        if(member.isPresent()) throw new BusinessLogicException(ExceptionCode.EXIST_DISPLAY_NAME);
     }
 
 

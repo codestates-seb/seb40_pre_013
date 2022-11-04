@@ -30,7 +30,6 @@ public class AnswerDto {
 
     @Builder
     @Getter
-    @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Response {
