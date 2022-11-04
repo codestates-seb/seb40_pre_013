@@ -20,6 +20,8 @@ public class CorsConfig {
         config.addAllowedOriginPattern("*");//모든 ip 응답을 허용
         config.addAllowedHeader("*");//모든 헤더에 응답을 허용
         config.addAllowedMethod("*");//모든 메서드(post,put) 허용
+        config.addExposedHeader("Authorization"); // 브라우져에서  응답 http에서 토큰이 보이게 한다.
+        config.addExposedHeader("Refresh");
 
 
         source.registerCorsConfiguration("/**",config);//url에 모든 config적용
