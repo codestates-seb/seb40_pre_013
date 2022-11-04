@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-function QuestionLook() {
+function QuestionLook({id}) {
   const [questions, setQuestions] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -24,7 +24,7 @@ function QuestionLook() {
         // loading 상태를 true 로 바꿉니다.
         setLoading(true);
         const response = await axios.get(
-          "https://4a57-36-38-67-6.jp.ngrok.io/questions/${question-id}",
+          `https://f464-36-38-67-6.jp.ngrok.io/questions/${id}`,
           {
             headers: {
               "ngrok-skip-browser-warning": "skip",
@@ -55,7 +55,7 @@ function QuestionLook() {
       </Side>
       <QuestionWrap>
         <QuestionHeader>
-          {questions.questionResponse.map((question)=> (
+          {questions.map((question)=> (
             <h1 key={question.questionId}>{question.questionTitle}</h1>
           ))}
           <button onClick={handleAskBtnClick}> Ask Qustion</button>
@@ -75,7 +75,7 @@ function QuestionLook() {
             </div>
           </Bar>
           <QuestionContents>
-          {questions.questionResponse.map((question)=> (
+          {questions.map((question)=> (
             <div className="contents">{question.questionContent}</div>
           ))}
             <div className="deleteEdit">

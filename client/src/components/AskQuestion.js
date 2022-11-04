@@ -10,7 +10,7 @@ function AskQuestion() {
   const editorRef = useRef(null);
 
   const handleOnChange = () => {
-     editorRef.current.getInstance().getMarkdown();
+    editorRef.current.getInstance().getMarkdown();
   };
 
   const handleOnClick = () => {
@@ -18,10 +18,22 @@ function AskQuestion() {
       questionTitle: titleRef.current.value,
       questionContent: editorRef.current.getInstance().getMarkdown(),
     };
+    const headers = {
+      "Content-Type": "application/json",
+      "Authorization":
+        `${localStorage.getItem("authorization")}`,
+    };
+
+
+    console.log(data);
+    console.log(headers)
     axios
-      .post("https://4a57-36-38-67-6.jp.ngrok.io/questions/", data)
-      .then(() => navigate("/qlookup"))
-      .catch(() => navigate("/"));
+      .post("https://f464-36-38-67-6.jp.ngrok.io/questions", data, {
+        headers: headers,
+      })
+
+      .then(() => navigate("/"))
+      .catch((err) => console.log(err));
   };
 
   return (
