@@ -39,6 +39,6 @@ server:
     encoding:
       force-response: true  # UTF-8
 jwt:
-  secret-key : sdfsdfsdfesdfdf11113456645454534545451
+  secret-key : ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
