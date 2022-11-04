@@ -1,15 +1,25 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { ReactComponent as StackLogo } from '../Icons/logoStackoverflow.svg'
 import { ReactComponent as Magnifier } from '../Icons/돋보기.svg'
 
  
-const Header = () => {
+const LoginHeader = (props) => {
     const [wirte, setWrite] = useState('') // 검색창 글쓰기 구현 
 
     const changeMsg = (event) => {
         setWrite(event.target.value);
+    }
+
+    const isLogin = props.isLogin
+    const navigate = useNavigate();
+
+    const onLogout = () => {
+    	// sessionStorage 에 username으로 저장되어있는 아이템을 삭제한다.
+        sessionStorage.removeItem('username')
+        // 로그인페이지로 이동(새로고침)
+        window.location.href = '/login'
     }
 
     return (
@@ -31,10 +41,7 @@ const Header = () => {
                 </form>
                 <ol className="s-topbar--content">
                     <li>
-                        <Link to='/login' className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">Log in</Link>
-                    </li>
-                    <li>
-                        <Link to='/signup' className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Sign up</Link>
+                        <button type='button' onClick={onLogout} className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Log out</button>
                     </li>
                 </ol>
                 </div>
@@ -58,4 +65,4 @@ const HeaderStyle = styled.header`
 
 `
 
-export default Header
+export default LoginHeader

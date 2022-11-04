@@ -4,10 +4,60 @@ import { ReactComponent as LoginStackLogo } from '../components/Icons/로그인�
 import { ReactComponent as GoogleLogo } from '../components/Icons/구글로고.svg';
 import { ReactComponent as GithubLogo } from '../components/Icons/깃허브로고.svg';
 import { ReactComponent as FaceLogo } from '../components/Icons/페북로고.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
 
 const Login = () => {
-    // 배경색을 어떻게 바꿔야 할지 몰라서 구현을 아직 못함 
+    // 초기값 - 이메일, 비밀번호 
+    const [inputId, setInputId] = useState('');
+    const [inputPw, setInputPw] = useState('');
+
+    const onChangeId = (e) => {
+        setInputId(e.target.value);
+    }
+
+    const onChangePw = (e) => {
+        setInputPw(e.target.value);
+    }
+
+    const navigate = useNavigate();
+
+    const requestLogin = async (event, username, pw) => {
+        event.preventDefault();
+        return await axios
+          .post(
+            `https://4a57-36-38-67-6.jp.ngrok.io/members/login`,
+            {
+              'username': inputId, // 처음에 username: username 이렇게 썼어서 안된거였음
+              password: inputPw,
+            },
+            { withCredentials: true }
+          )
+          .then(res => { // 로그인 성공과 실패시 나오는 데이터를 기반으로 로그인이 성공 했을때만 페이지 이동이 되게 구현 
+            console.log(res) // 응답이 어떻게 오는지 콘솔에서 확인하기 위한 코드 
+            if(res.data.message === "아이디와 비밀번호를 확인해주세요!"){
+                alert('입력하신 아이디와 비밀번호가 일치하지 않습니다.')
+            } 
+            else if(res.data === '로그인 성공'){
+                alert('로그인 성공!');
+                sessionStorage.setItem('username', inputId)
+                window.location.href = '/'; // 메인 페이지로 이동 (새로고침해서)
+            }
+        })
+          .then((response) => {
+            /// token이 필요한 API 요청 시 header Authorization에 token 담아서 보내기
+            axios.defaults.headers.common[
+              "Authorization"
+            ] = `Bearer ${response.data.access_token}`;
+            return response.data;
+          })
+          .catch((e) => {
+            console.log(e.response.data);
+            return "이메일 혹은 비밀번호를 확인하세요.";
+          });
+      };
+
     return (
         <LoginStyleBox>
             <LoginStyle>
@@ -18,22 +68,22 @@ const Login = () => {
                     <button className='flex--item s-btn s-btn__icon s-btn__github bar-md ba bc-black-100'><GithubLogo />Log in with GitHub</button>
                     <button className='flex--item s-btn s-btn__icon s-btn__facebook bar-md'><FaceLogo />Log in with Facebook</button>
                     <div className="s-card bs-md">
-                        <htmlForm className="d-flex gs4 gsy fd-column">
+                        <form className="d-flex gs4 gsy fd-column">
                             <div className='emailInput'>
                                 <label className="flex--item s-label" htmlFor="question-title">Email</label>
                                 <div className="d-flex ps-relative">
-                                    <input className="flex--item s-input" type="text" id="question-title" />
+                                    <input className="flex--item s-input" type="text" id="question-title" value={inputId} onChange={onChangeId}/>
                                 </div>
                             </div>
                             <div className='passwordInput'>
                                 <label className="flex--item s-label" htmlFor="question-title">Password</label>
                                 <div className="d-flex ps-relative">
-                                    <input className="flex--item s-input" type="text" id="question-title" />
+                                    <input className="flex--item s-input" type="password" id="question-title" value={inputPw} onChange={onChangePw}/>
                                 </div>
                             </div>
 
-                            <a href="…" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">Log in</a>
-                        </htmlForm>
+                            <button className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary" onClick={requestLogin}>Log in</button>
+                        </form>
                     </div>
                     <div className='loginQustion'>
                         Don’t have an account? <Link to='/signup'>Sign up</Link>
