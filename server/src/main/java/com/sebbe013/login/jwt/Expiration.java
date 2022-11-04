@@ -1,4 +1,4 @@
-package com.sebbe013.member.login.jwt;
+package com.sebbe013.login.jwt;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

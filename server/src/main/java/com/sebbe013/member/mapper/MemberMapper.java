@@ -1,6 +1,6 @@
 package com.sebbe013.member.mapper;
 
-import com.sebbe013.member.dto.MemberResposeDto;
+import com.sebbe013.member.dto.MemberResponseDto;
 import com.sebbe013.member.dto.MemberSignUpDto;
 import com.sebbe013.member.entity.Member;
 import org.mapstruct.Mapper;
@@ -9,15 +9,15 @@ import org.mapstruct.Mapper;
 public interface MemberMapper {
 
     Member memberSignUpDtotoMember( MemberSignUpDto memberSignUpDto );
-    default MemberResposeDto memberToResponse(Member member) {
+    default MemberResponseDto memberToResponse( Member member) {
 
-        MemberResposeDto memberResposeDto = new MemberResposeDto();
+        MemberResponseDto memberResponseDto = MemberResponseDto.builder()
+                .email(member.getEmail())
+                .roles(member.getRoles())
+                .createdAt(member.getCreatedAt())
+                .displayName(member.getDisplayName())
+                .build();
 
-        memberResposeDto.setEmail(member.getEmail());
-        memberResposeDto.setDisplayName(member.getDisplayName());
-        memberResposeDto.setCreatedAt(member.getCreatedAt());
-        memberResposeDto.setRoles(member.getRoles());
-
-        return memberResposeDto;
+        return memberResponseDto;
     }
 }
