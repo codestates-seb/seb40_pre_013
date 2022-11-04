@@ -17,11 +17,10 @@ function AskQuestion() {
     const data = {
       questionTitle: titleRef.current.value,
       questionContent: editorRef.current.getInstance().getMarkdown(),
-      memberId: 1,
     };
     axios
-      .post("https://f78a-36-38-67-6.jp.ngrok.io/questions/", data)
-      .then(() => navigate("/"))
+      .post("https://4a57-36-38-67-6.jp.ngrok.io/questions/", data)
+      .then(() => navigate("/qlookup"))
       .catch(() => navigate("/"));
   };
 
