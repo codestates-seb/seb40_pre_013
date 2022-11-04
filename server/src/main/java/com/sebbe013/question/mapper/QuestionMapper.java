@@ -18,7 +18,7 @@ public interface QuestionMapper {
 
         // 질문 작성자
         Member member = new Member();
-        member.setMemberId(questionPostDto.getMemberId());
+        member.updateMemberId(questionPostDto.getMemberId());
 
         // 질문에 작성자 추가
         question.addMember(member);
