@@ -22,10 +22,10 @@ public interface AnswerMapper {
         Member member = new Member();
         Question question = new Question();
 
-        question.setQuestionId(requestBody.getQuestionId());
+        question.updateQuestionId(requestBody.getQuestionId());
         answer.updateQuestion(question);
 
-        member.setMemberId(memberService.findMemberId(httpServletRequest));
+        member.updateMemberId(memberService.findMemberId(httpServletRequest));
         answer.updateMember(member);
 
         answer.updateAnswerContent(requestBody.getAnswerContent());
@@ -36,14 +36,14 @@ public interface AnswerMapper {
         Answer answer = new Answer();
         Member member = new Member();
 
-        member.setMemberId(memberService.findMemberId(httpServletRequest));
+        member.updateMemberId(memberService.findMemberId(httpServletRequest));
         answer.updateMember(member);
 
         answer.updateAnswerId(requestBody.getAnswerId());
         answer.updateAnswerContent(requestBody.getAnswerContent());
 
         Question question = new Question();
-        question.setQuestionId(questionId);
+        question.updateQuestionId(questionId);
         answer.updateQuestion(question);
         return answer;
     }
