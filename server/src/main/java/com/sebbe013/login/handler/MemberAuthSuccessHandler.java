@@ -20,7 +20,6 @@ public class MemberAuthSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess( HttpServletRequest request, HttpServletResponse response, Authentication authentication ) throws IOException, ServletException{
         log.info("로그인 성공");
-
         response.getWriter().write("로그인 성공");
     }
 

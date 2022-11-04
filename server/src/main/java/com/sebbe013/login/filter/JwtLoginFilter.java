@@ -45,7 +45,6 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());//아이디와 비밀전호로 인증 진행
                                                                                                        // loadUserBy~함수가 실행, 로그인 시도, memberdetailservice가 실행됨
-
         return authenticationManager.authenticate(authenticationToken); //로그인 진행 완료
     }
 

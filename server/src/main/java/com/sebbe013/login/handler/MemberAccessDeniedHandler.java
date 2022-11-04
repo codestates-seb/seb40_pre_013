@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.sebbe013.login.handler.MemberAuthenticationEntryPoint.sendErrorResponse;
+import static com.sebbe013.login.handler.MemberAuthenticationEntryPoint.errorToJson;
 
 
 @Slf4j
@@ -22,7 +22,7 @@ import static com.sebbe013.login.handler.MemberAuthenticationEntryPoint.sendErro
 public class MemberAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle( HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException ) throws IOException, ServletException{
-        log.warn("권한 없는 사용자");
-        sendErrorResponse(response, HttpStatus.FORBIDDEN);
+        log.error("권한 없는 사용자");
+        errorToJson(response, HttpStatus.FORBIDDEN);
     }
 }

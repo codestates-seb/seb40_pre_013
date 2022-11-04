@@ -1,11 +1,11 @@
 package com.sebbe013.question.controller;
 
+import com.sebbe013.member.service.MemberService;
 import com.sebbe013.answer.dto.AnswerDto;
 import com.sebbe013.answer.dto.QuestionAnswersResponseDto;
 import com.sebbe013.answer.entity.Answer;
 import com.sebbe013.answer.mapper.AnswerMapper;
 import com.sebbe013.answer.service.AnswerService;
-import com.sebbe013.member.service.MemberService;
 import com.sebbe013.question.dto.QuestionDto;
 import com.sebbe013.question.entity.Question;
 import com.sebbe013.question.mapper.QuestionMapper;
@@ -32,16 +32,16 @@ public class QuestionController {
     private final AnswerMapper answerMapper;
 
 
-    public QuestionController( QuestionService questionService,
-                               QuestionMapper mapper,
-                               AnswerService answerService,
-                               AnswerMapper answerMapper,
-                               MemberService memberService) {
+    public QuestionController(QuestionService questionService, 
+                              QuestionMapper mapper, 
+                              AnswerService answerService, 
+                              AnswerMapper answerMapper,
+                              MemberService memberService) {
         this.questionService = questionService;
         this.mapper = mapper;
         this.answerService = answerService;
         this.answerMapper = answerMapper;
-         this.memberService = memberService;
+      this.memberService = memberService;
     }
 
     // 질문 등록하기
@@ -100,7 +100,7 @@ public class QuestionController {
     }
 
     // 전체 질문 목록 조회하기
-   @GetMapping
+   @GetMapping("/")
     public ResponseEntity getQuestions() {
         // questionService에서 질문들 모두 가져와서 List로 생성
         List<Question> questions = questionService.findQuestions();
