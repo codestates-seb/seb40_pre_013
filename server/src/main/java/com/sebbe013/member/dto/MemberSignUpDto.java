@@ -1,6 +1,5 @@
 package com.sebbe013.member.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.Email;

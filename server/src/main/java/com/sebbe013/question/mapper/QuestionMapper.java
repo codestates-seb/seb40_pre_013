@@ -32,7 +32,7 @@ public interface QuestionMapper {
         question.updateQuestionId(questionPatchDto.getQuestionId());           // 질문 ID 설정
 
         Member member = new Member();                           // 질문 수정자(멤버) 생성
-        member.setMemberId(questionPatchDto.getMemberId());     // 질문 수정자 ID 설정
+        member.updateMemberId(questionPatchDto.getMemberId());     // 질문 수정자 ID 설정
 
         question.addMember(member);                             // 질문에 수정자 추가
 

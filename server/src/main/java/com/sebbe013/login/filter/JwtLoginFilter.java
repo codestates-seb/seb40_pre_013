@@ -1,9 +1,9 @@
-package com.sebbe013.member.login.filter;
+package com.sebbe013.login.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sebbe013.member.login.jwt.Expiration;
-import com.sebbe013.member.login.jwt.JwtToken;
-import com.sebbe013.member.login.jwt.SecretKey;
+import com.sebbe013.login.jwt.Expiration;
+import com.sebbe013.login.jwt.JwtToken;
+import com.sebbe013.login.jwt.SecretKey;
 import com.sebbe013.member.dto.LoginDto;
 import com.sebbe013.member.entity.Member;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +58,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
         String accessToken = delegateAccessToken(member); //유저정보를 이용해 토큰생성
         String refreshToken = delegateRefreshToken(member);//리프레시 토큰 생성
 
-        response.setHeader("Authoriztion", "Bearer " + accessToken); // 응답 헤더에 토큰을 담는다.
+        response.setHeader("Authorization", "Bearer " + accessToken); // 응답 헤더에 토큰을 담는다.
         response.setHeader("Refresh", refreshToken); //응답 헤더에 리프레시 토큰을 담는다.
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);// MemberAuthsuccessfulhanler 호출, 로그인 성공
@@ -87,5 +87,6 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
 
         return jwtToken.createRefreshToken(subject, expiration, key);
     }
+
 
 }

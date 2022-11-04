@@ -2,9 +2,9 @@ package com.sebbe013.member.service;
 
 import com.sebbe013.exception.bussiness.BusinessLogicException;
 import com.sebbe013.exception.bussiness.ExceptionCode;
+import com.sebbe013.login.auth.AuthUtils;
+import com.sebbe013.login.filter.JwtVerificationFilter;
 import com.sebbe013.member.entity.Member;
-import com.sebbe013.member.login.auth.AuthUtils;
-import com.sebbe013.member.login.filter.JwtVerificationFilter;
 import com.sebbe013.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +59,7 @@ public class MemberService {
     private Member encodePassword( Member member ){
 
         String encodingPassword = passwordEncoder.encode(member.getPassword()); //일반 비밀번호 암호화
-        member.encryptedPassword(encodingPassword);//암호화한 패스워드 멤버 필드에 저장
+        member.updatePassword(encodingPassword);//암호화한 패스워드 멤버 필드에 저장
 
         log.info("암호화 완료");
         return member;
@@ -69,7 +69,7 @@ public class MemberService {
     private Member createRole( Member member ){
         List<String> checkedRoles = authUtils.createRole(member.getEmail()); //멤버 이메일에 따른 권한 생성
 
-        member.givenRoles(checkedRoles);//생성된 권한 멤버 필드에 저장
+        member.updateRoles(checkedRoles);//생성된 권한 멤버 필드에 저장
 
         log.info("권한 부여 완료");
 
