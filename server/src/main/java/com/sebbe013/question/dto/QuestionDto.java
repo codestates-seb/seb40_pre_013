@@ -1,5 +1,6 @@
 package com.sebbe013.question.dto;
 
+import com.sebbe013.validator.NotSpace;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,10 +32,10 @@ public class QuestionDto {
     public static class Patch {
         private long questionId;            // 질문 id
 
-        // TODO: 제목만 수정할 경우, 내용만 수정할 경우 예외처리 필요
+        // @NotSpace: 제목 또는 내용 한가지만 수정할 수는 있지만 공백은 허용안됨
+        @NotSpace(message = "질문 제목은 공백을 입력할 수 없습니다")
         private String questionTitle;       // 질문 제목
-
-        // TODO: 제목만 수정할 경우, 내용만 수정할 경우 예외처리 필요
+        @NotSpace(message = "질문 내용은 공백을 입력할 수 없습니다")
         private String questionContent;     // 질문 내용
 
         /*
