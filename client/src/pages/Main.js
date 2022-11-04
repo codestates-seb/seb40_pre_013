@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import SideBar from "../components/SideBar"
 import QuestionsTitle from "../components/QuestionsTitle"
-import Pagination from '../components/Pagination';
 
 function Main() {
     return (
@@ -12,7 +11,6 @@ function Main() {
         </Side>
         <Content>
           <QuestionsTitle/>
-          <Pagination/>
         </Content>
       </Container>
       </>

@@ -1,33 +1,69 @@
 import styled from "styled-components";
 import Editor from "./Editor";
+import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function AskQuestion() {
+  const navigate = useNavigate();
+  const titleRef = useRef(null);
+  const editorRef = useRef(null);
 
-    return (
-      <Container>
-        <Content>
-            <ContentHeader>
-                <h1>Ask a public question</h1>
-            </ContentHeader>
-            <Post>
-                <PostTitle>
-                    <h2>Title</h2>
-                    <p>Be specific and imagine you’re asking a question to another person.</p>
-                    <input type = "text" placeholder="e.g is there an R function someone would need to answer your question"></input>
-                </PostTitle>
-                <PostBody>
-                  <h2>Body</h2>
-                  <p>Include all the information someone would need to answer you question</p>
-                  <Editor />
-                  <Button >Update your question</Button>
-                </PostBody>
-            </Post>
-        </Content>
-      </Container>
-    );
-  }
-  
-  export default AskQuestion
+  const handleOnChange = () => {
+     editorRef.current.getInstance().getMarkdown();
+  };
+
+  const handleOnClick = () => {
+    const data = {
+      questionTitle: titleRef.current.value,
+      questionContent: editorRef.current.getInstance().getMarkdown(),
+    };
+    axios
+      .post("https://4a57-36-38-67-6.jp.ngrok.io/questions/", data)
+      .then(() => navigate("/qlookup"))
+      .catch(() => navigate("/"));
+  };
+
+  return (
+    <Container>
+      <Content>
+        <ContentHeader>
+          <h1>Ask a public question</h1>
+        </ContentHeader>
+        <Post>
+          <PostTitle>
+            <h2>Title</h2>
+            <p>
+              Be specific and imagine you’re asking a question to another
+              person.
+            </p>
+            <input
+              type="text"
+              placeholder="e.g is there an R function someone would need to answer your question"
+              ref={titleRef}
+            ></input>
+          </PostTitle>
+          <PostBody>
+            <h2>Body</h2>
+            <p>
+              Include all the information someone would need to answer you
+              question
+            </p>
+            <Editor
+              type="write"
+              height="300px"
+              ref={editorRef}
+              onChange={handleOnChange}
+            />
+            <Button onClick={handleOnClick}>Update your question</Button>
+          </PostBody>
+        </Post>
+      </Content>
+    </Container>
+  );
+}
+
+export default AskQuestion;
 
 const Container = styled.div`
   background-color: hsl(210, 8%, 95%);
@@ -51,10 +87,10 @@ const ContentHeader = styled.div`
   padding: 24px 0px;
   width: 100%;
 
-h1 {
-  font-size: 31px;
-  color: #232629;
-}
+  h1 {
+    font-size: 31px;
+    color: #232629;
+  }
 `;
 
 const Post = styled.div`
@@ -72,7 +108,7 @@ const PostTitle = styled.div`
   flex-direction: column;
   padding: 24px;
 
-  h2{
+  h2 {
     color: #0c0d0e;
     font-size: 15px;
     margin: 0;
@@ -84,7 +120,7 @@ const PostTitle = styled.div`
     margin: 2px 0;
     padding: 0 2px;
   }
-  input{
+  input {
     width: 97.5%;
     margin: 0;
     padding: 7px 9px;
@@ -92,11 +128,11 @@ const PostTitle = styled.div`
 `;
 
 const PostBody = styled.div`
-    display: flex;
+  display: flex;
   flex-direction: column;
   padding: 24px;
 
-  h2{
+  h2 {
     color: #0c0d0e;
     font-size: 15px;
     margin: 0;
@@ -114,7 +150,7 @@ const Button = styled.button`
   width: 154px;
   height: 38px;
   min-height: 38px;
-  background-color: #0078D2;
+  background-color: #0078d2;
   color: #ffffff;
   border-radius: 3px;
   outline: none;
