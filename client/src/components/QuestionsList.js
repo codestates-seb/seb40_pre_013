@@ -1,19 +1,19 @@
-import { useNavigate } from "react-router-dom";
 
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function QuestionsList({ author, title, body, createdAt }) {
-  const navigate = useNavigate();
+function QuestionsList({ id, author, title, body, createdAt }) {
   // 로그인을 했을 경우에만 Ask question 눌렀을때 질문 작성이 가능 그게 아니라면 로그인 화면으로 이동 
   const handleTitleClick = () => {
     if(sessionStorage.getItem('username') !== null) {
-      navigate("/qlookup");
+      window.location.href = '/qlookup';
     }
     else {
       alert('로그인을 먼저 하고 오세요!');
       window.location.href = '/login';
     }
   };
+
 
   return (
     <Container>
@@ -24,7 +24,7 @@ function QuestionsList({ author, title, body, createdAt }) {
       </Stats>
 
       <QuestionContent>
-        <h2 onClick={handleTitleClick}>{title}</h2>
+        <Link to={`/questions/${id}`} className ="title" onClick={handleTitleClick}>{title}</Link>
         <div className="contents">{body}</div>
         <div className="User">
           <div className="userID">{author}</div>
@@ -67,7 +67,7 @@ const QuestionContent = styled.div`
   flex-direction: column;
   gap: 8px 0;
 
-  h2 {
+  .title {
     color: #0078d2;
     word-break: break-word;
     hyphens: auto;
