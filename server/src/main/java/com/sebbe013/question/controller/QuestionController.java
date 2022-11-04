@@ -112,6 +112,13 @@ public class QuestionController {
    }
 
    // 질문 하나 조회하기 (그 질문에 해당하는 답변까지 같이 보이도록)
+
+    /**
+     * 질문 하나 조회하기
+     * 질문에 해당하는 내용, 답변 전부 출력
+     * @param questionId - 질문 id
+     * @return responseEntity - 질문 response dto,답변 response Dto리스트, HTTP Status OK
+     */
    @GetMapping("/{question-id}")
    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId) {
        Question question = questionService.findQuestion(questionId);

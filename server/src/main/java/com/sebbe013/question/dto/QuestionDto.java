@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class QuestionDto {
 
     @Getter
+    @Builder
     public static class Post {
         @NotBlank(message = "질문 제목은 공백이 아니어야 합니다")
         private String questionTitle;           // 질문 제목
@@ -28,6 +29,7 @@ public class QuestionDto {
     }
 
     @Getter
+    @Builder
     public static class Patch {
         private long questionId;            // 질문 id
 
@@ -55,7 +57,7 @@ public class QuestionDto {
     }
 
     @Getter
-    @Setter
+    @Builder
     public static class Response {
         private long questionId;                // 질문 아이디
         private String questionTitle;           // 질문 제목

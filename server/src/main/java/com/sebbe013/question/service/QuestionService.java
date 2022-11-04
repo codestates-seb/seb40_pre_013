@@ -23,9 +23,10 @@ public class QuestionService {
         this.memberService = memberService;
     }
 
-    /*
-    질문 등록하는 메서드
-    @param question: 질문 클래스
+    /**
+     * 질문 등록
+     * @param question - 등록하고자 하는 질문
+     * @return Question - 등록된 질문
      */
     public Question createQuestion(Question question) {
         // MemberService에서 작성자가 멤버로 존재하는지 확인
@@ -38,9 +39,10 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    /*
-    질문 업데이트 하는 메서드
-    @param question  - 수정할 질문
+    /**
+     * 질문 수정
+     * @param question - 수정할 질문
+     * @return Question - 수정된 질문
      */
     public Question updateQuestion(Question question) {
         // MemberService에서 작성자가 멤버로 존재하는지 확인
@@ -60,18 +62,19 @@ public class QuestionService {
 
         // 질문 제목 변경
         Optional.ofNullable(question.getQuestionTitle())
-                .ifPresent(questionTitle -> findQuestion.setQuestionTitle(questionTitle));
+                .ifPresent(questionTitle -> findQuestion.updateQuestionTitle(questionTitle));
         // 질문 내용 변경 
         Optional.ofNullable(question.getQuestionContent())
-                .ifPresent(questionContent -> findQuestion.setQuestionContent(questionContent));
+                .ifPresent(questionContent -> findQuestion.updateQuestionContent(questionContent));
 
         // Repository에 질문 저장 후 변환
         return questionRepository.save(findQuestion);
     }
 
-    /*
-    질문id를 이용해 QuestionRepository에 존재하는 질문인지 확인하는 메서드
-    @param questionId - 질문 id
+    /**
+     * 질문id를 이용해 QuestionRepository에 존재하는 질문인지 확인
+     * @param questionId - 확인하고자 하는 질문 id
+     * @return Qusetion - qusetion Repository에 저장된 해당 id 가진 질문
      */
     public Question findVerifiedQuestion(long questionId) {
         // questionRepository에서 questionId로 질문 검색
@@ -83,7 +86,12 @@ public class QuestionService {
 
         return findQuestion;
     }
-    // 하나의 질문 조회
+
+    /**
+     * 질문 하나 조회
+     * @param questionId - 선택한 질문 id
+     * @return Question - Question repository에 존재하는 해당 id를 가진 질문
+     */
     public Question findQuestion(long questionId) {
         return findVerifiedQuestion(questionId);
     }
@@ -94,7 +102,11 @@ public class QuestionService {
         return questionRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 
-    // 질문 하나 삭제
+    /**
+     * 질문 하나 삭제
+     * @param questionId - 삭제하고싶은 질문 id
+     * @param memberId - 삭제 요청한 클라이언트의 id
+     */
     public void deleteQuestion(long questionId, long memberId) {
         // MemberService에서 작성자가 멤버로 존재하는지 확인
         Member member = memberService.findVerifiedMember(memberId);
