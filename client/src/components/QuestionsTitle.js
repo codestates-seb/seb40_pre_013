@@ -16,9 +16,16 @@ function QuestionsMain() {
     setPage(page);
   };
 
+  // 로그인을 했을 경우에만 Ask question 눌렀을때 질문 작성이 가능 그게 아니라면 로그인 화면으로 이동 
   const navigate = useNavigate();
   const handleAskBtnClick = () => {
-    navigate("/ask");
+    if(sessionStorage.getItem('username') !== null) {
+      navigate("/ask");
+    }
+    else {
+      alert('로그인을 먼저 하고 오세요!');
+      window.location.href = '/login';
+    }
   };
 
   useEffect(() => {

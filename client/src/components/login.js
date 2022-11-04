@@ -23,7 +23,7 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const requestLogin = async (event, username, pw) => {
+    const requestLogin = async (event) => {
         event.preventDefault();
         return await axios
           .post(
