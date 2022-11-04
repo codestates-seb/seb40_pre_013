@@ -48,6 +48,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             Map<String, Object> claims = verifyJws(request); //클레임 추출
             setAuthtoContext(claims);//Authentication에 저장
         } catch(InsufficientAuthenticationException e){ //작동 안됨
+            log.error("InsufficientAuthenticationException");
             request.setAttribute("exception", e);
         } catch(MalformedJwtException | SignatureException | ExpiredJwtException e1){
             request.setAttribute("exception", e1);
@@ -73,9 +74,10 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     }
 
     //토큰이 로그아웃된 토큰인지 확인하는메서드
-    private boolean notVaildatedToken( HttpServletRequest request ){
-        log.error("여기서 에러 발생");
+    public boolean notVaildatedToken( HttpServletRequest request ){
+
         String jws = jwtToken.extractJws(request); //토큰에서 Bearer 제거
+        log.error(jws);
         return redis.redisTemplate().opsForValue().get(REDIS_KEY_PREFIX + jws) != null;
     }
 

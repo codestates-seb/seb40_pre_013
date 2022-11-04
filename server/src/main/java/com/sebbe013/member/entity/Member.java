@@ -24,6 +24,11 @@ import java.util.stream.Collectors;
 @Entity
 //수정일은 나중에 결
 public class Member extends Auditable implements  Principal, UserDetails{
+    public Member( String email, String displayName, String password ){
+        this.email = email;
+        this.displayName = displayName;
+        this.password = password;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

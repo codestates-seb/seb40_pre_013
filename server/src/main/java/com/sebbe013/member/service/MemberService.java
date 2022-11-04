@@ -59,6 +59,7 @@ public class MemberService {
     private Member encodePassword( Member member ){
 
         String encodingPassword = passwordEncoder.encode(member.getPassword()); //일반 비밀번호 암호화
+        log.error("encodingPassword");
         member.updatePassword(encodingPassword);//암호화한 패스워드 멤버 필드에 저장
 
         log.info("암호화 완료");
