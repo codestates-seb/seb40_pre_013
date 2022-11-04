@@ -1,12 +1,8 @@
-import { useNavigate } from "react-router-dom";
 
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function QuestionsList({ author, title, body, createdAt }) {
-  const navigate = useNavigate();
-  const handleTitleClick = () => {
-    navigate("/qlookup");
-  };
+function QuestionsList({ id, author, title, body, createdAt }) {
 
   return (
     <Container>
@@ -17,7 +13,7 @@ function QuestionsList({ author, title, body, createdAt }) {
       </Stats>
 
       <QuestionContent>
-        <h2 onClick={handleTitleClick}>{title}</h2>
+        <Link to={`/questions/${id}`} className ="title">{title}</Link>
         <div className="contents">{body}</div>
         <div className="User">
           <div className="userID">{author}</div>
@@ -60,7 +56,7 @@ const QuestionContent = styled.div`
   flex-direction: column;
   gap: 8px 0;
 
-  h2 {
+  .title {
     color: #0078d2;
     word-break: break-word;
     hyphens: auto;
