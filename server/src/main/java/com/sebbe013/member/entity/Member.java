@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
 @Slf4j
 //수정일은 나중에 결
 public class Member extends Auditable implements  Principal, UserDetails{
@@ -47,12 +46,16 @@ public class Member extends Auditable implements  Principal, UserDetails{
     @OneToMany(mappedBy = "member")
     private List<Answer> answers = new ArrayList<>();
 
-    public void encryptedPassword( String encodingPassword ){
+    public void updateMemberId(Long memberId){
+        this.memberId = memberId;
+    }
+
+    public void updatePassword( String encodingPassword ){
         this.password = encodingPassword;
         log.info("비밀번호 암호화");
     }
 
-    public void givenRoles( List<String> checkedRoles ){
+    public void updateRoles( List<String> checkedRoles ){
         this.roles = checkedRoles;
         log.info("권한 부여");
     }

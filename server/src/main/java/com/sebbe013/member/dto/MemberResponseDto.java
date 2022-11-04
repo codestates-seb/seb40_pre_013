@@ -1,14 +1,16 @@
 package com.sebbe013.member.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@Setter
-public class MemberResposeDto {
+@AllArgsConstructor
+@Builder
+public class MemberResponseDto {
     private String email;
     private String displayName;
     private LocalDateTime createdAt;

@@ -16,6 +16,7 @@ public interface QuestionMapper {
         question.setQuestionTitle(questionPostDto.getQuestionTitle());
         question.setQuestionContent(questionPostDto.getQuestionContent());
 
+
         // 질문 작성자
         Member member = new Member();
         member.setMemberId(questionPostDto.getMemberId());

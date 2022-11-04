@@ -1,8 +1,8 @@
 package com.sebbe013.member.service;
 
-import com.sebbe013.member.login.filter.JwtVerificationFilter;
-import com.sebbe013.member.login.jwt.JwtToken;
-import com.sebbe013.member.login.jwt.SecretKey;
+import com.sebbe013.login.filter.JwtVerificationFilter;
+import com.sebbe013.login.jwt.JwtToken;
+import com.sebbe013.login.jwt.SecretKey;
 import com.sebbe013.redis.RedisConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -38,7 +38,7 @@ public class Logout {
 
         if(logoutedToken(request)){
             redis.redisTemplate().opsForValue().set(REDIS_KEY_PREFIX + jws, "tk", expiration.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
-            log.info("로그아웃 완료");
+            log.info("로그아웃 완료"); //로그아웃은 여기서 시키는겁니다
         }
     }
 
