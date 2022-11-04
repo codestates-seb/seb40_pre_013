@@ -27,9 +27,9 @@ const Login = () => {
         event.preventDefault();
         return await axios
           .post(
-            `https://eb4c-36-38-67-6.jp.ngrok.io/members/login`,
+            `https://4a57-36-38-67-6.jp.ngrok.io/members/login`,
             {
-              username: inputId, // 처음에 username: username 이렇게 썼어서 안된거였음
+              'username': inputId, // 처음에 username: username 이렇게 썼어서 안된거였음
               password: inputPw,
             },
             { withCredentials: true }
@@ -41,7 +41,8 @@ const Login = () => {
             } 
             else if(res.data === '로그인 성공'){
                 alert('로그인 성공!');
-                navigate('/');
+                sessionStorage.setItem('username', inputId)
+                window.location.href = '/'; // 메인 페이지로 이동 (새로고침해서)
             }
         })
           .then((response) => {

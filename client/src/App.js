@@ -9,11 +9,28 @@ import QuestionLookup from "./components/questionLookup";
 import Footer from './components/Footer'
 import EditQuestion from "./components/EditQuestion";
 import EditAnswer from "./components/EditAnswer";
+import LoginHeader from "./components/header/loginHeader";
+
+import { useEffect, useState  } from 'react';
 
 function App() {
+
+  const [isLogin, setIsLogin] = useState(false)
+ 
+  useEffect(() => {
+    if(sessionStorage.getItem('username') === null){
+    // sessionStorage 에 username이라는 key 값으로 저장된 값이 없다면
+    } else {
+    // sessionStorage 에 username이라는 key 값으로 저장된 값이 있다면
+    // 로그인 상태 변경
+      setIsLogin(true)
+    }
+  })
+
   return (
     <BrowserRouter>
-      <Header/>
+    {/* isLogin 값이 true라면 로그아웃이 있는 헤더로 아니라면 그냥 헤더로 변환 */}
+      {isLogin ? <LoginHeader isLogin={isLogin}/> : <Header/>}  
         <Routes>
           <Route path="/" element={<Main/>}></Route>
           <Route path="/login" element={<Login />}></Route>
