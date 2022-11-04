@@ -11,7 +11,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @NoArgsConstructor
-@Setter // 리팩토링 가능성 O, 엔티티에는 Setter 사용 지양
 @Getter
 @Entity
 public class Answer extends Auditable {
@@ -29,4 +28,20 @@ public class Answer extends Auditable {
 
     @Column(nullable = false)
     private String answerContent;
+
+    public void updateAnswerId(Long answerId) {
+        this.answerId = answerId;
+    }
+
+    public void updateQuestion(Question question) {
+        this.question = question;
+    }
+
+    public void updateMember(Member member) {
+        this.member = member;
+    }
+
+    public void updateAnswerContent(String answerContent) {
+        this.answerContent = answerContent;
+    }
 }

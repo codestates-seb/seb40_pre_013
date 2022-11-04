@@ -12,15 +12,18 @@ import com.sebbe013.question.mapper.QuestionMapper;
 import com.sebbe013.question.service.QuestionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/questions")
+@Validated
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper mapper;
@@ -43,7 +46,7 @@ public class QuestionController {
 
     // 질문 등록하기
     @PostMapping
-    public ResponseEntity postQuestion(@RequestBody QuestionDto.Post questionPostDto,
+    public ResponseEntity postQuestion(@RequestBody @Valid QuestionDto.Post questionPostDto,
                                        HttpServletRequest request) {
 
         long memberId = memberService.findMemberId(request);        // 요청한 클라이언트의 member id
@@ -69,8 +72,8 @@ public class QuestionController {
     // 질문 수정하기
     @PatchMapping("/{question-id}")
     public ResponseEntity patchMember(
-            @PathVariable("question-id") long questionId,
-            @RequestBody QuestionDto.Patch questionPatchDto,
+            @PathVariable("question-id") @Positive long questionId,
+            @RequestBody @Valid QuestionDto.Patch questionPatchDto,
             HttpServletRequest request) {
 
         // questionPatchDto에 질문ID 설정
@@ -129,7 +132,7 @@ public class QuestionController {
      */
     @DeleteMapping("/{question-id}")
     public ResponseEntity deleteQuestion(
-            @PathVariable("question-id") long questionId,
+            @PathVariable("question-id") @Positive long questionId,
             HttpServletRequest request) {
 
         // 요청한 클라이언트의 memberid

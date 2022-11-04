@@ -49,7 +49,7 @@ public class AnswerService {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
 
         Optional.ofNullable(answer.getAnswerContent())
-                .ifPresent(answerContent -> findAnswer.setAnswerContent(answerContent));
+                .ifPresent(answerContent -> findAnswer.updateAnswerContent(answerContent));
         log.info("답변 수정 완료");
         return answerRepository.save(answer);
     }

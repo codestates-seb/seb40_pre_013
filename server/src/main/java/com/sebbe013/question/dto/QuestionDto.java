@@ -32,10 +32,10 @@ public class QuestionDto {
     public static class Patch {
         private long questionId;            // 질문 id
 
-        // @NotSpace: 제목 또는 내용 한가지만 수정할 수는 있지만 공백은 허용안됨
-        @NotSpace(message = "질문 제목은 공백을 입력할 수 없습니다")
+        // @NotSpace: 제목 또는 내용 한가지만 수정할 수는 있지만 내용이 공백인 것은 허용되지 않음
+        @NotSpace(message = "질문 제목에 공백을 입력할 수 없습니다")
         private String questionTitle;       // 질문 제목
-        @NotSpace(message = "질문 내용은 공백을 입력할 수 없습니다")
+        @NotSpace(message = "질문 내용에 공백을 입력할 수 없습니다")
         private String questionContent;     // 질문 내용
 
         /*

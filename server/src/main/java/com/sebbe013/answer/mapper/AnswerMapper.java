@@ -23,12 +23,12 @@ public interface AnswerMapper {
         Question question = new Question();
 
         question.setQuestionId(requestBody.getQuestionId());
-        answer.setQuestion(question);
+        answer.updateQuestion(question);
 
         member.setMemberId(memberService.findMemberId(httpServletRequest));
-        answer.setMember(member);
+        answer.updateMember(member);
 
-        answer.setAnswerContent(requestBody.getAnswerContent());
+        answer.updateAnswerContent(requestBody.getAnswerContent());
 
         return answer;
     }
@@ -37,28 +37,27 @@ public interface AnswerMapper {
         Member member = new Member();
 
         member.setMemberId(memberService.findMemberId(httpServletRequest));
-        answer.setMember(member);
+        answer.updateMember(member);
 
-        answer.setAnswerId(requestBody.getAnswerId());
-        answer.setAnswerContent(requestBody.getAnswerContent());
+        answer.updateAnswerId(requestBody.getAnswerId());
+        answer.updateAnswerContent(requestBody.getAnswerContent());
 
         Question question = new Question();
         question.setQuestionId(questionId);
-        answer.setQuestion(question);
+        answer.updateQuestion(question);
         return answer;
     }
 
     default AnswerDto.Response answerToAnswerResponse(Answer answer, MemberService memberService) {
-        AnswerDto.Response answerResponse = new AnswerDto.Response();
-
         Member member = memberService.findVerifiedMember(answer.getMember().getMemberId());
 
-        answerResponse.setAnswerId(answer.getAnswerId());
-        answerResponse.setWriter(member.getDisplayName());
-        answerResponse.setAnswerContent(answer.getAnswerContent());
-        answerResponse.setModifiedAt(answer.getModifiedAt());
-
-        return answerResponse;
+        return AnswerDto.Response
+                .builder()
+                .answerId(answer.getAnswerId())
+                .writer(member.getDisplayName())
+                .answerContent(answer.getAnswerContent())
+                .modifiedAt(answer.getModifiedAt())
+                .build();
     }
 
     // 질문 조회 화면에서 사용
