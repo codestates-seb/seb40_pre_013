@@ -1,5 +1,6 @@
 package com.sebbe013.login.config;
 
+import com.sebbe013.login.filter.JwtVerificationFilter;
 import com.sebbe013.login.handler.MemberAccessDeniedHandler;
 import com.sebbe013.login.handler.MemberAuthenticationEntryPoint;
 import com.sebbe013.login.jwt.Expiration;
@@ -31,6 +32,7 @@ public class SecurityConfig {
     private final SecretKey secretKey;
     private final Expiration expiration;
     private final RedisConfig redisConfig;
+    private final JwtVerificationFilter jwtVerificationFilter;
 
     @Bean//패스워드 암호화할 메서드
     public PasswordEncoder passwordEncoder(){
@@ -62,7 +64,7 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.POST, "/answers").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/answers/**").hasRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/answers/**").hasRole("USER")
-                        .antMatchers(HttpMethod.POST, "/questions/").hasRole("USER") //질문 포스트
+                        .antMatchers(HttpMethod.POST, "/questions").hasRole("USER") //질문 포스트
                         .antMatchers(HttpMethod.PATCH, "/questions/**").hasRole("USER")//질문 수정
                         .antMatchers(HttpMethod.DELETE, "/questions/**").hasRole("USER")//질문 삭제
                         .anyRequest().permitAll()

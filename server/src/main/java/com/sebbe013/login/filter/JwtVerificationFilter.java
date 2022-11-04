@@ -43,20 +43,27 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     //클레임을 추출해서 Auth~에 저장하는 메서드
     @Override
     protected void doFilterInternal( HttpServletRequest request, HttpServletResponse response, FilterChain filterChain ) throws ServletException, IOException{
-        log.info("권한저장");
+        log.info("doFilterInteral 메서드");
         try{
             Map<String, Object> claims = verifyJws(request); //클레임 추출
             setAuthtoContext(claims);//Authentication에 저장
-        } catch(InsufficientAuthenticationException e){ //작동 안됨
-            log.error("InsufficientAuthenticationException");
+        } catch(InsufficientAuthenticationException e){
+            log.error(InsufficientAuthenticationException.class.getSimpleName());
             request.setAttribute("exception", e);
-        } catch(MalformedJwtException | SignatureException | ExpiredJwtException e1){
+        } catch(MalformedJwtException e1){
+            log.error(MalformedJwtException.class.getSimpleName());
             request.setAttribute("exception", e1);
-        } catch(Exception e4){
-            request.setAttribute("exception", e4);
-
+        } catch(SignatureException e1){
+            log.error(SignatureException.class.getSimpleName());
+            request.setAttribute("exception", e1);
+        } catch(ExpiredJwtException e1){
+            log.error(ExpiredJwtException.class.getSimpleName());
+            request.setAttribute("exception", e1);
+        } catch(Exception e1){
+            log.error(Exception.class.getSimpleName());
+            request.setAttribute("exception", e1);
         }
-        log.info("claims 완료");
+
         filterChain.doFilter(request, response); // 완료되면 다음 필터로 이동
     }
 
@@ -64,20 +71,32 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     //회원가입할때도 여기로 온다.
     @Override
     protected boolean shouldNotFilter( HttpServletRequest request ) throws ServletException{
-        log.info("shoulnotfilter 진입");
+        log.info("shoudNotFilter 진입");
         String authorization = request.getHeader("Authorization"); // Authorization의 밸류값 획득
 
-        if(authorization == null) return true; //true면 예외 처리가 된다.
-        if(! authorization.startsWith("Bearer")) return true;
+        if(authorization == null){
+            log.error(NullPointerException.class.getSimpleName());
+            return true; //true면 예외 처리가 된다.
+        }
 
-       return notVaildatedToken(request); //로그아웃 됐을 때 토큰의 권한이 없어졌는지 확인, 토큰이 레디스에 있으면 로그아웃 된 것, true를 리턴하여 예외처리함.
+        if(! authorization.startsWith("Bearer ")){
+            log.error(MalformedJwtException.class.getSimpleName());
+            return true;
+        }
+
+        //로그아웃 됐을 때 토큰의 권한이 없어졌는지 확인, 토큰이 레디스에 있으면 로그아웃 된 것, true를 리턴하여 예외처리함.
+        if(notVaildatedToken(request)){
+            log.error(ExpiredJwtException.class.getSimpleName());
+            return true;
+        }
+
+        return false;
     }
 
     //토큰이 로그아웃된 토큰인지 확인하는메서드
     public boolean notVaildatedToken( HttpServletRequest request ){
 
         String jws = jwtToken.extractJws(request); //토큰에서 Bearer 제거
-        log.error(jws);
         return redis.redisTemplate().opsForValue().get(REDIS_KEY_PREFIX + jws) != null;
     }
 
