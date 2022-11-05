@@ -26,7 +26,6 @@ public class MemberDetailsService implements UserDetailsService {
 
         log.info("entity = {}",entity);
         log.info("멤버 확인");
-        Member findMember = entity.orElseThrow(() -> new UsernameNotFoundException("")); //없으면 예외 처리
-        return findMember; //있으면 Userdetails 형 객체 리턴
+        return entity.orElseThrow(() -> new UsernameNotFoundException("")); //있으면 Userdetails형 객체 리턴
     }
 }

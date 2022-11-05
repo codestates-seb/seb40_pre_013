@@ -45,8 +45,7 @@ public class JwtToken {
 
     // jws만 추출
     public String extractJws( HttpServletRequest request ){
-        String jws = request.getHeader("Authorization").replace("Bearer ", "");//authorization의 밸류 값에서, brear 제거
-        return jws;
+        return request.getHeader("Authorization").replace("Bearer ", "");
     }
 
     //유저정보를 토큰에 담는 메서드

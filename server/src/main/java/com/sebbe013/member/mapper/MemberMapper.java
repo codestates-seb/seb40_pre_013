@@ -12,22 +12,18 @@ public interface MemberMapper {
 
     default Member memberSignUpDtotoMember( MemberSignUpDto memberSignUpDto ){
 
-        Member member = Member.builder().password(memberSignUpDto.getPassword())
+        return Member.builder().password(memberSignUpDto.getPassword())
                 .email(memberSignUpDto.getEmail())
                 .displayName(memberSignUpDto.getDisplayName())
                 .build();
-
-        return member;
     }
     default MemberResponseDto memberToResponse( Member member) {
 
-        MemberResponseDto memberResponseDto = MemberResponseDto.builder()
+        return MemberResponseDto.builder()
                 .email(member.getEmail())
                 .roles(member.getRoles())
                 .createdAt(member.getCreatedAt())
                 .displayName(member.getDisplayName())
                 .build();
-
-        return memberResponseDto;
     }
 }

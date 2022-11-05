@@ -50,6 +50,7 @@ class JwtTokenTest {
         //when
         String acessToken = getAcessToken(key, member, 1, Calendar.SECOND);
         TimeUnit.MILLISECONDS.sleep(2000);
+
         //then
         assertThrows(ExpiredJwtException.class, () -> verifySignature(acessToken, key));
 
