@@ -50,15 +50,19 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         } catch(InsufficientAuthenticationException e){
             log.error(InsufficientAuthenticationException.class.getSimpleName());
             request.setAttribute("exception", e);
+
         } catch(MalformedJwtException e1){
             log.error(MalformedJwtException.class.getSimpleName());
             request.setAttribute("exception", e1);
+
         } catch(SignatureException e1){
             log.error(SignatureException.class.getSimpleName());
             request.setAttribute("exception", e1);
+
         } catch(ExpiredJwtException e1){
             log.error(ExpiredJwtException.class.getSimpleName());
             request.setAttribute("exception", e1);
+
         } catch(Exception e1){
             log.error(Exception.class.getSimpleName());
             request.setAttribute("exception", e1);
