@@ -23,11 +23,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Entity
 public class Member extends Auditable implements  Principal, UserDetails{
-    public Member( String email, String displayName, String password ){
-        this.email = email;
-        this.displayName = displayName;
-        this.password = password;
-    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
@@ -107,9 +103,10 @@ public class Member extends Auditable implements  Principal, UserDetails{
     }//현재 이용 가능한 계정인지
 
     @Builder //테스트를 위한 빌더 패턴 적용
-    public Member( Long memberId, String email, String displayName){
+    public Member( Long memberId, String email, String displayName, String password){
         this.memberId = memberId;
         this.email = email;
         this.displayName = displayName;
+        this.password = password;
     }
 }

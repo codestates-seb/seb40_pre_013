@@ -2,7 +2,10 @@ package com.sebbe013.member.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sebbe013.member.dto.MemberSignUpDto;
+import com.sebbe013.member.entity.Member;
+import com.sebbe013.member.mapper.MemberMapper;
 import com.sebbe013.member.repository.MemberRepository;
+import com.sebbe013.member.service.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,8 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest
@@ -27,10 +29,19 @@ class MemberControllerTest {
     private MockMvc mvc;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private MemberMapper mapper;
+    @Autowired
+    private MemberService memberService;
     @BeforeEach
     void init(){
         memberRepository.deleteAll();
+        MemberSignUpDto memberDto1 = MemberSignUpDto.builder().email("test3@gmail.com").displayName("test3").password("12333@aadfend4").build();
+        Member member = mapper.memberSignUpDtotoMember(memberDto1);
+        memberService.joinMember(member);
     }
+
+
     @Test
     void 회원_가입() throws Exception{
         //given
@@ -43,6 +54,34 @@ class MemberControllerTest {
                 .andExpect(jsonPath("$.email").value("test@gmail.com"))
                 .andExpect(jsonPath("$.displayName").value("test"))
                 .andExpect(jsonPath("$.roles").value("USER"))
+                .andDo(print());
+    }
+    @Test
+    void 이미_존재하는_이메일() throws Exception{
+        //given
+        MemberSignUpDto memberDto1 = MemberSignUpDto.builder().email("test3@gmail.com").displayName("test3").password("12333@aadfend4").build();
+        //when
+        ObjectMapper objectMapper = new ObjectMapper();
+        String member = objectMapper.writeValueAsString(memberDto1);
+
+        //then
+        mvc.perform(post("/members").contentType(MediaType.APPLICATION_JSON).content(member))
+                .andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.message").value("이미 가입한 e-mail입니다."))
+                .andDo(print());
+    }
+    @Test
+    void 이미_존재하는_닉네임() throws Exception{
+        //given
+        MemberSignUpDto memberDto1 = MemberSignUpDto.builder().email("test1@gmail.com").displayName("test3").password("12333@aadfend4").build();
+        //when
+        ObjectMapper objectMapper = new ObjectMapper();
+        String member = objectMapper.writeValueAsString(memberDto1);
+
+        //then
+        mvc.perform(post("/members").contentType(MediaType.APPLICATION_JSON).content(member))
+                .andExpect(status().is4xxClientError())
+                .andExpect(jsonPath("$.message").value("이미 존재하는 닉네임입니다."))
                 .andDo(print());
     }
 

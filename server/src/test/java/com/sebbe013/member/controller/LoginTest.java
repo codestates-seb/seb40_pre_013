@@ -26,8 +26,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 public class LoginTest {
-
-
     @Autowired
     private MemberService memberService;
     @Autowired
@@ -46,7 +44,7 @@ public class LoginTest {
     }
 
     @Test
-    void 로그인_시도() throws Exception{
+    void 로그인_성공() throws Exception{
         //given
         LoginDto loginDto = LoginDto.builder().username("test@gmail.com").password("123@aadfend4").build();
         ObjectMapper objectMapper = new ObjectMapper();

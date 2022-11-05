@@ -94,11 +94,11 @@ class LogoutTest {
     }
 
     @Test
-    @DisplayName("로그아웃되지 않은 토큰.")
+    @DisplayName("로그아웃되지 않은 토큰은 true")
     void 로그아웃_메서드_테스트() throws Exception {
         //given
         Key key = secretKey.getSecretKey(baseKey);
-        String jws = makeAccessToken(10,Calendar.MINUTE);
+        String jws = makeAccessToken(15,Calendar.MINUTE);
         //when
         Boolean result = logoutedTokenTest(jws, key);
         //then
