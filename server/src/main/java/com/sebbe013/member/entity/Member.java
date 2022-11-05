@@ -3,9 +3,9 @@ package com.sebbe013.member.entity;
 import com.sebbe013.answer.entity.Answer;
 import com.sebbe013.audit.Auditable;
 import com.sebbe013.question.entity.Question;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,14 +22,12 @@ import java.util.stream.Collectors;
 @Getter
 @Slf4j
 @Entity
-//수정일은 나중에 결
 public class Member extends Auditable implements  Principal, UserDetails{
     public Member( String email, String displayName, String password ){
         this.email = email;
         this.displayName = displayName;
         this.password = password;
     }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
@@ -107,4 +105,11 @@ public class Member extends Auditable implements  Principal, UserDetails{
     public boolean isEnabled(){
         return true;
     }//현재 이용 가능한 계정인지
+
+    @Builder //테스트를 위한 빌더 패턴 적용
+    public Member( Long memberId, String email, String displayName){
+        this.memberId = memberId;
+        this.email = email;
+        this.displayName = displayName;
+    }
 }

@@ -85,11 +85,6 @@ class MemberServiceTest {
         //then
         assertThat(findMember.getRoles().get(0)).isEqualTo("USER");
     }
-
-
-
-
-
     private Member createMember( String email, String displayName, String password ){
         MemberSignUpDto memberDto1 = MemberSignUpDto.builder().email(email).displayName(displayName).password(password).build();
         return mapper.memberSignUpDtotoMember(memberDto1);

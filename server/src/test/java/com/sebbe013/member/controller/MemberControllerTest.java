@@ -47,7 +47,7 @@ class MemberControllerTest {
     }
 
     @Test
-    @DisplayName("이메일 특수 문자 사용")
+    @DisplayName("이메일 특수 문자 사용 불가")
     void 이메일_유효성_검사() throws Exception{
         //given
         MemberSignUpDto memberDto1 = MemberSignUpDto.builder().email("tes^t@gmail.com").displayName("test").password("12aa!!!!!634").build();
@@ -64,7 +64,7 @@ class MemberControllerTest {
     }
 
     @Test
-    @DisplayName("비밀번호 8자리 이하")
+    @DisplayName("비밀번호 8자리 이하 예외처리")
     void 패스워드_유효성_검사1() throws Exception{
         //given
         MemberSignUpDto memberDto1 = MemberSignUpDto.builder().email("test@gmail.com").displayName("test").password("12@a123").build();
@@ -81,7 +81,7 @@ class MemberControllerTest {
     }
 
     @Test
-    @DisplayName("비밀번호 특수 문자 제외")
+    @DisplayName("비밀번호 특수 문자 제외 예외처리")
     void 패스워드_유효성_검사2() throws Exception{
         //given
         MemberSignUpDto memberDto1 = MemberSignUpDto.builder().email("test@gmail.com").displayName("test").password("12dddda123").build();
@@ -98,7 +98,7 @@ class MemberControllerTest {
     }
 
     @Test
-    @DisplayName("비밀번호 숫자 제외")
+    @DisplayName("비밀번호 숫자 제외 예외처리")
     void 패스워드_유효성_검사3() throws Exception{
         //given
         MemberSignUpDto memberDto1 = MemberSignUpDto.builder().email("test@gmail.com").displayName("test").password("@@@@@adddda").build();
@@ -115,7 +115,7 @@ class MemberControllerTest {
     }
 
     @Test
-    @DisplayName("영문자 숫자 제외")
+    @DisplayName("비밀전호 영문자 제외 예외처리")
     void 패스워드_유효성_검사4() throws Exception{
         //given
         MemberSignUpDto memberDto1 = MemberSignUpDto.builder().email("test@gmail.com").displayName("test").password("@@@@@123123123").build();
