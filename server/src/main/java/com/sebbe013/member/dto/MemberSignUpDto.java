@@ -20,7 +20,7 @@ public class MemberSignUpDto {
     private String displayName;
 
     @NotBlank(message = "패스워드를 입력해 주세요.")
-//    @Pattern(regexp = "^(?=.[a-zA-Z])(?=.[!@#$%^+=-])(?=.[0-9]).{8,25}$",
+//    @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[!@#$%^+=-])(?=.*[0-9]).{8,25}$",
 //                message = "비밀번호는 숫자+영문자+특수문자 조합으로 8자리 이상 입력")
     private String password;
 
