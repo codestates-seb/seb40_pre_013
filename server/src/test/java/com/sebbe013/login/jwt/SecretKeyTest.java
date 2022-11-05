@@ -22,6 +22,4 @@ class SecretKeyTest {
         Assertions.assertThat(baseKey).isEqualTo(new String(Decoders.BASE64.decode(encodeSecretKey)));
     }
 
-
-
 }
