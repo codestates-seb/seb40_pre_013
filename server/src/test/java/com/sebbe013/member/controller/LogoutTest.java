@@ -1,5 +1,6 @@
 package com.sebbe013.member.controller;
 
+import com.sebbe013.login.filter.JwtVerificationFilter;
 import com.sebbe013.login.jwt.JwtToken;
 import com.sebbe013.login.jwt.SecretKey;
 import com.sebbe013.member.dto.LoginDto;
@@ -8,7 +9,12 @@ import com.sebbe013.member.entity.Member;
 import com.sebbe013.member.mapper.MemberMapper;
 import com.sebbe013.member.repository.MemberRepository;
 import com.sebbe013.member.service.MemberService;
+import com.sebbe013.redis.RedisConfig;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,8 +31,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Key;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.format;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,6 +43,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class LogoutTest {
+    @Autowired
+    private RedisConfig redis;
+    private final String REDIS_KEY_PREFIX = "logouttoken";
+    private String baseKey = "dfkemekemkm12312rtrtrtrtrtg3123123123";
     @Autowired
     private SecretKey secretKey;
     @Autowired
@@ -47,6 +59,8 @@ class LogoutTest {
     private MemberService memberService;
     @Autowired
     private MemberMapper mapper;
+    @Autowired
+    private JwtVerificationFilter jwtVerificationFilter;
 
     @LocalServerPort //로컬 서버 포트를 사용한다.
     private int port;
@@ -66,7 +80,7 @@ class LogoutTest {
     }
 
     @Test
-    void 로그아웃() throws Exception{
+    void 로그아웃_성공() throws Exception{
         //given
         LoginDto loginDto = LoginDto.builder().username("test@gmail.com").password("123@aadfend4").build();
         HttpEntity<LoginDto> dto = new HttpEntity<>(loginDto);//logindto 내용이 바디값으로 들어간다??
@@ -77,16 +91,57 @@ class LogoutTest {
         mockMvc.perform(get("/members/logout").header("Authorization",authorization))
                 .andExpect(status().isOk())
                 .andExpect(content().string("로그아웃 되었습니다."));
-
-
-
     }
 
-    private String makeAccessToken(){
+    @Test
+    @DisplayName("로그아웃되지 않은 토큰.")
+    void 로그아웃_메서드_테스트() throws Exception {
+        //given
+        Key key = secretKey.getSecretKey(baseKey);
+        String jws = makeAccessToken(10,Calendar.MINUTE);
+        //when
+        Boolean result = logoutedTokenTest(jws, key);
+        //then
+        Assertions.assertThat(result).isTrue();
+    }
+    @Test
+    @DisplayName("로그아웃된 토큰")
+    void 로그아웃_메서드_테스트2() throws Exception {
+        //given
+        Key key = secretKey.getSecretKey(baseKey);
+        String jws = makeAccessToken(10, Calendar.MINUTE);
+        //then
+        assertDoesNotThrow(() ->logoutTest(jws,key));
+    }
+
+
+
+    private void logoutTest(String jws, Key key){
+        Jws<Claims> claims = jwtVerificationFilter.getClaims(jws, key);
+        Date expiration = claims.getBody().getExpiration();
+
+        if(logoutedTokenTest(jws,key)){
+            redis.redisTemplate().opsForValue()
+                    .set(REDIS_KEY_PREFIX + jws, "tk", expiration.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
+        }
+    }
+
+
+    private Boolean logoutedTokenTest(String jws, Key key){
+        Jws<Claims> claims = jwtVerificationFilter.getClaims(jws, key);
+        boolean notExpire = claims.getBody().getExpiration().after(new Date());//현재시간보다 만료일이 더 나중이면 true
+
+        if(redis.redisTemplate().opsForValue().get(REDIS_KEY_PREFIX + jws) != null){ //만약 레디스에 토큰이 있으면 로그아웃된 유저
+            return false;
+        }
+        return notExpire;
+    }
+
+    private String makeAccessToken(int time, int timeUnit){
         String baseKey = "dfkemekemkm12312rtrtrtrtrtg3123123123";
         Key key = secretKey.getSecretKey(baseKey);
         Member member = Member.builder().memberId(1L).displayName("test").email("test@gmail.com").displayName("test").build();
-        return getAcessToken(key, member, 10, Calendar.MINUTE);
+        return getAcessToken(key, member, time, timeUnit);
     }
 
     private String getAcessToken( Key key, Member member, int time, int timeUnit ){

@@ -36,14 +36,14 @@ public class Logout {
         Jws<Claims> claims = jwtVerificationFilter.getClaims(jws, key);
         Date expiration = claims.getBody().getExpiration();
 
-        if(logoutedToken(request)){
+        if(notLogoutedToken(request)){
             redis.redisTemplate().opsForValue().set(REDIS_KEY_PREFIX + jws, "tk", expiration.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
             log.info("로그아웃 완료"); //로그아웃은 여기서 시키는겁니다
         }
     }
 
     //로그아웃된 유저의 토큰인지 확인하는 메서드
-    private Boolean logoutedToken( HttpServletRequest request ){
+    private Boolean notLogoutedToken( HttpServletRequest request ){
 
         String jws = jwtToken.extractJws(request);
         Key key = secretKey.getSecretKey(secretKey.getBaseKey());
