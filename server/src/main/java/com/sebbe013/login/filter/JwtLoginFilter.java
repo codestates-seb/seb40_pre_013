@@ -19,10 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 /*
@@ -32,9 +28,6 @@ import java.util.Map;
 public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtToken jwtToken;
-    private final SecretKey secretKey;
-    private final Expiration expir;
-
     @Override
     @SneakyThrows//예외처리
     //로그인 시도 메서드
@@ -54,8 +47,8 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
             throws IOException, ServletException{
         Member member = (Member) authResult.getPrincipal(); //컨텍스트에 담긴 유저정보 추출
 
-        String accessToken = delegateAccessToken(member); //유저정보를 이용해 토큰생성
-        String refreshToken = delegateRefreshToken(member);//리프레시 토큰 생성
+        String accessToken = jwtToken.delegateAccessToken(member); //유저정보를 이용해 토큰생성
+        String refreshToken = jwtToken.delegateRefreshToken(member);//리프레시 토큰 생성
 
         response.setHeader("Authorization", "Bearer " + accessToken); // 응답 헤더에 토큰을 담는다.
         response.setHeader("Refresh", refreshToken); //응답 헤더에 리프레시 토큰을 담는다.
@@ -63,29 +56,5 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);// MemberAuthsuccessfulhanler 호출, 로그인 성공
 
     }
-
-    //유저정보를 토큰에 담는 메서드
-    public String delegateAccessToken( Member member ){
-        Map<String, Object> claims = new HashMap<>(); //필요한 정보를 담는다.
-        claims.put("username", member.getEmail());
-        claims.put("memberId",member.getMemberId());
-        claims.put("roles", member.getRoles());
-
-        String subject = member.getEmail(); //토큰 이름??
-        Date expiration = expir.getExpiration(expir.getAccessTokenExpirationMinutes());//만료시간
-        Key key = secretKey.getSecretKey(secretKey.getBaseKey());  //시크릿키 생성
-
-        return jwtToken.createAcessToken(claims, subject, expiration, key); // 담은 정보로 토큰 생성
-    }
-
-    //리프레시 토큰 생성
-    private String delegateRefreshToken( Member member ){
-        String subject = member.getEmail();
-        Date expiration = expir.getExpiration(expir.getRefreshTokenExpirationMinutes());
-        Key key = secretKey.getSecretKey(secretKey.getBaseKey());
-
-        return jwtToken.createRefreshToken(subject, expiration, key);
-    }
-
 
 }
