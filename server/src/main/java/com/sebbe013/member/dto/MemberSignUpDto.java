@@ -12,17 +12,16 @@ public class MemberSignUpDto {
 
     @NotBlank(message = "이메일을 입력해 주세요.")
     @Email(message = "올바른 이메일 형식이 아닙니다.")
-//    @Pattern(regexp = "^([\\w\\.\\_\\-])*[a-zA-Z0-9]+([\\w\\.\\_\\-])*([a-zA-Z0-9])+([\\w\\.\\_\\-])+@([a-zA-Z0-9]+\\.)+[a-zA-Z0-9]{2,8}$")
-    // 이메일 주소 정규식표현
+//    @Pattern(regexp = "^[A-Za-z0-9_]+[A-Za-z0-9]@[A-Za-z0-9]+[A-Za-z0-9][.][A-Za-z]{1,3}$",
+//             message = "@포함해서 영문 숫자로 작성")
+
     private String email;
     @NotBlank(message = "display name은 공백이 아니어야 합니다.")
-//    @Pattern(regexp = "^\\S+(\\s?\\S+)*$", message = "Display Name에 공백이 포함되어 있습니다.")
-    private String displayName; // 띄어쓰기 허용할
+    private String displayName;
 
     @NotBlank(message = "패스워드를 입력해 주세요.")
-    // 8자 이상, 하나 이상의 문자, 하나의 이상의 숫자 및 하나의 이상의 특수 문자 정규식
-   // @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!*#?&])[A-Za-z\\d@$!%*#?&]{8,}$"
-    // massage = "비밀번호는 특수 문자 1개 이상, 숫자 1개 이상을 포함한 영문자 8자 이상이어야 합니다. )
+//    @Pattern(regexp = "^(?=.[a-zA-Z])(?=.[!@#$%^+=-])(?=.[0-9]).{8,25}$",
+//                message = "비밀번호는 숫자+영문자+특수문자 조합으로 8자리 이상 입력")
     private String password;
 
 }

@@ -1,7 +1,5 @@
 package com.sebbe013.login.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sebbe013.exception.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,7 +24,6 @@ public class MemberAuthFailureHandler implements AuthenticationFailureHandler {
     public void onAuthenticationFailure( HttpServletRequest request, HttpServletResponse response, AuthenticationException exception ) throws IOException, ServletException{
         log.error("로그인 실패");
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-
         response.getWriter().write("아이디와비밀번호를 확인해주세요");
         errorToJson(response, HttpStatus.UNAUTHORIZED);
     }
