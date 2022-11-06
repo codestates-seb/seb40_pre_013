@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Editor from "./Editor";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function AskQuestion() {
@@ -32,7 +33,7 @@ function AskQuestion() {
         headers: headers,
       })
 
-      .then(() => navigate("/"))
+      .then((res) => navigate(`/questions/${res.data.questionId}`))
       .catch((err) => console.log(err));
   };
 

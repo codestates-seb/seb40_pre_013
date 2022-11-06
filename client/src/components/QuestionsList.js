@@ -34,7 +34,6 @@ const Container = styled.main`
   gap: 0 16px;
   border-bottom: 1px solid #e3e6e8;
   padding: 24px;
-  cursor: pointer;
 `;
 
 const Stats = styled.div`
@@ -65,6 +64,7 @@ const QuestionContent = styled.div`
     font-size: 17px;
     padding: 0;
     margin: 0;
+    cursor: pointer;
   }
 
   .contents {
