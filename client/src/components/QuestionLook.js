@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import SideBar from "./SideBar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useParams } from "react-router-dom";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 function QuestionLook() {
+  const {memberId} = useParams();
   const [questions, setQuestions] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -24,7 +25,7 @@ function QuestionLook() {
         // loading 상태를 true 로 바꿉니다.
         setLoading(true);
         const response = await axios.get(
-          "https://4a57-36-38-67-6.jp.ngrok.io/questions/${question-id}",
+          `/questions/${memberId}`,
           {
             headers: {
               "ngrok-skip-browser-warning": "skip",
@@ -32,7 +33,7 @@ function QuestionLook() {
 
           }
         );
-        console.log(response);
+        console.log(response.data);
         setQuestions(response.data); // 데이터는 response.body 안에 들어있습니다.
       } catch (e) {
         setError(e);
@@ -55,9 +56,7 @@ function QuestionLook() {
       </Side>
       <QuestionWrap>
         <QuestionHeader>
-          {questions.questionResponse.map((question)=> (
-            <h1 key={question.questionId}>{question.questionTitle}</h1>
-          ))}
+            <h1>제목입니다.</h1>
           <button onClick={handleAskBtnClick}> Ask Qustion</button>
         </QuestionHeader>
         <QuestionDate>
@@ -75,9 +74,8 @@ function QuestionLook() {
             </div>
           </Bar>
           <QuestionContents>
-          {questions.questionResponse.map((question)=> (
-            <div className="contents">{question.questionContent}</div>
-          ))}
+            <div className="contents">내용</div>
+      
             <div className="deleteEdit">
               <button>Delete</button>
               <button>Edit</button>

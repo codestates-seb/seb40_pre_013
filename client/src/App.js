@@ -9,7 +9,7 @@ import Footer from './components/Footer'
 import EditQuestion from "./components/EditQuestion";
 import EditAnswer from "./components/EditAnswer";
 import LoginHeader from "./components/header/loginHeader";
-import QuestionLook from "./components/QuestionLook";
+import QuestionLookup from "./pages/QuestionsLookup";
 
 import { useEffect, useState  } from 'react';
 
@@ -36,7 +36,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<SignUp/>}></Route>
           <Route path="/ask" element={<AskQuestion/>}></Route>
-          <Route path="/qlookup" element={<QuestionLook/>}></Route>
+          <Route path="/questions/:QuestionId" element={<QuestionLookup/>}></Route>
           <Route path="/editQ" element={<EditQuestion/>}></Route>
           <Route path="/editA" element={<EditAnswer/>}></Route>
         </Routes>

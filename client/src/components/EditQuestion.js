@@ -1,35 +1,72 @@
 import styled from "styled-components";
 import Editor from "./Editor";
-import SideBar from "./SideBar"
+import SideBar from "./SideBar";
+import axios from "axios";
+import React, { useRef } from "react";
+import { useParams ,useNavigate, useLocation} from "react-router-dom";
+
 
 function EditQuestion() {
-    return (
-      <Container>
-        <Side>
-          <SideBar/>
-        </Side>
-        <Content>
-            <ContentHeader>
-                <h1>Edit question</h1>
-            </ContentHeader>
-            <Post>
-                <PostTitle>
-                    <h2>Title</h2>
-                    <input type = "text" placeholder="e.g is there an R function someone would need to answer your question"></input>
-                </PostTitle>
-                <PostBody>
-                  <h2>Body</h2>
-                  <Editor />
-                  <BlueButton>Save Edits</BlueButton>
-                  <Button>Cancel</Button>
-                </PostBody>
-            </Post>
-        </Content>
-      </Container>
-    );
-  }
-  
-  export default EditQuestion
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { QuestionId } = useParams();
+  const titleRef = useRef(null);
+  const editorRef = useRef(null);
+  const handleOnChange = () => {
+    editorRef.current.getInstance().getMarkdown();
+  };
+  const saveClick = () => {
+    const data = {
+      questionTitle: titleRef.current.value,
+      questionContent: editorRef.current.getInstance().getMarkdown(),
+    }
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `${localStorage.getItem("authorization")}`,
+    };
+    axios
+      .patch(`/questions/${location.state.QuestionId}`, data, { headers: headers })
+      .then(() => navigate(`/questions/${location.state.QuestionId}`));
+  };
+
+  const cancleClick = () => {
+    navigate(`/questions/${location.state.QuestionId}`);
+  };
+  return (
+    <Container>
+      <Side>
+        <SideBar />
+      </Side>
+      <Content>
+        <ContentHeader>
+          <h1>Edit question</h1>
+        </ContentHeader>
+        <Post>
+          <PostTitle>
+            <h2>Title</h2>
+            <input
+              type="text"
+              ref={titleRef}
+            ></input>
+          </PostTitle>
+          <PostBody>
+            <h2>Body</h2>
+            <Editor
+              type="write"
+              height="300px"
+              onChange={handleOnChange}
+              ref={editorRef}
+            />
+            <BlueButton onClick={saveClick}>Save Edits</BlueButton>
+            <Button onClick={cancleClick}>Cancel</Button>
+          </PostBody>
+        </Post>
+      </Content>
+    </Container>
+  );
+}
+
+export default EditQuestion;
 
 const Side = styled.div`
   border: 1px solid #d6d9dc;
@@ -58,11 +95,11 @@ const ContentHeader = styled.div`
   display: flex;
   padding: 24px 0px;
   width: 100%;
-  
-h1 {
-  font-size: 31px;
-  color: #232629;
-}
+
+  h1 {
+    font-size: 31px;
+    color: #232629;
+  }
 `;
 
 const Post = styled.div`
@@ -79,14 +116,14 @@ const PostTitle = styled.div`
   flex-direction: column;
   padding: 24px;
 
-  h2{
+  h2 {
     color: #0c0d0e;
     font-size: 15px;
     margin: 2px 0;
     padding: 0 2px;
   }
 
-  input{
+  input {
     width: 97.5%;
     margin: 0;
     padding: 7px 9px;
@@ -96,7 +133,7 @@ const PostTitle = styled.div`
 const PostBody = styled.div`
   padding: 24px;
 
-  h2{
+  h2 {
     color: #0c0d0e;
     font-size: 15px;
     margin: 2px 0;
@@ -108,7 +145,7 @@ const BlueButton = styled.button`
   width: 100px;
   height: 38px;
   min-height: 38px;
-  background-color: #0078D2;
+  background-color: #0078d2;
   box-shadow: inset 0 1px 0 0 #fff6;
   color: #ffffff;
   border-radius: 3px;
@@ -126,7 +163,7 @@ const Button = styled.button`
   height: 38px;
   min-height: 38px;
   background-color: #ffffff;
-  color: #0078D2;
+  color: #0078d2;
   box-shadow: inset 0 1px 0 0 #fff6;
   border-radius: 3px;
   outline: none;
@@ -135,6 +172,6 @@ const Button = styled.button`
   margin-left: 10px;
   cursor: pointer;
   &:hover {
-    background-color: hsl(210,8%,90%);
+    background-color: hsl(210, 8%, 90%);
   }
 `;
