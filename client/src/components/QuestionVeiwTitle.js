@@ -45,7 +45,6 @@ const QuestionWrap = styled.div`
   width: 100%;
   max-width: 1100px;
   border-right-width: 0;
-  padding: 24px;
 `;
 
 const QuestionHeader = styled.div`

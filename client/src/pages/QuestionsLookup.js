@@ -2,13 +2,16 @@ import styled from "styled-components";
 import SideBar from "../components/SideBar";
 import QuestionsVeiwTitle from "../components/QuestionVeiwTitle";
 import QuestionsViewContent from "../components/QuestionViewContent";
+import AnswerViewer from "../components/AnswerViewer";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import AnswerPost from "../components/Answerpost";
 
 function Main() {
-  const { memberId } = useParams();
+  const { QuestionId } = useParams();
   const [questions, setQuestions] = useState(null);
+  const [answer, setAnswer] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   useEffect(() => {
@@ -19,13 +22,15 @@ function Main() {
         setQuestions(null);
         // loading 상태를 true 로 바꿉니다.
         setLoading(true);
-        const response = await axios.get(`/questions/${memberId}`, {
+        const response = await axios.get(`/questions/${QuestionId}`, {
           headers: {
             "ngrok-skip-browser-warning": "skip",
           },
         });
         console.log(response);
-        setQuestions(response.data.questionResponse); // 데이터는 response.body 안에 들어있습니다.
+        setQuestions(response.data.questionResponse);
+        setAnswer(response.data.answerData);
+        console.log(response.data.answerData); // 데이터는 response.body 안에 들어있습니다.
       } catch (e) {
         setError(e);
       }
@@ -45,23 +50,32 @@ function Main() {
           <SideBar />
         </Side>
         <ContentContainer>
-        {questions.length !== 0 && (
-          <>
-            <QuestionsVeiwTitle
-              title={questions.questionTitle}
-              time={questions.createdAt}
-              modifie={questions.modifiedAt}
-            />
-            <Content>
-              <QuestionsViewContent
-                content={questions.questionContent}
-                user={questions.questionWriter}
-                questionid={questions.questionId}
-                memberid={questions.memberId}
+          {questions.length !== 0 && (
+            <>
+              <QuestionsVeiwTitle
+                title={questions.questionTitle}
+                time={questions.createdAt}
+                modifie={questions.modifiedAt}
               />
-            </Content>
-          </>
-        )}
+              <Content>
+                <QuestionsViewContent
+                  content={questions.questionContent}
+                  user={questions.questionWriter}
+                  questionId={questions.questionId}
+                  memberId={questions.memberId}
+                />
+              </Content>
+            </>
+          )}
+          {answer.map((el) => (
+            <AnswerViewer
+              answerId={el.answerId}
+              asweruser={el.writer}
+              answerContent={el.answerContent}
+              answerTime={el.modifiedAt}
+            />
+          ))}
+          <AnswerPost />
         </ContentContainer>
       </Container>
     </>
@@ -88,6 +102,7 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 24px;
 `;
 const Content = styled.div`
   width: 100%;

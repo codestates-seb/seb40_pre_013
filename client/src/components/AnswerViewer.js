@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
-import AnswerViewer from "./AnswerViewer";
-import AnswerPost from "./Answerpost";
 
-const QuestionsViewContent = ({ content, user ,answerContent}) => {
+const AnswerViewer = ({ answerContent, asweruser }) => {
   return (
     <Container>
-      <QuestionWrap>
+      <AnswerWrap>
+        <AnswerTitle>
+          <div className="title">Answer</div>
+        </AnswerTitle>
         <Contents>
           <Bar>
             <div className="up">
@@ -17,34 +18,32 @@ const QuestionsViewContent = ({ content, user ,answerContent}) => {
               <AiFillCaretDown />
             </div>
           </Bar>
-          <QuestionContents>
-            <div className="contents">{content}</div>
-
+          <AnswerViewerContent>
+            <div className="contents">{answerContent}</div>
             <div className="deleteEdit">
               <button>Delete</button>
               <button>Edit</button>
             </div>
             <div className="user">
-              <div className="userId">{user}</div>
+              <div className="userId">{asweruser}</div>
             </div>
-          </QuestionContents>
+          </AnswerViewerContent>
         </Contents>
-      </QuestionWrap>
+      </AnswerWrap>
     </Container>
   );
 };
 
-export default QuestionsViewContent;
+export default AnswerViewer;
 
 const Container = styled.div`
   display: flex;
   max-width: 1264px;
   width: 100%;
   border-right-width: 0;
-
 `;
 
-const QuestionWrap = styled.div`
+const AnswerWrap = styled.div`
   width: 100%;
   max-width: 1100px;
   border: 1px solid #d6d9dc;
@@ -53,7 +52,10 @@ const QuestionWrap = styled.div`
   border-bottom-width: 1px;
   border-right-width: 0;
 `;
-
+const AnswerTitle = styled.div`
+  font-size: 1.5rem;
+  padding: 24px;
+`;
 const Contents = styled.div`
   display: flex;
 `;
@@ -73,7 +75,7 @@ const Bar = styled.div`
   }
 `;
 
-const QuestionContents = styled.div`
+const AnswerViewerContent = styled.div`
   padding: 20px;
   width: 100%;
   display: flex;
@@ -109,4 +111,3 @@ const QuestionContents = styled.div`
     color: #0074cc;
   }
 `;
-
