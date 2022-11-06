@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Editor from "./Editor";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function AskQuestion() {
@@ -10,7 +11,7 @@ function AskQuestion() {
   const editorRef = useRef(null);
 
   const handleOnChange = () => {
-     editorRef.current.getInstance().getMarkdown();
+    editorRef.current.getInstance().getMarkdown();
   };
 
   const handleOnClick = () => {
@@ -18,10 +19,22 @@ function AskQuestion() {
       questionTitle: titleRef.current.value,
       questionContent: editorRef.current.getInstance().getMarkdown(),
     };
+    const headers = {
+      "Content-Type": "application/json",
+      "Authorization":
+        `${localStorage.getItem("authorization")}`,
+    };
+
+
+    console.log(data);
+    console.log(headers)
     axios
-      .post("https://4a57-36-38-67-6.jp.ngrok.io/questions/", data)
-      .then(() => navigate("/qlookup"))
-      .catch(() => navigate("/"));
+      .post("/questions", data, {
+        headers: headers,
+      })
+
+      .then((res) => navigate(`/questions/${res.data.questionId}`))
+      .catch((err) => console.log(err));
   };
 
   return (
