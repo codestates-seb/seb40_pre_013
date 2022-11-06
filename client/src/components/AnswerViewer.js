@@ -1,8 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
+import axios from "axios";
 
-const AnswerViewer = ({ answerContent, asweruser }) => {
+const AnswerViewer = ({ answerContent, asweruser,answerId }) => {
+  const deleteClick = () => {
+    const result = window.confirm("답변을 삭제하시겠습니까?");
+    if (result === true) {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `${localStorage.getItem("authorization")}`,
+      };
+      setTimeout(() => {
+        axios
+          .delete(`answers/${answerId}`, {
+            headers: headers,
+          })
+          .then(() => window.location.reload())
+          .catch((err) => console.log(err));
+      }, 1000);
+    }
+  };
   return (
     <Container>
       <AnswerWrap>
@@ -21,7 +39,7 @@ const AnswerViewer = ({ answerContent, asweruser }) => {
           <AnswerViewerContent>
             <div className="contents">{answerContent}</div>
             <div className="deleteEdit">
-              <button>Delete</button>
+              <button onClick={deleteClick}>Delete</button>
               <button>Edit</button>
             </div>
             <div className="user">

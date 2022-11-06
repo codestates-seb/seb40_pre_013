@@ -1,10 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
-import AnswerViewer from "./AnswerViewer";
-import AnswerPost from "./Answerpost";
+import axios from "axios";
+import { useNavigate,useParams } from "react-router-dom";
 
-const QuestionsViewContent = ({ content, user ,answerContent}) => {
+
+const QuestionsViewContent = ({ content, user }) => {
+  const navigate = useNavigate();
+  const { QuestionId } = useParams();
+  const deleteClick = () => {
+    const result = window.confirm("질문을 삭제하시겠습니까?");
+    if (result === true) {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `${localStorage.getItem("authorization")}`,
+      };
+      setTimeout(() => {
+        axios
+          .delete(`/questions/${QuestionId }`, {
+            headers: headers,
+          })
+          .then(() => navigate(`/`))
+          .catch((err) => console.log(err));
+      }, 1000);
+    }
+  };
   return (
     <Container>
       <QuestionWrap>
@@ -21,7 +41,7 @@ const QuestionsViewContent = ({ content, user ,answerContent}) => {
             <div className="contents">{content}</div>
 
             <div className="deleteEdit">
-              <button>Delete</button>
+              <button onClick={deleteClick}>Delete</button>
               <button>Edit</button>
             </div>
             <div className="user">

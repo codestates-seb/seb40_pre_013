@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
-const AnswerPost = ({questionId}) => {
+const AnswerPost = () => {
   const editorRef = useRef(null);
-  const navigate = useNavigate();
   const { QuestionId } = useParams();
 
   const handleOnChange = () => {
