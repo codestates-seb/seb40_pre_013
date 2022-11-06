@@ -24,6 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -35,9 +36,9 @@ import java.util.concurrent.TimeUnit;
 import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) //내장 서버를 랜덤 포트로 띄운다. 테스트를 위한 서블릿 컨테이너를 띄운다.
 @AutoConfigureMockMvc
@@ -88,13 +89,86 @@ class LogoutTest {
         List<String> authorization = response.getHeaders().get("Authorization");
 
         //then
-        mockMvc.perform(get("/members/logout").header("Authorization",authorization))
+        mockMvc.perform(get("/members/logout").header("Authorization", authorization))
                 .andExpect(status().isOk())
                 .andExpect(content().string("로그아웃 되었습니다."));
     }
+    @Test
+    @DisplayName("로그아웃 후 post /questions 권한 없음")
+    void 로그아웃_후_토큰만료1() throws Exception{
+        List<String> authorization = expiredAuth();
+
+        ResultActions expiredToken = mockMvc.perform(post("/questions").header("Authorization", authorization));
+        expiredToken
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(401))
+                .andExpect(jsonPath("$.message").value("Unauthorized"))
+                .andDo(print());
+    }
+    @Test
+    @DisplayName("로그아웃 후 post /answers 권한 없음")
+    void 로그아웃_후_토큰만료2() throws Exception{
+        List<String> authorization = expiredAuth();
+
+        ResultActions expiredToken = mockMvc.perform(post("/answers").header("Authorization", authorization));
+        expiredToken
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(401))
+                .andExpect(jsonPath("$.message").value("Unauthorized"))
+                .andDo(print());
+    }
+    @Test
+    @DisplayName("로그아웃 후 patch /answers/** 권한 없음")
+    void 로그아웃_후_토큰만료3() throws Exception{
+        List<String> authorization = expiredAuth();
+
+        ResultActions expiredToken = mockMvc.perform(patch("/answers/**").header("Authorization", authorization));
+        expiredToken
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(401))
+                .andExpect(jsonPath("$.message").value("Unauthorized"))
+                .andDo(print());
+    }
+    @Test
+    @DisplayName("로그아웃 후 patch /questions/** 권한 없음")
+    void 로그아웃_후_토큰만료4() throws Exception{
+        List<String> authorization = expiredAuth();
+
+        ResultActions expiredToken = mockMvc.perform(patch("/questions/**").header("Authorization", authorization));
+        expiredToken
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(401))
+                .andExpect(jsonPath("$.message").value("Unauthorized"))
+                .andDo(print());
+    }
+    @Test
+    @DisplayName("로그아웃 후 delete /questions/** 권한 없음")
+    void 로그아웃_후_토큰만료5() throws Exception{
+        List<String> authorization = expiredAuth();
+
+        ResultActions expiredToken = mockMvc.perform(delete("/questions/**").header("Authorization", authorization));
+        expiredToken
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(401))
+                .andExpect(jsonPath("$.message").value("Unauthorized"))
+                .andDo(print());
+    }
+    @Test
+    @DisplayName("로그아웃 후 delete /answers/** 권한 없음")
+    void 로그아웃_후_토큰만료6() throws Exception{
+        List<String> authorization = expiredAuth();
+
+        ResultActions expiredToken = mockMvc.perform(delete("/answers/**").header("Authorization", authorization));
+        expiredToken
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value(401))
+                .andExpect(jsonPath("$.message").value("Unauthorized"))
+                .andDo(print());
+    }
+
 
     @Test
-    @DisplayName("로그아웃되지 않은 토큰은 true")
+    @DisplayName("로그아웃되지 않은 토큰은 true리턴")
     void 로그아웃_메서드_테스트() throws Exception {
         //given
         Key key = secretKey.getSecretKey(baseKey);
@@ -113,8 +187,17 @@ class LogoutTest {
         //then
         assertThatCode(() -> logoutTest(jws,key)).doesNotThrowAnyException();
     }
+    private List<String> expiredAuth() throws Exception{
+        //given
+        LoginDto loginDto = LoginDto.builder().username("test@gmail.com").password("123@aadfend4").build();
+        HttpEntity<LoginDto> dto = new HttpEntity<>(loginDto);//logindto 내용이 바디값으로 들어간다??
+        ResponseEntity<String> response = restTemplate.exchange(uri("/members/login"), HttpMethod.POST, dto, String.class); //해당 url에 포스트로 dto값을 보내고 응답을 받는다??
+        List<String> authorization = response.getHeaders().get("Authorization");
 
-
+        //then
+        mockMvc.perform(get("/members/logout").header("Authorization", authorization));
+        return authorization;
+    }
 
     private void logoutTest(String jws, Key key){
         Jws<Claims> claims = jwtVerificationFilter.getClaims(jws, key);
