@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import axios from "axios";
-import { useNavigate,useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
 
 const QuestionsViewContent = ({ content, user }) => {
   const navigate = useNavigate();
@@ -17,13 +16,17 @@ const QuestionsViewContent = ({ content, user }) => {
       };
       setTimeout(() => {
         axios
-          .delete(`/questions/${QuestionId }`, {
+          .delete(`/questions/${QuestionId}`, {
             headers: headers,
           })
           .then(() => navigate(`/`))
           .catch((err) => console.log(err));
       }, 1000);
     }
+  };
+
+  const editClick = () => {
+    navigate("/editQ");
   };
   return (
     <Container>
@@ -42,7 +45,15 @@ const QuestionsViewContent = ({ content, user }) => {
 
             <div className="deleteEdit">
               <button onClick={deleteClick}>Delete</button>
-              <button>Edit</button>
+              <button
+                onClick={editClick}
+                state=
+                {{
+                  questionId: QuestionId,
+                }}
+              >
+                Edit
+              </button>
             </div>
             <div className="user">
               <div className="userId">{user}</div>
@@ -61,7 +72,6 @@ const Container = styled.div`
   max-width: 1264px;
   width: 100%;
   border-right-width: 0;
-
 `;
 
 const QuestionWrap = styled.div`
@@ -129,4 +139,3 @@ const QuestionContents = styled.div`
     color: #0074cc;
   }
 `;
-

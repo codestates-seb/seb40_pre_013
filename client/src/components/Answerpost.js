@@ -6,11 +6,11 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
 const AnswerPost = () => {
-  const editorRef = useRef(null);
+  const answerRef = useRef(null);
   const { QuestionId } = useParams();
 
   const handleOnChange = () => {
-    editorRef.current.getInstance().getMarkdown();
+    answerRef.current.getInstance().getMarkdown();
   };
 
   const handleOnClick = () => {
@@ -20,7 +20,7 @@ const AnswerPost = () => {
         Authorization: `${localStorage.getItem("authorization")}`,
       };
       const data = {
-        answerContent: editorRef.current.getInstance().getMarkdown(),
+        answerContent: answerRef.current.getInstance().getMarkdown(),
         questionId: Number(`${QuestionId}`)
       };
       console.log(data)
@@ -45,7 +45,7 @@ const AnswerPost = () => {
         <Editor
           type="write"
           height="300px"
-          ref={editorRef}
+          ref={answerRef}
           onChange={handleOnChange}
         />
         <Button onClick={handleOnClick}>Update your Answer</Button>
