@@ -37,7 +37,7 @@ function QuestionsMain() {
         // loading 상태를 true 로 바꿉니다.
         setLoading(true);
         const response = await axios.get(
-          "https://f464-36-38-67-6.jp.ngrok.io/questions",
+          "/questions",
           {
             headers: {
               "ngrok-skip-browser-warning": "skip",

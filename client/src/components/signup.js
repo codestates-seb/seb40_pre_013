@@ -77,7 +77,7 @@ const SignUp = () => {
 
     const onClickLogin = (e) => {
         e.preventDefault(); // 새로고침 방지 
-        axios.post('https://f464-36-38-67-6.jp.ngrok.io/members', {
+        axios.post('/members', {
             email: inputId,
             displayName : inputName,
             password: inputPw

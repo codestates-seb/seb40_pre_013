@@ -28,7 +28,7 @@ function AskQuestion() {
     console.log(data);
     console.log(headers)
     axios
-      .post("https://f464-36-38-67-6.jp.ngrok.io/questions", data, {
+      .post("/questions", data, {
         headers: headers,
       })
 
