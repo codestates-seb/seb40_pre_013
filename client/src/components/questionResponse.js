@@ -5,7 +5,7 @@ import { ReactComponent as TimerLogo } from '../components/Icons/타이머.svg';
 import { useNavigate } from "react-router-dom";
 
 
-const QuestionResponse = () => {
+const QuestionResponse = ({body}) => {
     const navigate = useNavigate();
     const handleEditQbtnClick = () => {
         navigate("/editQ");
@@ -29,8 +29,7 @@ const QuestionResponse = () => {
                 </div>
             </div>
             <div className="s-prose js-post-body"> {/* 일단 디자인만 구현하기위해 예시글이고 나중에는 입력한 내용대로 들어오게 만들어야 함 */}
-                <p>I have a Item model (:name, :desc, ...) and a Price model (:item_id, :status, ...).
-                    Item has many Prices & a Price belongs to an item.</p>
+                <p>{body}</p>
             </div>
             <div className="d-flex gs8 s-anchors s-anchors__muted fw-wrap">
                 <div className="flex--item"><a href="#">Delete</a></div>

@@ -1,20 +1,10 @@
-
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import styled from "styled-components";
 
-function QuestionsList({ id, author, title, body, createdAt }) {
-  // 로그인을 했을 경우에만 Ask question 눌렀을때 질문 작성이 가능 그게 아니라면 로그인 화면으로 이동 
-  const handleTitleClick = () => {
-    if(sessionStorage.getItem('username') !== null) {
-      window.location.href = '/qlookup';
-    }
-    else {
-      alert('로그인을 먼저 하고 오세요!');
-      window.location.href = '/login';
-    }
-  };
-
-
+function QuestionsList({ author, title, body, createdAt }) {
+  
   return (
     <Container>
       <Stats>
@@ -24,7 +14,7 @@ function QuestionsList({ id, author, title, body, createdAt }) {
       </Stats>
 
       <QuestionContent>
-        <Link to={`/questions/${id}`} className ="title" onClick={handleTitleClick}>{title}</Link>
+        <Link className ="title" >{title}</Link >
         <div className="contents">{body}</div>
         <div className="User">
           <div className="userID">{author}</div>
@@ -67,7 +57,7 @@ const QuestionContent = styled.div`
   flex-direction: column;
   gap: 8px 0;
 
-  .title {
+  h2 {
     color: #0078d2;
     word-break: break-word;
     hyphens: auto;

@@ -27,7 +27,7 @@ const Login = () => {
         event.preventDefault();
         return await axios
           .post(
-            `https://4a57-36-38-67-6.jp.ngrok.io/members/login`,
+            `https://c4d5-36-38-67-6.jp.ngrok.io/members/login`,
             {
               'username': inputId, // 처음에 username: username 이렇게 썼어서 안된거였음
               password: inputPw,
