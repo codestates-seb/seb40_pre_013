@@ -56,14 +56,13 @@ public class MemberService {
     }
 
     //비밀번호 알고리즘 암호화 메서드
-    private Member encodePassword( Member member ){
+    private void encodePassword( Member member ){
 
         String encodingPassword = passwordEncoder.encode(member.getPassword()); //일반 비밀번호 암호화
         log.error("encodingPassword");
         member.updatePassword(encodingPassword);//암호화한 패스워드 멤버 필드에 저장
 
         log.info("암호화 완료");
-        return member;
     }
 
     //역할? 생성 메서드

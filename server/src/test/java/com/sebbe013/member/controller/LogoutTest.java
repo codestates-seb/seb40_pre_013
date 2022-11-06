@@ -12,7 +12,6 @@ import com.sebbe013.member.service.MemberService;
 import com.sebbe013.redis.RedisConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +33,8 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.format;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -102,7 +102,7 @@ class LogoutTest {
         //when
         Boolean result = logoutedTokenTest(jws, key);
         //then
-        Assertions.assertThat(result).isTrue();
+        assertThat(result).isTrue();
     }
     @Test
     @DisplayName("로그아웃된 토큰")
@@ -111,7 +111,7 @@ class LogoutTest {
         Key key = secretKey.getSecretKey(baseKey);
         String jws = makeAccessToken(10, Calendar.MINUTE);
         //then
-        assertDoesNotThrow(() ->logoutTest(jws,key));
+        assertThatCode(() -> logoutTest(jws,key)).doesNotThrowAnyException();
     }
 
 

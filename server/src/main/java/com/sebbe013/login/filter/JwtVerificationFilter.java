@@ -46,6 +46,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         try{
             Map<String, Object> claims = verifyJws(request); //클레임 추출
             setAuthtoContext(claims);//Authentication에 저장
+
         } catch(InsufficientAuthenticationException e){
             log.error(InsufficientAuthenticationException.class.getSimpleName());
 

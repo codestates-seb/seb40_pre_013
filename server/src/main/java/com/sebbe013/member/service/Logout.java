@@ -26,8 +26,6 @@ public class Logout {
     private final RedisConfig redis;
     private static final String REDIS_KEY_PREFIX = "logouttoken";
 
-
-
     //로그아웃 실행 메서드
     public void logout( HttpServletRequest request ){
 

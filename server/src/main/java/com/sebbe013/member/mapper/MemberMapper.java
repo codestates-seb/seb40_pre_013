@@ -4,12 +4,9 @@ import com.sebbe013.member.dto.MemberResponseDto;
 import com.sebbe013.member.dto.MemberSignUpDto;
 import com.sebbe013.member.entity.Member;
 import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
-@Component
 public interface MemberMapper {
-
     default Member memberSignUpDtotoMember( MemberSignUpDto memberSignUpDto ){
 
         return Member.builder().password(memberSignUpDto.getPassword())

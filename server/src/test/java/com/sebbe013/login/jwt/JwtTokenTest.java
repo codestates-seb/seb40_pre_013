@@ -16,9 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -52,7 +50,7 @@ class JwtTokenTest {
         TimeUnit.MILLISECONDS.sleep(2000);
 
         //then
-        assertThrows(ExpiredJwtException.class, () -> verifySignature(acessToken, key));
+        assertThatExceptionOfType(ExpiredJwtException.class).isThrownBy(() ->{verifySignature(acessToken,key);});
 
     }
 
@@ -66,7 +64,7 @@ class JwtTokenTest {
         //when
         String acessToken = getAcessToken(key, member, 2, Calendar.MINUTE);
         //then
-        assertDoesNotThrow(() -> verifySignature(acessToken, key));
+        assertThatCode(() -> {verifySignature(acessToken,key);}).doesNotThrowAnyException();
     }
 
     private String getAcessToken( Key key, Member member, int time, int timeUnit ){

@@ -4,7 +4,6 @@ import com.sebbe013.login.filter.JwtLoginFilter;
 import com.sebbe013.login.filter.JwtVerificationFilter;
 import com.sebbe013.login.handler.MemberAuthFailureHandler;
 import com.sebbe013.login.handler.MemberAuthSuccessHandler;
-import com.sebbe013.login.jwt.Expiration;
 import com.sebbe013.login.jwt.JwtToken;
 import com.sebbe013.login.jwt.SecretKey;
 import com.sebbe013.redis.RedisConfig;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Component;
 public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
     private final JwtToken jwtToken;
     private final SecretKey secretKey;
-    private final Expiration expiration;
     private final RedisConfig redisConfig;
 
     @Override
