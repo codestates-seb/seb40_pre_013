@@ -15,7 +15,7 @@ const AnswerViewer = ({ answerContent, asweruser, answerId }) => {
       };
       setTimeout(() => {
         axios
-          .delete(`answers/${answerId}`, {
+          .delete(`${process.env.REACT_APP_API_URL}/answers/${answerId}`, {
             headers: headers,
           })
           .then(() => window.location.reload())
