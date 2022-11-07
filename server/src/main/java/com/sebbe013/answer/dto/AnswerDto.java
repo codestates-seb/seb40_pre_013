@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class AnswerDto {
 
     @Getter
+    @Builder
     public static class Post {
 
         private long questionId;
