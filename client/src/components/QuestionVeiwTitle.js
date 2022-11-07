@@ -14,6 +14,7 @@ const QuestionsViewTitle = ({title,time,modifie}) => {
           window.location.href = '/login';
         }
       };
+
   return (
 
     <Container>

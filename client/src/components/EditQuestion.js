@@ -1,37 +1,48 @@
 import styled from "styled-components";
 import Editor from "./Editor";
 import SideBar from "./SideBar";
+import React, { useEffect, useRef } from "react";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
-import React, { useRef } from "react";
-import { useParams ,useNavigate, useLocation} from "react-router-dom";
-
 
 function EditQuestion() {
+  const { QuestionId } = useParams();
+  console.log(QuestionId)
   const navigate = useNavigate();
   const location = useLocation();
-  const { QuestionId } = useParams();
   const titleRef = useRef(null);
   const editorRef = useRef(null);
+
   const handleOnChange = () => {
     editorRef.current.getInstance().getMarkdown();
+
   };
-  const saveClick = () => {
-    const data = {
+
+  const handleOnClick = () => {
+    const result = {
       questionTitle: titleRef.current.value,
       questionContent: editorRef.current.getInstance().getMarkdown(),
-    }
+    };
+ console.log(result)
     const headers = {
       "Content-Type": "application/json",
       Authorization: `${localStorage.getItem("authorization")}`,
     };
     axios
-      .patch(`/questions/${location.state.QuestionId}`, data, { headers: headers })
-      .then(() => navigate(`/questions/${location.state.QuestionId}`));
+      .patch(`/questions/${QuestionId}`, result, 
+      {
+        headers: headers,
+      })
+      .then(() => navigate(`/questions/${QuestionId}`))
+      .catch((err) => console.log(err));
   };
 
-  const cancleClick = () => {
-    navigate(`/questions/${location.state.QuestionId}`);
-  };
+  useEffect(() => {
+    titleRef.current.value = location.state.title;
+    editorRef.current.getInstance().setMarkdown(location.state.content, false);
+    console.log(location);
+  }, [location.state]);
+
   return (
     <Container>
       <Side>
@@ -46,6 +57,7 @@ function EditQuestion() {
             <h2>Title</h2>
             <input
               type="text"
+              placeholder="e.g is there an R function someone would need to answer your question"
               ref={titleRef}
             ></input>
           </PostTitle>
@@ -54,11 +66,11 @@ function EditQuestion() {
             <Editor
               type="write"
               height="300px"
-              onChange={handleOnChange}
               ref={editorRef}
+              onChange={handleOnChange}
             />
-            <BlueButton onClick={saveClick}>Save Edits</BlueButton>
-            <Button onClick={cancleClick}>Cancel</Button>
+            <BlueButton onClick={handleOnClick}>Save Edits</BlueButton>
+            <Button>Cancel</Button>
           </PostBody>
         </Post>
       </Content>

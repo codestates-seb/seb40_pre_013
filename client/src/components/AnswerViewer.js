@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const AnswerViewer = ({ answerContent, asweruser,answerId }) => {
+const AnswerViewer = ({ answerContent, asweruser, answerId }) => {
+  const navigate = useNavigate();
   const deleteClick = () => {
     const result = window.confirm("답변을 삭제하시겠습니까?");
     if (result === true) {
@@ -21,6 +23,16 @@ const AnswerViewer = ({ answerContent, asweruser,answerId }) => {
       }, 1000);
     }
   };
+
+  const editClick = () =>{
+    navigate(`/editA/${answerId}`, {
+      state: {
+        id: answerId,
+        content: answerContent,
+      },
+    });
+  };
+
   return (
     <Container>
       <AnswerWrap>
@@ -40,7 +52,7 @@ const AnswerViewer = ({ answerContent, asweruser,answerId }) => {
             <div className="contents">{answerContent}</div>
             <div className="deleteEdit">
               <button onClick={deleteClick}>Delete</button>
-              <button>Edit</button>
+              <button onClick={editClick}>Edit</button>
             </div>
             <div className="user">
               <div className="userId">{asweruser}</div>

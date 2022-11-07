@@ -53,12 +53,16 @@ function Main() {
           {questions.length !== 0 && (
             <>
               <QuestionsVeiwTitle
+                key={questions.questionId}
                 title={questions.questionTitle}
                 time={questions.createdAt}
                 modifie={questions.modifiedAt}
               />
               <Content>
                 <QuestionsViewContent
+                  key={questions.questionId}
+                  id={questions.questionId}
+                  title={questions.questionTitle}
                   content={questions.questionContent}
                   user={questions.questionWriter}
                   questionId={questions.questionId}
@@ -69,6 +73,7 @@ function Main() {
           )}
           {answer.map((el) => (
             <AnswerViewer
+              key={el.answerId}
               answerId={el.answerId}
               asweruser={el.writer}
               answerContent={el.answerContent}
