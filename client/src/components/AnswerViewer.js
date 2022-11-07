@@ -4,7 +4,7 @@ import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const AnswerViewer = ({ answerContent, asweruser,answerId }) => {
+const AnswerViewer = ({ answerContent, asweruser, answerId }) => {
   const navigate = useNavigate();
   const deleteClick = () => {
     const result = window.confirm("답변을 삭제하시겠습니까?");
@@ -25,8 +25,14 @@ const AnswerViewer = ({ answerContent, asweruser,answerId }) => {
   };
 
   const editClick = () =>{
-    navigate(`/editA/${answerId}`)
-  }
+    navigate(`/editA/${answerId}`, {
+      state: {
+        id: answerId,
+        content: answerContent,
+      },
+    });
+  };
+
   return (
     <Container>
       <AnswerWrap>

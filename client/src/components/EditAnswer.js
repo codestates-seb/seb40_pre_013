@@ -1,9 +1,45 @@
 import styled from "styled-components";
 import Editor from "./Editor";
 import SideBar from "./SideBar";
-
+import React, { useEffect, useRef } from "react";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import axios from "axios";
 
 function EditAnswer({ }) {
+  const {  answerId } = useParams();
+  console.log(answerId)
+  const navigate = useNavigate();
+  const location = useLocation();
+  const answerRef = useRef(null);
+
+  const handleOnChange = () => {
+    answerRef.current.getInstance().getMarkdown();
+
+  };
+
+  const handleOnClick = () => {
+    const result = {
+      answerId:  Number(`${answerId}`),
+      questionContent: answerRef.current.getInstance().getMarkdown(),
+    };
+ console.log(result)
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `${localStorage.getItem("authorization")}`,
+    };
+    axios
+      .patch(`answers/${answerId}`, result, 
+      {
+        headers: headers,
+      })
+      .then(() => navigate(`/questions/${location.state.questionId}`))
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    answerRef.current.getInstance().setMarkdown(location.state.content, false);
+    console.log(location);
+  }, [location.state]);
 
   return (
     <Container>
@@ -20,10 +56,10 @@ function EditAnswer({ }) {
             <Editor
               type="write"
               height="300px"
-              // ref={editRef}
-              // onChange={handleOnChange}
+              ref={answerRef}
+              onChange={handleOnChange}
             />
-            <BlueButton >Save Edits</BlueButton>
+            <BlueButton onClick={handleOnClick}>Save Edits</BlueButton>
             <Button >Cancel</Button>
           </PostBody>
         </Post>
