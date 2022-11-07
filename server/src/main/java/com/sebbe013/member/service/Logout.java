@@ -24,9 +24,7 @@ public class Logout {
     private final SecretKey secretKey;
     private final JwtVerificationFilter jwtVerificationFilter;
     private final RedisConfig redis;
-    private final String REDIS_KEY_PREFIX = "logouttoken";
-
-
+    private static final String REDIS_KEY_PREFIX = "logouttoken";
 
     //로그아웃 실행 메서드
     public void logout( HttpServletRequest request ){
@@ -36,14 +34,14 @@ public class Logout {
         Jws<Claims> claims = jwtVerificationFilter.getClaims(jws, key);
         Date expiration = claims.getBody().getExpiration();
 
-        if(logoutedToken(request)){
+        if(notLogoutedToken(request).equals(Boolean.TRUE)){
             redis.redisTemplate().opsForValue().set(REDIS_KEY_PREFIX + jws, "tk", expiration.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
             log.info("로그아웃 완료"); //로그아웃은 여기서 시키는겁니다
         }
     }
 
     //로그아웃된 유저의 토큰인지 확인하는 메서드
-    private Boolean logoutedToken( HttpServletRequest request ){
+    private Boolean notLogoutedToken( HttpServletRequest request ){
 
         String jws = jwtToken.extractJws(request);
         Key key = secretKey.getSecretKey(secretKey.getBaseKey());

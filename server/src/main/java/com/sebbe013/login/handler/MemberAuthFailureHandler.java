@@ -23,8 +23,6 @@ public class MemberAuthFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure( HttpServletRequest request, HttpServletResponse response, AuthenticationException exception ) throws IOException, ServletException{
         log.error("로그인 실패");
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write("아이디와비밀번호를 확인해주세요");
         errorToJson(response, HttpStatus.UNAUTHORIZED);
     }
 }

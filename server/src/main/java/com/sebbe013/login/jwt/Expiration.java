@@ -23,9 +23,7 @@ public class Expiration {
     public Date getExpiration( int tokenExpirationMinutes ){
         Calendar now = Calendar.getInstance(); //현재시간 추출
         now.add(Calendar.MINUTE, tokenExpirationMinutes);//현재시간에 기본 시간 더함
-        Date expiration = now.getTime();//시간추출
-
-        return expiration;
+        return now.getTime(); //시간 추출
     }
 
 }

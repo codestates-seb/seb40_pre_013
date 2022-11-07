@@ -56,25 +56,20 @@ public class MemberService {
     }
 
     //비밀번호 알고리즘 암호화 메서드
-    private Member encodePassword( Member member ){
+    private void encodePassword( Member member ){
 
         String encodingPassword = passwordEncoder.encode(member.getPassword()); //일반 비밀번호 암호화
         log.error("encodingPassword");
         member.updatePassword(encodingPassword);//암호화한 패스워드 멤버 필드에 저장
 
         log.info("암호화 완료");
-        return member;
     }
 
     //역할? 생성 메서드
-    private Member createRole( Member member ){
+    private void createRole( Member member ){
         List<String> checkedRoles = authUtils.createRole(member.getEmail()); //멤버 이메일에 따른 권한 생성
-
         member.updateRoles(checkedRoles);//생성된 권한 멤버 필드에 저장
-
         log.info("권한 부여 완료");
-
-        return member;
     }
 
     //이메일 중복 확인
@@ -97,9 +92,7 @@ public class MemberService {
     public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember =
                 memberRepository.findById(memberId);
-        Member findMember =
-                optionalMember.orElseThrow(() ->
+        return optionalMember.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        return findMember;
     }
   }

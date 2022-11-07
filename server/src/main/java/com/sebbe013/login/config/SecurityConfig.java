@@ -1,6 +1,5 @@
 package com.sebbe013.login.config;
 
-import com.sebbe013.login.filter.JwtVerificationFilter;
 import com.sebbe013.login.handler.MemberAccessDeniedHandler;
 import com.sebbe013.login.handler.MemberAuthenticationEntryPoint;
 import com.sebbe013.login.jwt.Expiration;
@@ -32,7 +31,6 @@ public class SecurityConfig {
     private final SecretKey secretKey;
     private final Expiration expiration;
     private final RedisConfig redisConfig;
-    private final JwtVerificationFilter jwtVerificationFilter;
 
     @Bean//패스워드 암호화할 메서드
     public PasswordEncoder passwordEncoder(){
@@ -57,7 +55,7 @@ public class SecurityConfig {
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .and()
-                .apply(new CustomFilterConfigurer(jwtToken, secretKey, expiration, redisConfig))//커스텀 필터 적용
+                .apply(new CustomFilterConfigurer(jwtToken, secretKey, redisConfig))//커스텀 필터 적용
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/members").permitAll()         //회원가입

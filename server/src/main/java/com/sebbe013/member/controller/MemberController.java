@@ -28,7 +28,7 @@ public class MemberController {
 
     // 회원가입
     @PostMapping
-    public ResponseEntity signUpMember( @Valid @RequestBody MemberSignUpDto memberSignUpDto ){
+    public ResponseEntity<MemberResponseDto> signUpMember( @Valid @RequestBody MemberSignUpDto memberSignUpDto ){
         log.info("회원가입 시작");
         Member member = mapper.memberSignUpDtotoMember(memberSignUpDto); //멤버 dto 멤버 객체로 변환
 

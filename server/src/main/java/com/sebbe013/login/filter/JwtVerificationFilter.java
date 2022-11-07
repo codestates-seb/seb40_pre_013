@@ -36,7 +36,6 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private final SecretKey secretKey;
     private final RedisConfig redis;
-    private final String REDIS_KEY_PREFIX = "logouttoken"; //redis 키값 앞에 붙임
     private final JwtToken jwtToken;
 
 
@@ -47,25 +46,26 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         try{
             Map<String, Object> claims = verifyJws(request); //클레임 추출
             setAuthtoContext(claims);//Authentication에 저장
+
         } catch(InsufficientAuthenticationException e){
             log.error(InsufficientAuthenticationException.class.getSimpleName());
-            request.setAttribute("exception", e);
+
 
         } catch(MalformedJwtException e1){
             log.error(MalformedJwtException.class.getSimpleName());
-            request.setAttribute("exception", e1);
+
 
         } catch(SignatureException e1){
             log.error(SignatureException.class.getSimpleName());
-            request.setAttribute("exception", e1);
+
 
         } catch(ExpiredJwtException e1){
             log.error(ExpiredJwtException.class.getSimpleName());
-            request.setAttribute("exception", e1);
+
 
         } catch(Exception e1){
             log.error(Exception.class.getSimpleName());
-            request.setAttribute("exception", e1);
+
         }
 
         filterChain.doFilter(request, response); // 완료되면 다음 필터로 이동
@@ -101,7 +101,9 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     public boolean notVaildatedToken( HttpServletRequest request ){
 
         String jws = jwtToken.extractJws(request); //토큰에서 Bearer 제거
-        return redis.redisTemplate().opsForValue().get(REDIS_KEY_PREFIX + jws) != null;
+        //redis 키값 앞에 붙임
+        String prefix = "logouttoken";
+        return redis.redisTemplate().opsForValue().get(prefix + jws) != null;
     }
 
     // 권한을 SecurityContextHoler에 저장하는 메서드
@@ -121,18 +123,17 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     public Map<String, Object> verifyJws( HttpServletRequest request ){
         String jws = jwtToken.extractJws(request);
         Key key = secretKey.getSecretKey(secretKey.getBaseKey());
-        Map<String, Object> claims = getClaims(jws, key).getBody();//key값과 jws값 이용해서 클레임 추출
 
-        return claims;
+        return getClaims(jws, key).getBody();
     }
 
     //jws의 클레임 추출
     public Jws<Claims> getClaims( String jws, Key key ){
 
-        Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(key) // 시크릿 키 이용해서 토큰 해석
-                .build().parseClaimsJws(jws); //클레임값 파싱
-
-        return claimsJws;
+        return Jwts.parserBuilder()
+                .setSigningKey(key) // 시크릿 키 이용해서 토큰 해석
+                .build()
+                .parseClaimsJws(jws); //클레임값 파싱
     }
 
 }
