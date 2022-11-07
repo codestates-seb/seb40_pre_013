@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 
-function EditAnswer({ }) {
+function EditAnswer() {
   const {  answerId } = useParams();
   console.log(answerId)
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function EditAnswer({ }) {
 
   const handleOnClick = () => {
     const result = {
-      answerId: answerId,
+      answerId:  Number(`${answerId}`),
       answerContent: answerRef.current.getInstance().getMarkdown(),
     };
  console.log(result)
@@ -28,7 +28,7 @@ function EditAnswer({ }) {
       Authorization: `${localStorage.getItem("authorization")}`,
     };
     axios
-      .patch(`answers/${answerId}`, result, 
+      .patch(`${process.env.REACT_APP_API_URL}/answers/${answerId}`, result, 
       {
         headers: headers,
       })

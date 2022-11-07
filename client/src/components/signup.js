@@ -77,7 +77,7 @@ const SignUp = () => {
 
     const onClickLogin = (e) => {
         e.preventDefault(); // 새로고침 방지 
-        axios.post('/members', {
+        axios.post(`${process.env.REACT_APP_API_URL}/members`, {
             email: inputId,
             displayName : inputName,
             password: inputPw

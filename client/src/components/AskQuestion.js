@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Editor from "./Editor";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function AskQuestion() {
@@ -29,7 +28,7 @@ function AskQuestion() {
     console.log(data);
     console.log(headers)
     axios
-      .post("/questions", data, {
+      .post(`${process.env.REACT_APP_API_URL}/questions`, data, {
         headers: headers,
       })
 

@@ -12,8 +12,7 @@ const LoginHeader = (props) => {
         setWrite(event.target.value);
     }
 
-    const isLogin = props.isLogin
-    const navigate = useNavigate();
+
 
     const onLogout = () => {
     	// sessionStorage 에 username으로 저장되어있는 아이템을 삭제한다.

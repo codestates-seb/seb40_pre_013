@@ -27,7 +27,7 @@ const Login = () => {
     event.preventDefault();
     return await axios
       .post(
-        `/members/login`,
+        `${process.env.REACT_APP_API_URL}/members/login`,
         {
           username: inputId, // 처음에 username: username 이렇게 썼어서 안된거였음
           password: inputPw,

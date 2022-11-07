@@ -29,7 +29,7 @@ function EditQuestion() {
       Authorization: `${localStorage.getItem("authorization")}`,
     };
     axios
-      .patch(`/questions/${QuestionId}`, result, 
+      .patch(`${process.env.REACT_APP_API_URL}/questions/${QuestionId}`, result, 
       {
         headers: headers,
       })
