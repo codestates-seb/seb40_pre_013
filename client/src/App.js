@@ -25,7 +25,7 @@ function App() {
     // 로그인 상태 변경
       setIsLogin(true)
     }
-  })
+  },[])
 
   return (
     <BrowserRouter>
@@ -37,8 +37,8 @@ function App() {
           <Route path="/signup" element={<SignUp/>}></Route>
           <Route path="/ask" element={<AskQuestion/>}></Route>
           <Route path="/questions/:QuestionId" element={<QuestionLookup/>}></Route>
-          <Route path="/editQ" element={<EditQuestion/>}></Route>
-          <Route path="/editA" element={<EditAnswer/>}></Route>
+          <Route path="/editQ/:QuestionId" element={<EditQuestion/>}></Route>
+          <Route path="/editA/:answerId" element={<EditAnswer/>}></Route>
         </Routes>
         <Footer />
     </BrowserRouter>

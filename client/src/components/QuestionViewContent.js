@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-const QuestionsViewContent = ({ content, user }) => {
+const QuestionsViewContent = ({ id, title, content, user }) => {
+  const location = useLocation();
   const navigate = useNavigate();
   const { QuestionId } = useParams();
   const deleteClick = () => {
@@ -24,9 +25,15 @@ const QuestionsViewContent = ({ content, user }) => {
       }, 1000);
     }
   };
-
-  const editClick = () => {
-    navigate("/editQ");
+  console.log(title)
+  const handleOnUpdate = () => {
+    navigate(`/editQ/${QuestionId}`, {
+      state: {
+        id: id,
+        title: title,
+        content: content,
+      },
+    });
   };
   return (
     <Container>
@@ -45,15 +52,7 @@ const QuestionsViewContent = ({ content, user }) => {
 
             <div className="deleteEdit">
               <button onClick={deleteClick}>Delete</button>
-              <button
-                onClick={editClick}
-                state=
-                {{
-                  questionId: QuestionId,
-                }}
-              >
-                Edit
-              </button>
+              <button onClick={handleOnUpdate}>Edit</button>
             </div>
             <div className="user">
               <div className="userId">{user}</div>

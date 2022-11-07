@@ -1,36 +1,10 @@
 import styled from "styled-components";
 import Editor from "./Editor";
 import SideBar from "./SideBar";
-import axios from "axios";
-import React, { useRef } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
-function EditAnswer() {
-  const navigate = useNavigate();
-  const { QuestionId } = useParams();
-  const answerRef = useRef(null);
 
-  const saveClick = () => {
-    const data = {
-      questionContent: answerRef.current.getInstance().getMarkdown(),
-    }
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `${localStorage.getItem("authorization")}`,
-    };
-    axios
-      .patch(
-        `/answers/${QuestionId}`,
-        data,
-        { headers: headers }
-      )
-      .then(() => navigate(`/answer/${QuestionId}`))
-  };
+function EditAnswer({ }) {
 
-  const cancleClick = () => {
-    navigate(`/answer/${QuestionId}`);
-  };
   return (
     <Container>
       <Side>
@@ -46,9 +20,11 @@ function EditAnswer() {
             <Editor
               type="write"
               height="300px"
+              // ref={editRef}
+              // onChange={handleOnChange}
             />
-            <BlueButton onClick={saveClick}>Save Edits</BlueButton>
-            <Button onClick={cancleClick}>Cancel</Button>
+            <BlueButton >Save Edits</BlueButton>
+            <Button >Cancel</Button>
           </PostBody>
         </Post>
       </Content>
