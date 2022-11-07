@@ -7,6 +7,7 @@ import com.sebbe013.member.entity.Member;
 import com.sebbe013.member.mapper.MemberMapper;
 import com.sebbe013.member.repository.MemberRepository;
 import com.sebbe013.member.service.MemberService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -42,7 +44,14 @@ class LoginTest {
         Member member = mapper.memberSignUpDtotoMember(memberDto1);
         memberService.joinMember(member);
     }
-
+    @Test
+    void test() throws Exception {
+        //given
+        Member verifiedMember = memberService.findVerifiedMember(1L);
+        Assertions.assertThat(verifiedMember.getDisplayName()).isEqualTo("test");
+        //whenx
+        //then
+    }
     @Test
     void 로그인_성공() throws Exception{
         //given
@@ -50,11 +59,16 @@ class LoginTest {
         ObjectMapper objectMapper = new ObjectMapper();
         String dto = objectMapper.writeValueAsString(loginDto);
 
-        mockMvc.perform(post("/members/login").contentType(MediaType.APPLICATION_JSON).content(dto))
+        ResultActions actions = mockMvc.perform(post("/members/login").contentType(MediaType.APPLICATION_JSON).content(dto));
+
+
+        String authorization = actions.andReturn().getResponse().getHeader("Authorization");
+
+
+        actions
                 .andExpect(status().isOk())
                 .andExpect(content().string("로그인 성공"))
                 .andDo(print());
-
     }
 
     @Test
