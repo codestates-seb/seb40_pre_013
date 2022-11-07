@@ -22,7 +22,7 @@ function Main() {
         setQuestions(null);
         // loading 상태를 true 로 바꿉니다.
         setLoading(true);
-        const response = await axios.get(`/questions/${QuestionId}`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/questions/${QuestionId}`, {
           headers: {
             "ngrok-skip-browser-warning": "skip",
           },
@@ -38,7 +38,7 @@ function Main() {
     };
 
     fetchQustion();
-  }, []);
+  }, [QuestionId]);
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;

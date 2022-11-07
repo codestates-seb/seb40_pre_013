@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import QuestionsList from "./QuestionsList";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Pagination from "react-js-pagination";
@@ -37,7 +36,7 @@ function QuestionsMain() {
         // loading 상태를 true 로 바꿉니다.
         setLoading(true);
         const response = await axios.get(
-          "/questions",
+          `${process.env.REACT_APP_API_URL}/questions/`,
           {
             headers: {
               "ngrok-skip-browser-warning": "skip",
@@ -82,7 +81,7 @@ function QuestionsMain() {
               <div>0 answer</div>
               <div>0 views</div>
             </Stats>
-            <Link to={`/questions/${item.questionId}`} key={item.questionId}>
+            <Link to={`questions/${item.questionId}`} key={item.questionId}>
               <QuestionContent>
                 <div className="title">{item.questionTitle}</div>
                 <div className="contents">{item.questionContent}</div>

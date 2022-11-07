@@ -17,7 +17,7 @@ const QuestionsViewContent = ({ id, title, content, user }) => {
       };
       setTimeout(() => {
         axios
-          .delete(`/questions/${QuestionId}`, {
+          .delete(`${process.env.REACT_APP_API_URL}/questions/${QuestionId}`, {
             headers: headers,
           })
           .then(() => navigate(`/`))

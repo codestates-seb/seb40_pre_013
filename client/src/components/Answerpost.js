@@ -1,7 +1,6 @@
 import axios from "axios";
 import Editor from "./Editor";
 import React, { useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
@@ -26,7 +25,7 @@ const AnswerPost = () => {
       console.log(data)
       axios
         .post(
-          `/answers`,data,
+          `${process.env.REACT_APP_API_URL}/answers`,data,
           {
             headers: headers,
           }
