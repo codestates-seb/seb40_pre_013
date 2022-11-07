@@ -19,8 +19,8 @@ function EditAnswer({ }) {
 
   const handleOnClick = () => {
     const result = {
-      answerId:  Number(`${answerId}`),
-      questionContent: answerRef.current.getInstance().getMarkdown(),
+      answerId: answerId,
+      answerContent: answerRef.current.getInstance().getMarkdown(),
     };
  console.log(result)
     const headers = {
@@ -32,7 +32,7 @@ function EditAnswer({ }) {
       {
         headers: headers,
       })
-      .then(() => navigate(`/questions/${location.state.questionId}`))
+      .then(() => navigate(`/`))
       .catch((err) => console.log(err));
   };
 
