@@ -1,36 +1,46 @@
 import styled from "styled-components";
 import Editor from "./Editor";
 import SideBar from "./SideBar";
+import React, { useEffect, useRef } from "react";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
-import React, { useRef } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
-function EditAnswer() {
+function EditAnswer({ }) {
+  const {  answerId } = useParams();
+  console.log(answerId)
   const navigate = useNavigate();
-  const { QuestionId } = useParams();
+  const location = useLocation();
   const answerRef = useRef(null);
 
-  const saveClick = () => {
-    const data = {
+  const handleOnChange = () => {
+    answerRef.current.getInstance().getMarkdown();
+
+  };
+
+  const handleOnClick = () => {
+    const result = {
+      answerId:  Number(`${answerId}`),
       questionContent: answerRef.current.getInstance().getMarkdown(),
-    }
+    };
+ console.log(result)
     const headers = {
       "Content-Type": "application/json",
       Authorization: `${localStorage.getItem("authorization")}`,
     };
     axios
-      .patch(
-        `/answers/${QuestionId}`,
-        data,
-        { headers: headers }
-      )
-      .then(() => navigate(`/answer/${QuestionId}`))
+      .patch(`answers/${answerId}`, result, 
+      {
+        headers: headers,
+      })
+      .then(() => navigate(`/questions/${location.state.questionId}`))
+      .catch((err) => console.log(err));
   };
 
-  const cancleClick = () => {
-    navigate(`/answer/${QuestionId}`);
-  };
+  useEffect(() => {
+    answerRef.current.getInstance().setMarkdown(location.state.content, false);
+    console.log(location);
+  }, [location.state]);
+
   return (
     <Container>
       <Side>
@@ -46,9 +56,11 @@ function EditAnswer() {
             <Editor
               type="write"
               height="300px"
+              ref={answerRef}
+              onChange={handleOnChange}
             />
-            <BlueButton onClick={saveClick}>Save Edits</BlueButton>
-            <Button onClick={cancleClick}>Cancel</Button>
+            <BlueButton onClick={handleOnClick}>Save Edits</BlueButton>
+            <Button >Cancel</Button>
           </PostBody>
         </Post>
       </Content>
