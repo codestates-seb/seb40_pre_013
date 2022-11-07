@@ -1,9 +1,10 @@
-
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import styled from "styled-components";
 
-function QuestionsList({ id, author, title, body, createdAt }) {
 
+function QuestionsList({ id, author, title, body, createdAt }) {
 
   return (
     <Container>
@@ -56,7 +57,7 @@ const QuestionContent = styled.div`
   flex-direction: column;
   gap: 8px 0;
 
-  .title {
+  h2 {
     color: #0078d2;
     word-break: break-word;
     hyphens: auto;

@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import QuestionsList from "./QuestionsList";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Pagination from "react-js-pagination";
 
 function QuestionsMain() {
-  const [questions, setQuestions] = useState(null);
+  const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
@@ -74,16 +74,24 @@ function QuestionsMain() {
         </Row2>
       </Title>
       {questions
-        .slice(items * (page - 1), items * (page - 1) + items)
-        .map((question) => (
-          <QuestionsList
-            key={question.questionId}
-            id={question.questionId}
-            title={question.questionTitle}
-            body={question.questionContent}
-            createdAt={question.createdAt}
-            author={question.questionWriter}
-          />
+      .slice(items * (page - 1), items * (page - 1) + items)
+        .map((item) => (
+          <Container>
+            <Stats>
+              <div>0 votes</div>
+              <div>0 answer</div>
+              <div>0 views</div>
+            </Stats>
+            <Link to={`/questions/${item.questionId}`} key={item.questionId}>
+              <QuestionContent>
+                <div className="title">{item.questionTitle}</div>
+                <div className="contents">{item.questionContent}</div>
+                <div className="timeAgo">{item.createdAt}</div>
+                <div className="userID">{item.questionWriter}</div>
+              </QuestionContent>
+
+            </Link>
+          </Container>
         ))}
       <PaginationBox>
         <PaginationSelect onClick={itemChange}>
@@ -230,5 +238,67 @@ const PaginationBox = styled.div`
   ul.pagination li.active {
     background-color: hsl(27, 90%, 55%);
     border-color: transparent !important;
+  }
+`;
+
+const QuestionContent = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px 0;
+
+  h2 {
+    color: #0078d2;
+    word-break: break-word;
+    hyphens: auto;
+    font-size: 17px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .contents {
+    color: #3b4045;
+    font-size: 13px;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+  }
+
+  .User {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 0 4px;
+  }
+  .userId {
+    font-size: 12px;
+    color: #0074cc;
+  }
+  .timeAgo {
+    font-size: 12px;
+    color: #6a737c;
+  }
+`;
+const Container = styled.main`
+  max-width: 1052px;
+  display: flex;
+  gap: 0 16px;
+  border-bottom: 1px solid #e3e6e8;
+  padding: 24px;
+  cursor: pointer;
+`;
+
+const Stats = styled.div`
+  width: 92px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 4px 16px;
+
+  div {
+    color: #6a737c;
+    font-size: 13px;
   }
 `;
