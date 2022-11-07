@@ -9,9 +9,7 @@ import Footer from './components/Footer'
 import EditQuestion from "./components/EditQuestion";
 import EditAnswer from "./components/EditAnswer";
 import LoginHeader from "./components/header/loginHeader";
-
 import QuestionLookup from "./pages/QuestionsLookup";
-
 import { useEffect, useState  } from 'react';
 
 

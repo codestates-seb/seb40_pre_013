@@ -36,7 +36,7 @@ function QuestionsMain() {
         // loading 상태를 true 로 바꿉니다.
         setLoading(true);
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/questions/`,
+          `${process.env.REACT_APP_API_URL}/questions`,
           {
             headers: {
               "ngrok-skip-browser-warning": "skip",
