@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import axios from "axios";
 
 
-axios.defaults.baseURL = "https://1f1e-36-38-67-6.jp.ngrok.io";
+axios.defaults.baseURL = "http://ec2-54-180-125-119.ap-northeast-2.compute.amazonaws.com:8080/";
 axios.defaults.withCredentials = true;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
