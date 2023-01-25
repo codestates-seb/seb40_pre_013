@@ -1,0 +1,47 @@
+
+spring:
+  redis:
+    lettuce:
+      pool:
+        max-active: 5 #pool에 할당될 수 잇는 커넥션 최대수(음수로 하면 무제한)
+        max-idle: 5 #pool의 idle 커넥션 최대수(음수는 무제한)
+        max-wait: 2 #풀에서 관리하는 idle 커넥션의 최소 수 대상
+
+    host: 127.0.0.1
+    port: 6379
+    password: 1234
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&serverTimezone=UTC
+    username: root
+    password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update  #하나로 테스
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      data-locations:
+        classpath*: db/h2/data.sql
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+
+server:
+  servlet:
+    encoding:
+      force-response: true
+
+jwt:
+  secret-key : sdfsdfsdfesdfdf11113456645454534545451
+  # 민감한 정보는 시스템 환경 변수에서 로드한다.
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
